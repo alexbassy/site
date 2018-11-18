@@ -1,0 +1,20 @@
+{
+  "name": "apjbass.com",
+  "version": "1.0.0",
+  "description": "Personal website",
+  "main": "index.js",
+  "repository": "https://github.com/alexbassy/site",
+  "author": "Alex Bass <alexpjbass@gmail.com>",
+  "license": "NOLICENSE",
+  "private": false,
+  "dependencies": {
+    "next": "^7.0.2",
+    "react": "^16.6.3",
+    "react-dom": "^16.6.3"
+  },
+  "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "start": "next start"
+  }
+}
