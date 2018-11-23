@@ -6,21 +6,18 @@ jobs:
     working_directory: ~/repo
     steps:
       - checkout
-
       - restore_cache:
           keys:
           - v1-dependencies-{{ checksum "package.json" }}
           - v1-dependencies-
-
       - run: yarn install
-
       - save_cache:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
-
       - run: yarn build
       - run: yarn export
+      # make the `/out` directory available to the deploy job
       - persist_to_workspace:
             root: ~/repo
             paths:
@@ -31,6 +28,7 @@ jobs:
       - image: circleci/python:2.7-jessie
     working_directory: ~/repo
     steps:
+      # make the `/out` directory accessible
       - attach_workspace:
           at: .
       - run:
@@ -40,7 +38,7 @@ jobs:
           name: Deploy to S3
           command: aws s3 sync out s3://apjbass.com/ --delete
 
-  deploy_preview:
+  deploy preview:
     docker:
       - image: circleci/python:2.7-jessie
     working_directory: ~/repo
@@ -51,11 +49,19 @@ jobs:
           name: Install awscli
           command: sudo pip install awscli
       - run:
-          name: ls
-          command: ls
-      - run:
           name: Deploy preview to S3
           command: aws s3 sync out s3://preview.apjbass.com/build/${CIRCLE_SHA1}/ --acl public-read
+      - run:
+          name: Notify in GH PR
+          command: |
+            curl -XPOST \
+              -H 'Authorization: token ${GH_TOKEN}' \
+              -H "Content-type: application/json" -d '{ \
+                "state": "success",\
+                "target_url": "//preview.apjbass.com/build/${CIRCLE_SHA1}/",\
+                "description": "Preview available",\
+                "context": "ci/circleci: preview"\
+              }' 'https://api.github.com/repos/alexbassy/${REPONAME}/statuses/${CIRCLE_SHA1}'
 
 workflows:
   version: 2
@@ -68,7 +74,7 @@ workflows:
           filters:
             branches:
               only: master
-      - deploy_preview:
+      - deploy preview:
           requires:
             - build
           filters:
