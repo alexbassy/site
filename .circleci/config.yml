@@ -59,7 +59,7 @@ jobs:
       - when:
           condition: << parameters.is-preview>>
           steps:
-            - run: PREVIEW_PATH="build/$CIRCLE_SHA1/" yarn export
+            - run: PREVIEW_PATH="/build/$CIRCLE_SHA1" yarn export
       # make the `/out` directory available to the deploy job
       - persist_to_workspace:
             root: ~/repo
