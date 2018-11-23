@@ -1,7 +1,7 @@
 version: 2.1
 
 workflows:
-  version: 2.1
+  version: 2
   build-deploy:
     jobs:
       - build:
@@ -23,6 +23,7 @@ workflows:
             branches:
               only: master
       - deploy:
+          name: deploy-preview
           is-preview: true
           requires:
             - preview-build
