@@ -34,7 +34,7 @@ jobs:
           name: Deploy to S3
           command: aws s3 sync ./out s3://apjbass.com/ --delete
 
-  deploy-preview:
+  deploy_preview:
     docker:
       - image: circleci/python:2.7-jessie
     working_directory: ~/repo
@@ -57,7 +57,7 @@ workflows:
           filters:
             branches:
               only: master
-      - deploy-preview:
+      - deploy_preview:
           requires:
             - build
           filters:
