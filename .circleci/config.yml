@@ -100,10 +100,9 @@ jobs:
                 # it took me 20 times to get this right
                 # success is persistence!
                 command: |
-                  curl -X \
+                  curl -XPOST \
                     -H "Authorization: token ${GH_TOKEN}" \
-                    -H "Content-type: application/json" \
-                    -d '{
+                    -H "Content-type: application/json" -d '{
                       "state": "success",
                       "target_url": "https://preview.apjbass.com/build/'$CIRCLE_SHA1'/",
                       "description": "Preview available",
