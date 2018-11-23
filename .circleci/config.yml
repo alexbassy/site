@@ -62,4 +62,4 @@ workflows:
             - build
           filters:
             branches:
-              not: master
+              ignore: master
