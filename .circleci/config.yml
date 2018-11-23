@@ -53,12 +53,15 @@ jobs:
           command: aws s3 sync out s3://preview.apjbass.com/build/${CIRCLE_SHA1}/ --acl public-read
       - run:
           name: Notify in GH PR
+          # take note of the super weird interpolation syntax in the `target_url` field
+          # it took me 20 times to get this right
+          # success is persistence!
           command: |
             curl --verbose -XPOST \
               -H "Authorization: token ${GH_TOKEN}" \
               -H "Content-type: application/json" -d '{
                 "state": "success",
-                "target_url": "https://preview.apjbass.com/build/${CIRCLE_SHA1}/",
+                "target_url": "https://preview.apjbass.com/build/'$CIRCLE_SHA1'/",
                 "description": "Preview available",
                 "context": "ci/circleci: preview"
               }' https://api.github.com/repos/alexbassy/site/statuses/$CIRCLE_SHA1
