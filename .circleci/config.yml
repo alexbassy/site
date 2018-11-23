@@ -36,7 +36,7 @@ jobs:
           command: sudo pip install awscli
       - run:
           name: Deploy to S3
-          command: aws s3 sync out s3://apjbass.com/ --delete
+          command: aws s3 sync out s3://apjbass.com/ --delete  --acl public-read
 
   deploy preview:
     docker:
