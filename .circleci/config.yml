@@ -61,7 +61,7 @@ jobs:
                 "target_url": "//preview.apjbass.com/build/${CIRCLE_SHA1}/",\
                 "description": "Preview available",\
                 "context": "ci/circleci: preview"\
-              }' 'https://api.github.com/repos/alexbassy/${CIRCLE_PROJECT_REPONAME}/statuses/${CIRCLE_SHA1}'
+              }' 'https://api.github.com/repos/alexbassy/site/statuses/${CIRCLE_SHA1}'
 
 workflows:
   version: 2
