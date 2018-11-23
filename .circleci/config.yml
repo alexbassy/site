@@ -21,12 +21,18 @@ jobs:
 
       - run: yarn build
       - run: yarn export
+      - persist_to_workspace:
+            root: ~/repo
+            paths:
+              - out
 
   deploy:
     docker:
       - image: circleci/python:2.7-jessie
     working_directory: ~/repo
     steps:
+      - attach_workspace:
+          at: .
       - run:
           name: Install awscli
           command: sudo pip install awscli
@@ -39,6 +45,8 @@ jobs:
       - image: circleci/python:2.7-jessie
     working_directory: ~/repo
     steps:
+      - attach_workspace:
+          at: .
       - run:
           name: Install awscli
           command: sudo pip install awscli
