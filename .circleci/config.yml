@@ -5,20 +5,20 @@ workflows:
   build-deploy:
     jobs:
       - build:
-          name: production-build
+          name: build:prod
           is-preview: false
           filters:
               branches:
                 only: master
       - build:
-          name: preview-build
+          name: build:preview
           is-preview: true
           filters:
             branches:
               ignore: master
       - deploy:
           requires:
-            - production-build
+            - build:prod
           filters:
             branches:
               only: master
@@ -26,7 +26,7 @@ workflows:
           name: deploy-preview
           is-preview: true
           requires:
-            - preview-build
+            - build:preview
           filters:
             branches:
               ignore: master
@@ -80,6 +80,7 @@ jobs:
       - run:
           name: Install awscli
           command: sudo pip install awscli
+
       # deploy to production when on master
       - unless:
           condition: << parameters.is-preview >>
@@ -87,6 +88,7 @@ jobs:
             - run:
                 name: Deploy to S3
                 command: aws s3 sync out s3://apjbass.com/ --delete  --acl public-read
+
       # deploy to preview bucket on other
       - when:
           condition: << parameters.is-preview >>
@@ -95,7 +97,7 @@ jobs:
                 name: Deploy preview to S3
                 command: aws s3 sync out s3://preview.apjbass.com/build/${CIRCLE_SHA1}/ --acl public-read
             - run:
-                name: Notify in GH PR
+                name: Notify GitHub PR
                 # take note of the super weird interpolation syntax in the `target_url` field
                 # it took me 20 times to get this right
                 # success is persistence!
