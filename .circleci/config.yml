@@ -4,7 +4,6 @@ jobs:
     docker:
       - image: circleci/node:10.13.0-stretch-browsers
     working_directory: ~/repo
-
     steps:
       - checkout
 
@@ -32,7 +31,7 @@ jobs:
           command: sudo pip install awscli
       - run:
           name: Deploy to S3
-          command: aws s3 sync ./out s3://apjbass.com/ --delete
+          command: aws s3 sync out s3://apjbass.com/ --delete
 
   deploy_preview:
     docker:
@@ -43,8 +42,11 @@ jobs:
           name: Install awscli
           command: sudo pip install awscli
       - run:
+          name: ls
+          command: ls
+      - run:
           name: Deploy preview to S3
-          command: aws s3 sync ./out s3://preview.apjbass.com/build/${CIRCLE_SHA1}/
+          command: aws s3 sync out s3://preview.apjbass.com/build/${CIRCLE_SHA1}/
 
 workflows:
   version: 2
