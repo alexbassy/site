@@ -1,5 +1,14 @@
 import React from 'react'
 import Head from 'next/head'
+import getConfig from 'next/config'
+
+const { publicRuntimeConfig } = getConfig()
+const { assetPrefix } = publicRuntimeConfig
+
+const HEADER_HEIGHT = 300
+const MINIMISED_HEADER_HEIGHT = 110
+const PAGE_PADDING = 20
+const BACKGROUND_COLOR = '#222222'
 
 const HeaderContainer = (props) => {
   return (
@@ -14,25 +23,47 @@ const HeaderContainer = (props) => {
 }
 
 const Header = ({ children }) => {
+  const bg = `${assetPrefix}/static/assets/header-scroll-animation/header.jpg`
   return (
     <header>
-      <button id='back'>
-        ← Animals
-      </button>
-      <h1>{children}</h1>
-      <section id='actions'>
-        <button data-cta>Follow</button>
-        <button>Add to list</button>
-      </section>
+      <img
+        id='header-bg'
+        src={bg}
+        alt='fishies'
+      />
+      <div id='inner'>
+        <button id='back'>
+          ← Animals
+        </button>
+        <h1>{children}</h1>
+        <section id='actions'>
+          <button data-cta>Follow</button>
+          <button>Add to list</button>
+        </section>
+      </div>
       <style jsx>{`
         header {
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          height: 300px;
-          padding: 0 20px;
+          position: relative;
+          height: ${HEADER_HEIGHT}px;
           position: sticky;
           top: -20px;
+        }
+        #inner {
+          position: relative;
+          display: flex;
+          flex-direction: column;
+          justify-content: flex-end;
+          width: 100%;
+          height: 100%;
+          padding: ${PAGE_PADDING}px;
+          overflow: hidden;
+          background: linear-gradient(45deg, #000, #00000030)
+        }
+        #header-bg {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
         }
         #back {
           color: #fff;
@@ -44,8 +75,11 @@ const Header = ({ children }) => {
         h1 {
           color: #fff;
           font-size: 4rem;
-          line-height: 1rem;
-          margin: 2.4rem 0 3.6rem;
+          margin: 1.2rem 0 1.8rem;
+          max-width: 100%;
+          white-space: pre;
+          overflow: hidden;
+          text-overflow: ellipsis;
         }
         button {
           all: unset;
@@ -79,8 +113,9 @@ const StickyNav = (props) => {
       <style jsx>{`
         nav {
           position: sticky;
-          top: 50px;
-          padding: 0 20px;
+          top: ${MINIMISED_HEADER_HEIGHT}px;
+          padding: 0 ${PAGE_PADDING}px;
+          background: ${BACKGROUND_COLOR};
         }
         ul {
           display: flex;
@@ -121,7 +156,7 @@ const SkeletonContentItem = (props) => {
         align-items: center;
         height: 50px;
         border-bottom: 1px solid #ffffff20;
-        padding: 0 20px;
+        padding: 0 ${PAGE_PADDING}px;
       }
       [data-id=avatar] {
         flex: 0 0 24px;
@@ -175,7 +210,7 @@ export default () => (
       #container {
         display: flex;
         flex-direction: column;
-        background: #222;
+        background: ${BACKGROUND_COLOR};
       }
     `}</style>
   </div>
