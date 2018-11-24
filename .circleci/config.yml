@@ -88,6 +88,9 @@ jobs:
             - run:
                 name: Deploy to S3
                 command: aws s3 sync out s3://apjbass.com/ --delete  --acl public-read --cache-control max-age=604800
+            - run:
+                name: Cloudfront invalidation
+                command: aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_DIST --paths "/*"
 
       # deploy to preview bucket on other
       - when:
