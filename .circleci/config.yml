@@ -1,9 +1,45 @@
-version: 2
+version: 2.1
+
+workflows:
+  version: 2
+  build-deploy:
+    jobs:
+      - build:
+          name: build:prod
+          is-preview: false
+          filters:
+              branches:
+                only: master
+      - build:
+          name: build:preview
+          is-preview: true
+          filters:
+            branches:
+              ignore: master
+      - deploy:
+          requires:
+            - build:prod
+          filters:
+            branches:
+              only: master
+      - deploy:
+          name: deploy-preview
+          is-preview: true
+          requires:
+            - build:preview
+          filters:
+            branches:
+              ignore: master
+
 jobs:
   build:
     docker:
       - image: circleci/node:10.13.0-stretch-browsers
     working_directory: ~/repo
+    parameters:
+      is-preview:
+        type: boolean
+        default: false
     steps:
       - checkout
       - restore_cache:
@@ -16,17 +52,27 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
       - run: yarn build
-      - run: yarn export
+      - unless:
+          condition: << parameters.is-preview>>
+          steps:
+            - run: yarn export
+      - when:
+          condition: << parameters.is-preview>>
+          steps:
+            - run: PREVIEW_PATH="/build/$CIRCLE_SHA1" yarn export
       # make the `/out` directory available to the deploy job
       - persist_to_workspace:
             root: ~/repo
             paths:
               - out
-
   deploy:
     docker:
       - image: circleci/python:2.7-jessie
     working_directory: ~/repo
+    parameters:
+      is-preview:
+        type: boolean
+        default: false
     steps:
       # make the `/out` directory accessible
       - attach_workspace:
@@ -34,52 +80,33 @@ jobs:
       - run:
           name: Install awscli
           command: sudo pip install awscli
-      - run:
-          name: Deploy to S3
-          command: aws s3 sync out s3://apjbass.com/ --delete  --acl public-read
 
-  deploy preview:
-    docker:
-      - image: circleci/python:2.7-jessie
-    working_directory: ~/repo
-    steps:
-      - attach_workspace:
-          at: .
-      - run:
-          name: Install awscli
-          command: sudo pip install awscli
-      - run:
-          name: Deploy preview to S3
-          command: aws s3 sync out s3://preview.apjbass.com/build/${CIRCLE_SHA1}/ --acl public-read
-      - run:
-          name: Notify in GH PR
-          # take note of the super weird interpolation syntax in the `target_url` field
-          # it took me 20 times to get this right
-          # success is persistence!
-          command: |
-            curl --verbose -XPOST \
-              -H "Authorization: token ${GH_TOKEN}" \
-              -H "Content-type: application/json" -d '{
-                "state": "success",
-                "target_url": "https://preview.apjbass.com/build/'$CIRCLE_SHA1'/",
-                "description": "Preview available",
-                "context": "ci/circleci: preview"
-              }' https://api.github.com/repos/alexbassy/site/statuses/$CIRCLE_SHA1
+      # deploy to production when on master
+      - unless:
+          condition: << parameters.is-preview >>
+          steps:
+            - run:
+                name: Deploy to S3
+                command: aws s3 sync out s3://apjbass.com/ --delete  --acl public-read
 
-workflows:
-  version: 2
-  build-deploy:
-    jobs:
-      - build
-      - deploy:
-          requires:
-            - build
-          filters:
-            branches:
-              only: master
-      - deploy preview:
-          requires:
-            - build
-          filters:
-            branches:
-              ignore: master
+      # deploy to preview bucket on other
+      - when:
+          condition: << parameters.is-preview >>
+          steps:
+            - run:
+                name: Deploy preview to S3
+                command: aws s3 sync out s3://preview.apjbass.com/build/${CIRCLE_SHA1}/ --acl public-read
+            - run:
+                name: Notify GitHub PR
+                # take note of the super weird interpolation syntax in the `target_url` field
+                # it took me 20 times to get this right
+                # success is persistence!
+                command: |
+                  curl -XPOST \
+                    -H "Authorization: token ${GH_TOKEN}" \
+                    -H "Content-type: application/json" -d '{
+                      "state": "success",
+                      "target_url": "https://preview.apjbass.com/build/'$CIRCLE_SHA1'/",
+                      "description": "Preview available",
+                      "context": "ci/circleci: preview"
+                    }' https://api.github.com/repos/alexbassy/site/statuses/$CIRCLE_SHA1
