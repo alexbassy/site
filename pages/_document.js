@@ -1,4 +1,5 @@
 import Document, { Head, Main, NextScript } from 'next/document'
+import getConfig from 'next/config'
 
 export default class MyDocument extends Document {
   static async getInitialProps (ctx) {
@@ -7,10 +8,12 @@ export default class MyDocument extends Document {
   }
 
   render () {
+    const { publicRuntimeConfig } = getConfig()
     return (
       <html lang='en'>
         <Head>
           <meta name='viewport' content='width=device-width, initial-scale=1' />
+          <link rel="icon" href={`${publicRuntimeConfig.assetPrefix}/static/assets/favicon.png`} />
           <link href='https://fonts.googleapis.com/css?family=Roboto+Mono:400,700' rel='stylesheet' />
           <style global jsx>{`
           :root {
