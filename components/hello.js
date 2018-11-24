@@ -1,4 +1,4 @@
-const Typeform = () => <a href='https://www.typeform.com/' target='_blank'>Typeform</a>
+const Typeform = () => <a href='https://www.typeform.com/' target='_blank' rel='noopener'>Typeform</a>
 
 export default () => (
   <div>
