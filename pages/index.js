@@ -7,6 +7,7 @@ export default () => (
   <div>
     <Head>
       <title>Alex Bass / Front-end developer</title>
+      <meta name='description' content='Front-end developer from Devon, UK, based in Barcelona'/>
     </Head>
     <style global jsx>{`
       body {
