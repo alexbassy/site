@@ -1,5 +1,5 @@
 # Personal website
-- Gomepage [apjbass.com](https://apjbass.com)
+- Homepage [apjbass.com](https://apjbass.com)
 - Personal code playground [apjbass.com/playground](https://apjbass.com/playground)
 
 #### Architecture
