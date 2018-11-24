@@ -87,7 +87,7 @@ jobs:
           steps:
             - run:
                 name: Deploy to S3
-                command: aws s3 sync out s3://apjbass.com/ --delete  --acl public-read
+                command: aws s3 sync out s3://apjbass.com/ --delete  --acl public-read --cache-control max-age=604800
 
       # deploy to preview bucket on other
       - when:
@@ -95,7 +95,7 @@ jobs:
           steps:
             - run:
                 name: Deploy preview to S3
-                command: aws s3 sync out s3://preview.apjbass.com/build/${CIRCLE_SHA1}/ --acl public-read
+                command: aws s3 sync out s3://preview.apjbass.com/build/${CIRCLE_SHA1}/ --acl public-read --cache-control max-age=604800
             - run:
                 name: Notify GitHub PR
                 # take note of the super weird interpolation syntax in the `target_url` field
