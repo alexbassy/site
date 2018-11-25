@@ -41,12 +41,24 @@ const Button = ({ prominent, children, ...props }) => {
 }
 
 class Header extends React.PureComponent {
+  static propTypes = {
+    scrollY: PropTypes.number,
+    isMinimised: PropTypes.bool
+  }
+
   static defaultProps = {
     isMinimised: false
   }
 
+  getHeaderHeight = () => {
+    return this.props.isMinimised
+      ? MINIMISED_HEADER_HEIGHT
+      : HEADER_HEIGHT - this.props.scrollY
+  }
+
   render () {
     const { isMinimised } = this.props
+    const headerHeight = this.getHeaderHeight()
     const bg = `${ASSET_PREFIX}/static/assets/header-scroll-animation/header.jpg`
 
     return (
@@ -66,47 +78,43 @@ class Header extends React.PureComponent {
           </section>
         </div>
         <style jsx>{`
-        header {
-          width: 100%;
-          height: ${!isMinimised ? HEADER_HEIGHT : MINIMISED_HEADER_HEIGHT}px;
-          position: fixed;
-          top: 0;
-        }
-        #inner {
-          position: relative;
-          height: ${!isMinimised ? HEADER_HEIGHT : MINIMISED_HEADER_HEIGHT}px;
-          display: flex;
-          flex-direction: column;
-          justify-content: flex-end;
-          width: 100%;
-          height: 100%;
-          padding: ${PAGE_PADDING}px;
-          overflow: hidden;
-          background: linear-gradient(45deg, #000, #00000030)
-        }
-        #header-bg {
-          position: absolute;
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-        }
-        h1 {
-          color: #fff;
-          font-size: ${isMinimised ? '2rem' : '4rem'};
-          margin: 1.2rem 0 1.8rem;
-          max-width: 100%;
-          white-space: pre;
-          overflow: hidden;
-          text-overflow: ellipsis;
-        }
-      `}</style>
+          header {
+            width: 100%;
+            height: ${headerHeight}px;
+            position: fixed;
+            top: 0;
+          }
+          #inner {
+            position: relative;
+            height: ${!isMinimised ? HEADER_HEIGHT : MINIMISED_HEADER_HEIGHT}px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            width: 100%;
+            height: 100%;
+            padding: ${PAGE_PADDING}px;
+            overflow: hidden;
+            background: linear-gradient(45deg, #000, #00000030)
+          }
+          #header-bg {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+          }
+          h1 {
+            color: #fff;
+            font-size: ${isMinimised ? '2rem' : '4rem'};
+            margin: 1.2rem 0 1.8rem;
+            max-width: 100%;
+            white-space: pre;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+        `}</style>
       </header>
     )
   }
-}
-
-Header.propTypes = {
-  isMinimised: PropTypes.bool
 }
 
 export default Header
