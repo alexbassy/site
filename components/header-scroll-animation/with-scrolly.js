@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
+// source https://www.html5rocks.com/en/tutorials/speed/animations/
 const withScrollY = WrappedComponent => {
   return class ScrollHandler extends Component {
     state = {
@@ -36,11 +37,9 @@ const withScrollY = WrappedComponent => {
       }))
     }
 
-    // shouldComponentUpdate (nextProps, nextState) {
-    //   if (this.state.scrollY !== nextState.scrollY) {
-    //     return true
-    //   }
-    // }
+    shouldComponentUpdate (nextProps, nextState) {
+      return this.state.scrollY !== nextState.scrollY
+    }
 
     render () {
       return <WrappedComponent scrollY={this.state.scrollY} />
