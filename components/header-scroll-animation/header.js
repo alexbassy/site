@@ -53,7 +53,13 @@ class Header extends React.PureComponent {
   getHeaderHeight = () => {
     return this.props.isMinimised
       ? MINIMISED_HEADER_HEIGHT
-      : HEADER_HEIGHT - this.props.scrollY
+      : HEADER_HEIGHT
+  }
+
+  getHeaderMargin = () => {
+    return this.props.isMinimised
+    ? 0
+    : -this.props.scrollY
   }
 
   render () {
@@ -80,13 +86,15 @@ class Header extends React.PureComponent {
         <style jsx>{`
           header {
             width: 100%;
+            height: ${HEADER_HEIGHT};
             height: ${headerHeight}px;
+            transform: translateY(${this.getHeaderMargin()}px);
             position: fixed;
+            overflow: hidden;
             top: 0;
           }
           #inner {
             position: relative;
-            height: ${!isMinimised ? HEADER_HEIGHT : MINIMISED_HEADER_HEIGHT}px;
             display: flex;
             flex-direction: column;
             justify-content: flex-end;
@@ -94,12 +102,13 @@ class Header extends React.PureComponent {
             height: 100%;
             padding: ${PAGE_PADDING}px;
             overflow: hidden;
-            background: linear-gradient(45deg, #000, #00000030)
+            background: linear-gradient(45deg, #000, rgba(0, 0, 0, .3))
           }
           #header-bg {
             position: absolute;
+            bottom: 0;
             width: 100%;
-            height: 100%;
+            height: ${HEADER_HEIGHT}px;
             object-fit: cover;
           }
           h1 {
