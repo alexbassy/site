@@ -31,7 +31,7 @@ const ListItem = ({ icon, path, label }) => (
       margin-left: -2rem;
     }
   `}</style>
-    <Link href={`playground/${path}`}>
+    <Link href={path}>
       <a>{label}</a>
     </Link>
   </li>
