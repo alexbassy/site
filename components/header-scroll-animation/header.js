@@ -67,13 +67,14 @@ class Header extends React.PureComponent {
     const headerHeight = this.getHeaderHeight()
     const bg = `${ASSET_PREFIX}/static/assets/header-scroll-animation/header.jpg`
 
+    const headerStyle = {
+      height: `${headerHeight}px`,
+      transform: `translateY(${this.getHeaderMargin()}px)`
+    }
+
     return (
-      <header>
-        <img
-          id='header-bg'
-          src={bg}
-          alt='fishies'
-        />
+      <header style={headerStyle}>
+        <div id='header-bg'/>
         <div id='inner'>
           {!isMinimised &&
             <BackButton>← Animals</BackButton>}
@@ -86,9 +87,6 @@ class Header extends React.PureComponent {
         <style jsx>{`
           header {
             width: 100%;
-            height: ${HEADER_HEIGHT};
-            height: ${headerHeight}px;
-            transform: translateY(${this.getHeaderMargin()}px);
             position: fixed;
             overflow: hidden;
             top: 0;
@@ -109,6 +107,8 @@ class Header extends React.PureComponent {
             bottom: 0;
             width: 100%;
             height: ${HEADER_HEIGHT}px;
+            background-image: url(${bg});
+            background-size: cover;
             object-fit: cover;
           }
           h1 {
