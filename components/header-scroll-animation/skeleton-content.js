@@ -38,7 +38,7 @@ const SkeletonContentItem = (props) => {
   )
 }
 
-class SkeletonContent extends React.PureComponent {
+class SkeletonContent extends React.Component {
   // completely static, never rerender
   shouldComponentUpdate = () => false
 
