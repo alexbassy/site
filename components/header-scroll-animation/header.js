@@ -93,8 +93,8 @@ class Header extends React.PureComponent {
 
     const shadeBg = `radial-gradient(
       100% ${currentHeight - MINIMISED_HEADER_HEIGHT}px
-      at 50%,
-      ${bgWithAlpha(prog * 0.75)}, ${bgWithAlpha(prog * 1.5)}
+      at 50% ,
+      ${bgWithAlpha(prog * 0.75)}, ${bgWithAlpha(prog)}
     );`
 
     return (
@@ -120,6 +120,7 @@ class Header extends React.PureComponent {
           }
           #inner {
             position: relative;
+            z-index: 1;
             display: flex;
             flex-direction: column;
             justify-content: flex-end;
@@ -146,21 +147,35 @@ class Header extends React.PureComponent {
             background: ${shadeBg};
           }
           #header-cover {
-            position: absolute;
+            position: fixed;
+            transform: translateY(${-this.getHeaderMargin()}px);
             top: 0;
             width: 100%;
             height: 80px;
-            z-index: 2;
+            z-index: 10;
             background: linear-gradient(to bottom, ${bgWithAlpha(prog * 4)}, ${bgWithAlpha(0)});
           }
           h1 {
             color: #fff;
-            font-size: ${isMinimised ? '2rem' : '4rem'};
-            margin: 1.2rem 0 1.8rem;
+            font-size: ${isMinimised ? '2rem' : '4.5rem'};
+            margin: 0 0 1rem;
+            letter-spacing: -3px;
             max-width: 100%;
             white-space: pre;
             overflow: hidden;
             text-overflow: ellipsis;
+          }
+          @media screen and (max-width: 1024px) {
+            h1 {
+              font-size: ${isMinimised ? '2rem' : '3.5rem'};
+              margin: 1rem 0 2rem;
+            }
+          }
+          @media screen and (max-width: 460px) {
+            h1 {
+              font-size: 2rem;
+              margin: 1rem 0 2rem;
+            }
           }
         `}</style>
       </header>
