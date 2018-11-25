@@ -6,14 +6,55 @@ import {
   BACKGROUND_COLOR
 } from './constants'
 
-class Nav extends React.Component {
+const Tab = ({ id, children, active, onClick }) => {
+  return (
+    <li>
+      <button onClick={() => onClick(id)}>{children}</button>
+      <style jsx>{`
+        li {
+          margin-right: 20px;
+          text-transform: uppercase;
+          font-weight: 300;
+          font-size: 14px;
+          letter-spacing: 1px;
+          color: #ffffff${active ? 'ff' : '80'};
+          box-shadow: ${active ? `0 1px #fff` : '0 4px #ffffff00'};
+          transition: color .2s ease, box-shadow .2s ease;
+        }
+        li:hover {
+          color: #fff;
+        }
+        button {
+          all: unset;
+          cursor: pointer;
+        }
+      `}</style>
+    </li>
+  )
+}
+
+class Nav extends React.PureComponent {
+  state = {
+    activeTab: 0
+  }
+
+  setActiveTab = activeTab => this.setState({ activeTab })
+
   render () {
+    const { activeTab } = this.state
     return (
       <nav>
         <ul>
-          <li data-active>All fish</li>
-          <li>Where to buy</li>
-          <li>Similar fish</li>
+          {['All Fish', 'Where to Buy', 'Similar Fish'].map((name, i) => (
+            <Tab
+              key={name}
+              id={i}
+              active={activeTab === i}
+              onClick={this.setActiveTab}
+            >
+              {name}
+            </Tab>
+          ))}
         </ul>
         <style jsx>{`
           nav {
@@ -27,22 +68,6 @@ class Nav extends React.Component {
             display: flex;
             padding: 0;
             list-style: none;
-          }
-          li {
-            margin-right: 20px;
-            text-transform: uppercase;
-            font-weight: 300;
-            font-size: 14px;
-            letter-spacing: 1px;
-            color: #ffffff80;
-            transition: color .2s ease;
-          }
-          li:hover {
-            color: #fff;
-          }
-          li[data-active] {
-            color: #fff;
-            border-bottom: 1px solid #fff;
           }
         `}</style>
       </nav>

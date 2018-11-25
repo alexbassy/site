@@ -28,8 +28,8 @@ const Button = ({ prominent, children, ...props }) => {
       <style jsx>{`
         button {
           all: unset;
-          color: ${prominent ? 'rgba(170, 100, 170)' : '#fff'};
-          background: ${prominent ? 'yellow' : 'none'};
+          color: ${prominent ? '#631' : '#fff'};
+          background: ${prominent ? '#fe1' : 'none'};
           display: inline-block;
           margin-right: 20px;
           padding: 5px 12px;
