@@ -4,8 +4,13 @@ import {
   HEADER_HEIGHT,
   MINIMISED_HEADER_HEIGHT,
   PAGE_PADDING,
-  ASSET_PREFIX
+  ASSET_PREFIX,
+  BACKGROUND_COLOR
 } from './constants'
+
+const roundNumber = n => parseFloat(n.toFixed(2))
+
+const bgWithAlpha = a => `rgba(0, 0, 0, ${Math.max(0, Math.min(a, 1))})`
 
 const BackButton = (props) => {
   return (
@@ -62,9 +67,23 @@ class Header extends React.PureComponent {
     : -this.props.scrollY
   }
 
+  getCurrentHeight = () => {
+    return this.props.isMinimised
+    ? MINIMISED_HEADER_HEIGHT
+    : HEADER_HEIGHT - this.props.scrollY
+  }
+
+  getTransitionProgress = () => {
+    if (this.props.isMinimised) return 1
+    const distance = MINIMISED_HEADER_HEIGHT - HEADER_HEIGHT
+    return roundNumber(-this.props.scrollY / distance)
+  }
+
   render () {
     const { isMinimised } = this.props
     const headerHeight = this.getHeaderHeight()
+    const currentHeight = this.getCurrentHeight()
+    const prog = this.getTransitionProgress()
     const bg = `${ASSET_PREFIX}/static/assets/header-scroll-animation/header.jpg`
 
     const headerStyle = {
@@ -72,9 +91,17 @@ class Header extends React.PureComponent {
       transform: `translateY(${this.getHeaderMargin()}px)`
     }
 
+    const shadeBg = `radial-gradient(
+      100% ${currentHeight - MINIMISED_HEADER_HEIGHT}px
+      at 50%,
+      ${bgWithAlpha(prog * 0.75)}, ${bgWithAlpha(prog * 1.5)}
+    );`
+
     return (
       <header style={headerStyle}>
         <div id='header-bg'/>
+        <div id='header-shade'/>
+        <div id='header-cover'/>
         <div id='inner'>
           {!isMinimised &&
             <BackButton>← Animals</BackButton>}
@@ -109,7 +136,22 @@ class Header extends React.PureComponent {
             height: ${HEADER_HEIGHT}px;
             background-image: url(${bg});
             background-size: cover;
-            object-fit: cover;
+            background-position: center;
+          }
+          #header-shade {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: ${currentHeight}px;
+            background: ${shadeBg};
+          }
+          #header-cover {
+            position: absolute;
+            top: 0;
+            width: 100%;
+            height: 80px;
+            z-index: 2;
+            background: linear-gradient(to bottom, ${bgWithAlpha(prog * 4)}, ${bgWithAlpha(0)});
           }
           h1 {
             color: #fff;
