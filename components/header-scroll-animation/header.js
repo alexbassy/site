@@ -45,6 +45,75 @@ const Button = ({ prominent, children, ...props }) => {
   )
 }
 
+const MaxHeader = ({ title }) => {
+  return (
+    <div>
+      <BackButton>← Animals</BackButton>
+      <h1>{title}</h1>
+      <section id='actions'>
+        <Button prominent>Follow</Button>
+        <Button>Add to list</Button>
+      </section>
+      <style jsx>{`
+        h1 {
+          color: #fff;
+          font-size: 4.5rem;
+          margin: 0 0 1rem;
+          letter-spacing: -3px;
+          max-width: 100%;
+          white-space: pre;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+        @media screen and (max-width: 1024px) {
+          h1 {
+            font-size: 3.5rem;
+            margin: 1rem 0 2rem;
+          }
+        }
+        @media screen and (max-width: 460px) {
+          h1 {
+            font-size: 2rem;
+            margin: 1rem 0 2rem;
+          }
+        }
+      `}</style>
+    </div>
+  )
+}
+
+const MinHeader = ({ title }) => {
+  return (
+    <div>
+      <h1>{title}</h1>
+      <section id='actions'>
+        <Button prominent>Follow</Button>
+        <Button>Add to list</Button>
+      </section>
+      <style jsx>{`
+        div {
+          display: flex;
+          align-items: center;
+          height: 100%;
+        }
+        h1 {
+          color: #fff;
+          font-size: 2rem;
+          margin: 0;
+          letter-spacing: -3px;
+          max-width: 100%;
+          white-space: pre;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+        #actions {
+          margin-left: auto;
+        }
+      `}</style>
+    </div>
+  )
+}
+
 class Header extends React.PureComponent {
   static propTypes = {
     scrollY: PropTypes.number,
@@ -63,14 +132,14 @@ class Header extends React.PureComponent {
 
   getHeaderMargin = () => {
     return this.props.isMinimised
-    ? 0
-    : -this.props.scrollY
+      ? 0
+      : -this.props.scrollY
   }
 
   getCurrentHeight = () => {
     return this.props.isMinimised
-    ? MINIMISED_HEADER_HEIGHT
-    : HEADER_HEIGHT - this.props.scrollY
+      ? MINIMISED_HEADER_HEIGHT
+      : HEADER_HEIGHT - this.props.scrollY
   }
 
   getTransitionProgress = () => {
@@ -84,11 +153,12 @@ class Header extends React.PureComponent {
     const headerHeight = this.getHeaderHeight()
     const currentHeight = this.getCurrentHeight()
     const prog = this.getTransitionProgress()
+    const headerMargin = this.getHeaderMargin()
     const bg = `${ASSET_PREFIX}/static/assets/header-scroll-animation/header.jpg`
 
     const headerStyle = {
       height: `${headerHeight}px`,
-      transform: `translateY(${this.getHeaderMargin()}px)`
+      transform: `translateY(${headerMargin}px)`
     }
 
     const shadeBg = `radial-gradient(
@@ -99,17 +169,13 @@ class Header extends React.PureComponent {
 
     return (
       <header style={headerStyle}>
-        <div id='header-bg'/>
-        <div id='header-shade'/>
-        <div id='header-cover'/>
+        <div id='header-bg' />
+        <div id='header-shade' />
+        <div id='header-cover' />
         <div id='inner'>
-          {!isMinimised &&
-            <BackButton>← Animals</BackButton>}
-          <h1>Tropical Fish</h1>
-          <section id='actions'>
-            <Button prominent>Follow</Button>
-            <Button>Add to list</Button>
-          </section>
+          {isMinimised
+            ? <MinHeader title='Tropical Fish' />
+            : <MaxHeader title='Tropical Fish' />}
         </div>
         <style jsx>{`
           header {
@@ -148,34 +214,13 @@ class Header extends React.PureComponent {
           }
           #header-cover {
             position: fixed;
-            transform: translateY(${-this.getHeaderMargin()}px);
+            transform: translateY(${-headerMargin}px);
             top: 0;
             width: 100%;
             height: 80px;
-            z-index: 10;
+            z-index: 2;
             background: linear-gradient(to bottom, ${bgWithAlpha(prog * 4)}, ${bgWithAlpha(0)});
-          }
-          h1 {
-            color: #fff;
-            font-size: ${isMinimised ? '2rem' : '4.5rem'};
-            margin: 0 0 1rem;
-            letter-spacing: -3px;
-            max-width: 100%;
-            white-space: pre;
-            overflow: hidden;
-            text-overflow: ellipsis;
-          }
-          @media screen and (max-width: 1024px) {
-            h1 {
-              font-size: ${isMinimised ? '2rem' : '3.5rem'};
-              margin: 1rem 0 2rem;
-            }
-          }
-          @media screen and (max-width: 460px) {
-            h1 {
-              font-size: 2rem;
-              margin: 1rem 0 2rem;
-            }
+            opacity: ${isMinimised ? '0' : '1'};
           }
         `}</style>
       </header>
