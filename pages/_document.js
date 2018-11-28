@@ -22,6 +22,7 @@ export default class MyDocument extends Document {
           <meta name='viewport' content='width=device-width, initial-scale=1' />
           <link rel="icon" href={`${publicRuntimeConfig.assetPrefix}/static/assets/favicon.png`} />
           <link href='https://fonts.googleapis.com/css?family=Roboto+Mono:400,700' rel='stylesheet' />
+          <script async src='https://www.googletagmanager.com/gtag/js?id=UA-129387017-1' />
           <script id='ga' dangerouslySetInnerHTML={{ __html: analyticsSnippet }} />
           <style global jsx>{`
           :root {
