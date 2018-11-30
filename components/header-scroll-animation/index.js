@@ -31,7 +31,7 @@ class HeaderScrollAnimationExample extends React.PureComponent {
     return (
       <div>
         <Header
-          isMinimised={this.shouldMinimise()}
+          isStuck={this.shouldMinimise()}
           scrollY={this.props.scrollY}
         />
         <Nav />

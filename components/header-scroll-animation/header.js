@@ -117,39 +117,39 @@ const MinHeader = ({ title }) => {
 class Header extends React.PureComponent {
   static propTypes = {
     scrollY: PropTypes.number,
-    isMinimised: PropTypes.bool
+    isStuck: PropTypes.bool
   }
 
   static defaultProps = {
-    isMinimised: false
+    isStuck: false
   }
 
   getHeaderHeight = () => {
-    return this.props.isMinimised
+    return this.props.isStuck
       ? MINIMISED_HEADER_HEIGHT
       : HEADER_HEIGHT
   }
 
   getHeaderMargin = () => {
-    return this.props.isMinimised
+    return this.props.isStuck
       ? 0
       : -this.props.scrollY
   }
 
   getCurrentHeight = () => {
-    return this.props.isMinimised
+    return this.props.isStuck
       ? MINIMISED_HEADER_HEIGHT
       : HEADER_HEIGHT - this.props.scrollY
   }
 
   getTransitionProgress = () => {
-    if (this.props.isMinimised) return 1
+    if (this.props.isStuck) return 1
     const distance = MINIMISED_HEADER_HEIGHT - HEADER_HEIGHT
     return roundNumber(-this.props.scrollY / distance)
   }
 
   render () {
-    const { isMinimised } = this.props
+    const { isStuck } = this.props
     const headerHeight = this.getHeaderHeight()
     const currentHeight = this.getCurrentHeight()
     const prog = this.getTransitionProgress()
@@ -173,7 +173,7 @@ class Header extends React.PureComponent {
         <div id='header-shade' />
         <div id='header-cover' />
         <div id='inner'>
-          {isMinimised
+          {isStuck
             ? <MinHeader title='Tropical Fish' />
             : <MaxHeader title='Tropical Fish' />}
         </div>
@@ -220,7 +220,7 @@ class Header extends React.PureComponent {
             height: 80px;
             z-index: 2;
             background: linear-gradient(to bottom, ${bgWithAlpha(prog * 4)}, ${bgWithAlpha(0)});
-            opacity: ${isMinimised ? '0' : '1'};
+            opacity: ${isStuck ? '0' : '1'};
           }
         `}</style>
       </header>
