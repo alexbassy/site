@@ -60,7 +60,7 @@ class Header extends React.PureComponent {
   }
 
   render () {
-    const { isStuck } = this.props
+    const { isStuck, title } = this.props
     const headerHeight = this.getHeaderHeight()
     const currentHeight = this.getCurrentHeight()
     const prog = this.getTransitionProgress()
@@ -81,7 +81,7 @@ class Header extends React.PureComponent {
             <FullHeaderWrapper>
               <BackButton>← Animals</BackButton>
               <Slide in={!isStuck} reverse>
-                <Title full>Tropical Fish in the world</Title>
+                <Title full>{title}</Title>
               </Slide>
               <Slide in={!isStuck} reverse>
                 <Actions full>
@@ -95,7 +95,7 @@ class Header extends React.PureComponent {
           <Fade in={isStuck}>
             <StuckHeaderWrapper>
               <Slide in={isStuck}>
-                <Title>Tropical Fish</Title>
+                <Title>{title}</Title>
               </Slide>
               <Slide in={isStuck} appear>
                 <Actions>

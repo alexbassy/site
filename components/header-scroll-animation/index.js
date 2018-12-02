@@ -42,6 +42,7 @@ class HeaderScrollAnimationExample extends React.PureComponent {
           }}
         />
         <Header
+          title='Tropical fish'
           isStuck={this.shouldMinimise()}
           scrollY={this.props.scrollY}
         />

@@ -26,11 +26,12 @@ const TabList = styled.ul`
 const TabItem = styled.li`
   font-size: 14px;
   margin-right: 20px;
+  padding: 0 2px 3px;
   letter-spacing: 1px;
   text-transform: uppercase;
   font-weight: 300;
   color: rgba(255, 255, 255, ${props => props.active ? 1 : .65});
-  box-shadow: ${props => props.active ? `0 1px #fff` : '0 4px rgba(255, 255, 255, 0)'};
+  box-shadow: ${props => props.active ? `0 1px #ffffff80` : '0 4px #ffffff00'};
   transition: color .2s ease, box-shadow .2s ease;
 
   :hover {
