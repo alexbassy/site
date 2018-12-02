@@ -1,16 +1,20 @@
 import React from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
+import getConfig from 'next/config'
+
+const ASSET_PREFIX = getConfig().publicRuntimeConfig.assetPrefix
+
 
 const links = [
   {
     icon: `📸`,
-    path: '/playground/responsive-images',
+    path: 'responsive-images',
     label: 'HTML/CSS only responsive, HiDPI friendly images with `srcset` and `sizes` attributes'
   },
   {
     icon: `🍿`,
-    path: '/playground/header-scroll-animation',
+    path: 'header-scroll-animation',
     label: 'iOS header scrolling animation, and header item staggered animation ala Spotify'
   }
 ]
@@ -31,7 +35,7 @@ const ListItem = ({ icon, path, label }) => (
       margin-left: -2rem;
     }
   `}</style>
-    <Link href={path}>
+    <Link href={`${ASSET_PREFIX}/playground/${path}`}>
       <a>{label}</a>
     </Link>
   </li>
