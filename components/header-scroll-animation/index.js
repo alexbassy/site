@@ -46,7 +46,7 @@ class HeaderScrollAnimationExample extends React.PureComponent {
   }
 
   isAtEndOfPage = () => {
-    if (typeof window === 'undefined') return
+    if (typeof window === 'undefined') return false
     const docHeight = window.document.documentElement.scrollHeight
     return (this.props.scrollY + window.innerHeight) / docHeight >= .8
   }
