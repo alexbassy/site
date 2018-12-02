@@ -7,12 +7,26 @@ import Header from './header'
 import Nav from './nav'
 import SkeletonContent from './skeleton-content'
 import { BACKGROUND_COLOR, MINIMISATION_BREAKPOINT } from './constants'
+import { Slide } from './transition'
+
+const codeLink = `//github.com/alexbassy/site/tree/master/components/header-scroll-animation`
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   background: ${BACKGROUND_COLOR};
 `
+
+const CodeLink = styled.div`
+  position: fixed;
+  background: #fff;
+  left: 50%;
+  bottom: 10vh;
+  margin-left: -100px;
+  padding: 20px;
+  text-align: center;
+`
+
 class HeaderScrollAnimationExample extends React.PureComponent {
   static propTypes = {
     scrollY: PropTypes.number
@@ -29,6 +43,12 @@ class HeaderScrollAnimationExample extends React.PureComponent {
     } else if (this.state.headerMinimised && !shouldMinimise) {
       return false
     }
+  }
+
+  isAtEndOfPage = () => {
+    if (typeof window === 'undefined') return
+    const docHeight = window.document.documentElement.scrollHeight
+    return (this.props.scrollY + window.innerHeight) / docHeight >= .8
   }
 
   render () {
@@ -48,6 +68,11 @@ class HeaderScrollAnimationExample extends React.PureComponent {
         />
         <Nav />
         <SkeletonContent />
+        <Slide in={this.isAtEndOfPage()}>
+          <CodeLink>
+            Get the code <a href={codeLink} target='_blank'>here</a>
+          </CodeLink>
+        </Slide>
       </Container>
     )
   }

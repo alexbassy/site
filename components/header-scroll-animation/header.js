@@ -99,10 +99,10 @@ class Header extends React.PureComponent {
               </Slide>
               <Slide in={isStuck} appear>
                 <Actions>
-                  <Slide in={isStuck} delay={80} appear>
+                  <Slide in={isStuck} delay={100} appear>
                     <FollowButton />
                   </Slide>
-                  <Slide in={isStuck} delay={160} appear>
+                  <Slide in={isStuck} delay={180} appear>
                     <AddButton />
                   </Slide>
                 </Actions>

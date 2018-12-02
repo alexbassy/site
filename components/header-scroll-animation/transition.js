@@ -1,15 +1,5 @@
 import { Transition } from 'react-transition-group'
 
-const defaultExiting = {
-  zIndex: '-1'
-}
-
-const defaultExited = {
-  width: 0,
-  height: 0,
-  visibility: 'hidden'
-}
-
 const BaseTransiton = ({ duration, delay, defaultStyle, states, ...props }) => (
   <Transition
     timeout={duration + delay}
@@ -51,8 +41,14 @@ export const Slide = ({
       opacity: 1,
       transform: `translateY(0px)`,
     },
-    exiting: defaultExiting,
-    exited: defaultExited
+    exiting: {
+      opacity: 0,
+      transform: `translateY(${offset}px)`
+    },
+    exited: {
+      opacity: 0,
+      transform: `translateY(${offset}px)`,
+    }
   }
 
   return (
@@ -79,8 +75,8 @@ export const Fade = ({
   const states = {
     entering: { opacity: 1 },
     entered: { opacity: 1 },
-    exiting: defaultExiting,
-    exited: defaultExited
+    exiting: { opacity: 0 },
+    exited: { opacity: 0 }
   }
 
   return (

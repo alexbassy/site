@@ -11,11 +11,11 @@ const withScrollY = WrappedComponent => {
     }
 
     componentDidMount () {
-      window.addEventListener('scroll', this.handleScroll, false);
+      window.addEventListener('scroll', this.handleScroll, { passive: true });
     }
 
     componentWillUnmount () {
-      window.removeEventListener('scroll', this.handleScroll, false)
+      window.removeEventListener('scroll', this.handleScroll, { passive: true })
     }
 
     handleScroll = ev => {

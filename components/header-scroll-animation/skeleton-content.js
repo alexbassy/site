@@ -49,7 +49,7 @@ class SkeletonContent extends React.Component {
   render() {
     return (
       <List>
-        {[...Array(50).keys()].map(k =>
+        {[...Array(30).keys()].map(k =>
           <SkeletonContentItem key={k} />)}
       </List>
     )
