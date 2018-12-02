@@ -38,11 +38,6 @@ class HeaderScrollAnimationExample extends React.PureComponent {
           styles={{
             body: {
               backgroundColor: BACKGROUND_COLOR,
-            },
-            '[aria-hidden=true]': {
-              width: 0,
-              height: 0,
-              visibility: 'hidden'
             }
           }}
         />

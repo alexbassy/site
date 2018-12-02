@@ -18,7 +18,7 @@ import {
   HEADER_HEIGHT,
   MINIMISED_HEADER_HEIGHT
 } from './constants'
-import * as Transition from './transition'
+import { Slide, Fade } from './transition'
 
 const roundNumber = n => parseFloat(n.toFixed(2))
 
@@ -77,38 +77,38 @@ class Header extends React.PureComponent {
         <HeaderShade height={currentHeight} progress={prog} />
         <HeaderCover progress={prog} />
         <HeaderContent>
-          <Transition.Fade in={!isStuck}>
+          <Fade in={!isStuck}>
             <FullHeaderWrapper>
               <BackButton>← Animals</BackButton>
-              <Transition.Slide in={!isStuck} reverse>
+              <Slide in={!isStuck} reverse>
                 <Title full>Tropical Fish</Title>
-              </Transition.Slide>
-              <Transition.Slide in={!isStuck} reverse>
+              </Slide>
+              <Slide in={!isStuck} reverse>
                 <Actions full>
                   <Button prominent>Follow</Button>
                   <Button>Add to bowl</Button>
                 </Actions>
-              </Transition.Slide>
+              </Slide>
             </FullHeaderWrapper>
-          </Transition.Fade>
+          </Fade>
 
-          <Transition.Fade in={isStuck}>
+          <Fade in={isStuck}>
             <StuckHeaderWrapper>
-              <Transition.Slide in={isStuck}>
+              <Slide in={isStuck}>
                 <Title>Tropical Fish</Title>
-              </Transition.Slide>
-              <Transition.Slide in={isStuck} appear>
+              </Slide>
+              <Slide in={isStuck} appear>
                 <Actions>
-                  <Transition.Slide in={isStuck} delay={80} appear>
+                  <Slide in={isStuck} delay={80} appear>
                     <Button prominent>Follow</Button>
-                  </Transition.Slide>
-                  <Transition.Slide in={isStuck} delay={160} appear>
+                  </Slide>
+                  <Slide in={isStuck} delay={160} appear>
                     <Button>Add to bowl</Button>
-                  </Transition.Slide>
+                  </Slide>
                 </Actions>
-              </Transition.Slide>
+              </Slide>
             </StuckHeaderWrapper>
-          </Transition.Fade>
+          </Fade>
         </HeaderContent>
       </Container>
     )

@@ -122,10 +122,10 @@ export const StuckHeaderWrapper = styled.header`
 `
 
 export const Container = styled.div`
-  position: absolute;
   width: 100%;
-  overflow: hidden;
+  position: absolute;
   top: 0;
+  overflow: hidden;
 
   ${props => props.isStuck && css`
     position: fixed;
