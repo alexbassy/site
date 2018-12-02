@@ -1,6 +1,10 @@
 import React from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
+import getConfig from 'next/config'
+
+const ASSET_PREFIX = getConfig().publicRuntimeConfig.assetPrefix
+
 
 const links = [
   {
@@ -31,7 +35,7 @@ const ListItem = ({ icon, path, label }) => (
       margin-left: -2rem;
     }
   `}</style>
-    <Link href={`/playground/${path}`}>
+    <Link href={`${ASSET_PREFIX}/playground/${path}`}>
       <a>{label}</a>
     </Link>
   </li>
