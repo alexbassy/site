@@ -13,6 +13,8 @@ const Container = styled.nav`
   top: ${MINIMISED_HEADER_HEIGHT}px;
   padding: 0 ${PAGE_PADDING}px;
   background: ${BACKGROUND_COLOR};
+  white-space: nowrap;
+  overflow-x: auto;
 `
 
 const TabList = styled.ul`
@@ -22,11 +24,11 @@ const TabList = styled.ul`
 `
 
 const TabItem = styled.li`
+  font-size: 14px;
   margin-right: 20px;
+  letter-spacing: 1px;
   text-transform: uppercase;
   font-weight: 300;
-  font-size: 14px;
-  letter-spacing: 1px;
   color: rgba(255, 255, 255, ${props => props.active ? 1 : .65});
   box-shadow: ${props => props.active ? `0 1px #fff` : '0 4px rgba(255, 255, 255, 0)'};
   transition: color .2s ease, box-shadow .2s ease;

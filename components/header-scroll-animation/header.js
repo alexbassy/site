@@ -17,6 +17,7 @@ const bgWithAlpha = a => `rgba(0, 0, 0, ${Math.max(0, Math.min(a, 1))})`
 const BackButton = styled.button`
   all: unset;
   color: #fff;
+  -webkit-text-fill-color: currentColor;
 `
 
 const Actions = styled.div``
@@ -40,6 +41,7 @@ const HeaderWrapper = styled.header`
 const Button = styled.button`
   all: unset;
   color: ${props => props.prominent ? '#631' : '#fff'};
+  -webkit-text-fill-color: currentColor; /* safari fix */
   background: ${props => props.prominent ? '#fe1' : 'none'};
   display: inline-block;
   margin-right: 20px;
@@ -49,21 +51,22 @@ const Button = styled.button`
 
 const Title = styled.h1`
   max-width: 100%;
-  font-size: ${props => props.full ? '4.5rem' : '2rem'};
-  margin: ${props => props.full ? '0 0 1rem' : '0'};
+  font-size: 2.5rem;
+  margin: 1rem 0 1.5rem;
   color: #fff;
   letter-spacing: -3px;
   white-space: pre;
   overflow: hidden;
   text-overflow: ellipsis;
 
-  @media screen and (max-width: 1024px) {
-    font-size: 3.5rem;
-    margin: 1rem 0 2rem;
+  @media screen and (min-width: 460px) {
+    font-size: ${props => !props.full ? '2rem' : '3.5rem'};
+    margin: ${props => !props.full ? '0' : '1rem 0 2rem'};
   }
-  @media screen and (max-width: 460px) {
-    font-size: 2rem;
-    margin: 1rem 0 2rem;
+
+  @media screen and (min-width: 1024px) {
+    font-size: ${props => !props.full ? '2rem' : '4.5rem'};
+    margin: ${props => !props.full ? '0' : '1rem 0 2rem'};
   }
 `
 
@@ -92,7 +95,6 @@ const HeaderContent = styled.div`
 
 const HeaderCover = styled.div`
   position: fixed;
-  transform: translateY(${props => props.top}px);
   top: 0;
   width: 100%;
   height: 80px;
@@ -117,10 +119,18 @@ const HeaderShade = styled.div`
 `
 
 const Container = styled.div`
+  position: absolute;
   width: 100%;
-  position: fixed;
   overflow: hidden;
   top: 0;
+
+  ${props => props.isStuck && css`
+    position: fixed;
+
+    ${HeaderContent} {
+      z-index: 2;
+    }
+  `}
 `
 
 class Header extends React.PureComponent {
@@ -165,11 +175,6 @@ class Header extends React.PureComponent {
     const headerMargin = this.getHeaderMargin()
     const bg = `${ASSET_PREFIX}/static/assets/header-scroll-animation/header.jpg`
 
-    const headerStyle = {
-      height: `${headerHeight}px`,
-      transform: `translateY(${headerMargin}px)`
-    }
-
     const shadeBg = `radial-gradient(
       100% ${currentHeight - MINIMISED_HEADER_HEIGHT}px
       at 50% ,
@@ -177,10 +182,14 @@ class Header extends React.PureComponent {
     );`
 
     return (
-      <Container style={headerStyle}>
+      <Container
+        style={{ height: headerHeight }}
+        offsetY={headerMargin}
+        isStuck={isStuck}
+      >
         <HeaderBackground image={bg} />
         <HeaderShade height={currentHeight} progress={prog} />
-        <HeaderCover top={-headerMargin} progress={prog} />
+        <HeaderCover progress={prog} />
         <HeaderContent>
           <HeaderWrapper stuck={isStuck}>
             {!isStuck && <BackButton>← Animals</BackButton>}
