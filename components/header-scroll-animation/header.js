@@ -1,118 +1,127 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { css } from '@emotion/core'
+import styled from '@emotion/styled'
 import {
   HEADER_HEIGHT,
   MINIMISED_HEADER_HEIGHT,
   PAGE_PADDING,
   ASSET_PREFIX,
-  BACKGROUND_COLOR
+  TITLE_TRANSITION_BREAKPOINT
 } from './constants'
 
 const roundNumber = n => parseFloat(n.toFixed(2))
 
 const bgWithAlpha = a => `rgba(0, 0, 0, ${Math.max(0, Math.min(a, 1))})`
 
-const BackButton = (props) => {
-  return (
-    <button>
-      {props.children}
-      <style jsx>{`
-        button {
-          all: unset;
-          color: #fff;
-        }
-      `}</style>
-    </button>
-  )
-}
+const BackButton = styled.button`
+  all: unset;
+  color: #fff;
+`
 
-const Button = ({ prominent, children, ...props }) => {
-  return (
-    <button {...props}>
-      {children}
-      <style jsx>{`
-        button {
-          all: unset;
-          color: ${prominent ? '#631' : '#fff'};
-          background: ${prominent ? '#fe1' : 'none'};
-          display: inline-block;
-          margin-right: 20px;
-          padding: 5px 12px;
-          box-shadow: ${prominent ? 'none' : 'inset 0 0 0 2px #ffffff40'};
-        }
-      `}</style>
-    </button>
-  )
-}
+const Actions = styled.div``
 
-const MaxHeader = ({ title }) => {
-  return (
-    <div>
-      <BackButton>← Animals</BackButton>
-      <h1>{title}</h1>
-      <section id='actions'>
-        <Button prominent>Follow</Button>
-        <Button>Add to list</Button>
-      </section>
-      <style jsx>{`
-        h1 {
-          color: #fff;
-          font-size: 4.5rem;
-          margin: 0 0 1rem;
-          letter-spacing: -3px;
-          max-width: 100%;
-          white-space: pre;
-          overflow: hidden;
-          text-overflow: ellipsis;
-        }
-        @media screen and (max-width: 1024px) {
-          h1 {
-            font-size: 3.5rem;
-            margin: 1rem 0 2rem;
-          }
-        }
-        @media screen and (max-width: 460px) {
-          h1 {
-            font-size: 2rem;
-            margin: 1rem 0 2rem;
-          }
-        }
-      `}</style>
-    </div>
-  )
-}
+const HeaderWrapper = styled.header`
+  ${props => props.stuck && css`
+    display: flex;
+    align-items: center;
+    height: 100%;
 
-const MinHeader = ({ title }) => {
-  return (
-    <div>
-      <h1>{title}</h1>
-      <section id='actions'>
-        <Button prominent>Follow</Button>
-        <Button>Add to list</Button>
-      </section>
-      <style jsx>{`
-        div {
-          display: flex;
-          align-items: center;
-          height: 100%;
-        }
-        h1 {
-          color: #fff;
-          font-size: 2rem;
-          margin: 0;
-          letter-spacing: -3px;
-          max-width: 100%;
-          white-space: pre;
-          overflow: hidden;
-          text-overflow: ellipsis;
-        }
-        #actions {
-          margin-left: auto;
-        }
-      `}</style>
-    </div>
-  )
-}
+    ${Actions} {
+      margin-left: auto;
+    }
+
+    ${HeaderCover} {
+      opacity: 0;
+    }
+  `}
+`
+
+const Button = styled.button`
+  all: unset;
+  color: ${props => props.prominent ? '#631' : '#fff'};
+  background: ${props => props.prominent ? '#fe1' : 'none'};
+  display: inline-block;
+  margin-right: 20px;
+  padding: 5px 12px;
+  box-shadow: ${props => props.prominent ? 'none' : 'inset 0 0 0 2px #ffffff40'};
+`
+
+const Title = styled.h1`
+  max-width: 100%;
+  font-size: ${props => props.full ? '4.5rem' : '2rem'};
+  margin: ${props => props.full ? '0 0 1rem' : '0'};
+  color: #fff;
+  letter-spacing: -3px;
+  white-space: pre;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  @media screen and (max-width: 1024px) {
+    font-size: 3.5rem;
+    margin: 1rem 0 2rem;
+  }
+  @media screen and (max-width: 460px) {
+    font-size: 2rem;
+    margin: 1rem 0 2rem;
+  }
+`
+
+const HeaderBackground = styled.div`
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: ${HEADER_HEIGHT}px;
+  background-image: url(${props => props.image});
+  background-size: cover;
+  background-position: center;
+`
+
+const HeaderContent = styled.div`
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  width: 100%;
+  height: 100%;
+  padding: ${PAGE_PADDING}px;
+  overflow: hidden;
+  background: linear-gradient(45deg, #000, rgba(0, 0, 0, .3));
+`
+
+const HeaderCover = styled.div`
+  position: fixed;
+  transform: translateY(${props => props.top}px);
+  top: 0;
+  width: 100%;
+  height: 80px;
+  z-index: 2;
+  background: linear-gradient(
+    to bottom,
+    ${props => bgWithAlpha(props.progress * 4)},
+    ${bgWithAlpha(0)}
+  );
+`
+
+const HeaderShade = styled.div`
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: ${props => props.height}px;
+  background: radial-gradient(
+    100% ${props => props.height - MINIMISED_HEADER_HEIGHT}px
+    at 50%,
+    ${props => bgWithAlpha(props.progress * 0.75)}, ${props => bgWithAlpha(props.progress)}
+  );
+`
+
+const Container = styled.div`
+  width: 100%;
+  position: fixed;
+  overflow: hidden;
+  top: 0;
+`
 
 class Header extends React.PureComponent {
   static propTypes = {
@@ -168,62 +177,21 @@ class Header extends React.PureComponent {
     );`
 
     return (
-      <header style={headerStyle}>
-        <div id='header-bg' />
-        <div id='header-shade' />
-        <div id='header-cover' />
-        <div id='inner'>
-          {isStuck
-            ? <MinHeader title='Tropical Fish' />
-            : <MaxHeader title='Tropical Fish' />}
-        </div>
-        <style jsx>{`
-          header {
-            width: 100%;
-            position: fixed;
-            overflow: hidden;
-            top: 0;
-          }
-          #inner {
-            position: relative;
-            z-index: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            width: 100%;
-            height: 100%;
-            padding: ${PAGE_PADDING}px;
-            overflow: hidden;
-            background: linear-gradient(45deg, #000, rgba(0, 0, 0, .3))
-          }
-          #header-bg {
-            position: absolute;
-            bottom: 0;
-            width: 100%;
-            height: ${HEADER_HEIGHT}px;
-            background-image: url(${bg});
-            background-size: cover;
-            background-position: center;
-          }
-          #header-shade {
-            position: absolute;
-            bottom: 0;
-            width: 100%;
-            height: ${currentHeight}px;
-            background: ${shadeBg};
-          }
-          #header-cover {
-            position: fixed;
-            transform: translateY(${-headerMargin}px);
-            top: 0;
-            width: 100%;
-            height: 80px;
-            z-index: 2;
-            background: linear-gradient(to bottom, ${bgWithAlpha(prog * 4)}, ${bgWithAlpha(0)});
-            opacity: ${isStuck ? '0' : '1'};
-          }
-        `}</style>
-      </header>
+      <Container style={headerStyle}>
+        <HeaderBackground image={bg} />
+        <HeaderShade height={currentHeight} progress={prog} />
+        <HeaderCover top={-headerMargin} progress={prog} />
+        <HeaderContent>
+          <HeaderWrapper stuck={isStuck}>
+            {!isStuck && <BackButton>← Animals</BackButton>}
+            <Title full={!isStuck}>Tropical Fish</Title>
+            <Actions>
+              <Button prominent>Follow</Button>
+              <Button>Add to list</Button>
+            </Actions>
+          </HeaderWrapper>
+        </HeaderContent>
+      </Container>
     )
   }
 }
