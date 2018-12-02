@@ -1,64 +1,133 @@
 import React from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
+import { Global } from '@emotion/core'
+import styled from '@emotion/styled'
 import getConfig from 'next/config'
 
 const ASSET_PREFIX = getConfig().publicRuntimeConfig.assetPrefix
 
+const Content = styled.main`
+  padding: 20px 30px;
+  text-align: center;
 
-const links = [
+  @media screen and (min-width: 460px) {
+    text-align: left;
+  }
+`
+
+const Title = styled.h1`
+  color: #fff;
+  font-weight: 100;
+`
+
+const Subtitle = styled.h2`
+  color: #ffffff80;
+  font-weight: 100;
+  font-size: 20px;
+  margin: 0 0 40px;
+`
+
+const List = styled.ul`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  list-style: none;
+  padding: 0;
+
+  @media screen and (min-width: 460px) {
+    justify-content: flex-start;
+  }
+`
+
+const UnstyledLink = styled.a`
+  text-decoration: none;
+`
+
+const CardItem = styled.div`
+  width: 200px;
+  height: 270px;
+  padding: 20px;
+  margin: 0 0 30px;
+  color: #fff;
+  text-align: left;
+  border-radius: 12px;
+  background-color: ${props => props.backgroundColor};
+  background-image: url(${props => props.backgroundImage});
+  background-blend-mode: ${props => props.blendMode};
+  background-position: bottom right;
+  background-repeat: no-repeat;
+  cursor: pointer;
+
+  @media screen and (min-width: 460px) {
+    margin: 0 30px 30px 0;
+  }
+`
+
+const CardTitle = styled.div`
+  font-size: 18px;
+  font-weight: 100;
+  letter-spacing: -1.5px;
+  text-decoration: none;
+`
+
+const Card = (props) => {
+  return (
+    <Link href={`${ASSET_PREFIX}/playground/${props.link}`}>
+      <UnstyledLink>
+        <CardItem
+          {...props}
+          backgroundImage={`${ASSET_PREFIX}/static/assets/playground/${props.backgroundImage}`}
+        >
+          <CardTitle>
+            {typeof props.label === 'function' ? <props.label/> : props.label}
+          </CardTitle>
+        </CardItem>
+      </UnstyledLink>
+    </Link>
+  )
+}
+
+const cards = [
   {
-    icon: `📸`,
-    path: 'responsive-images',
-    label: 'HTML/CSS only responsive, HiDPI friendly images with `srcset` and `sizes` attributes'
+    backgroundColor: `#af36e8`,
+    backgroundImage: `responsive-images.svg`,
+    blendMode: 'color-burn',
+    link: 'responsive-images',
+    label: 'Responsive/HiDPI images',
   },
   {
-    icon: `🍿`,
-    path: 'header-scroll-animation',
-    label: 'iOS header scrolling animation, and header item staggered animation ala Spotify'
+    backgroundColor: `#2d788d`,
+    backgroundImage: `marine-header.svg`,
+    blendMode: 'color-burn',
+    link: 'header-scroll-animation',
+    label: () => <span>Scrolling header <i>ala</i> Spotify</span>
   }
 ]
 
-const ListItem = ({ icon, path, label }) => (
-  <li>
-    <style jsx>{`
-    li {
-      position: relative;
-      max-width: 50ch;
-      font-size: 1.2rem;
-      margin-bottom: 1rem;
-      list-style: none;
-    }
-    li:before {
-      content: '${icon}';
-      position: absolute;
-      margin-left: -2rem;
-    }
-  `}</style>
-    <Link href={`${ASSET_PREFIX}/playground/${path}`}>
-      <a>{label}</a>
-    </Link>
-  </li>
-)
 
 export default () => (
   <div>
     <Head>
       <title>Playground / Alex Bass</title>
     </Head>
-    <style jsx>{`
-      main {
-        margin: 0 2rem;
-      }
-    `}</style>
-    <main>
-      <h1>
-        Stuff
-      </h1>
-      <ul>
-        {links.map(link =>
-          <ListItem key={link.path} {...link} />)}
-      </ul>
-    </main>
+    <Global
+      styles={{
+        body: {
+          backgroundColor: '#000'
+        }
+      }}
+    />
+    <Content>
+    <Title>Playground</Title>
+    <Subtitle>Experiments and points of reference</Subtitle>
+    <List>
+      {cards.map(card => (
+        <li key={card.link}>
+          <Card {...card} />
+        </li>
+      ))}
+    </List>
+    </Content>
   </div>
 )
