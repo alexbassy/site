@@ -5,12 +5,12 @@ import Link from 'next/link'
 const links = [
   {
     icon: `📸`,
-    path: 'responsive-images',
+    path: '/playground/responsive-images',
     label: 'HTML/CSS only responsive, HiDPI friendly images with `srcset` and `sizes` attributes'
   },
   {
     icon: `🍿`,
-    path: 'header-scroll-animation',
+    path: '/playground/header-scroll-animation',
     label: 'iOS header scrolling animation, and header item staggered animation ala Spotify'
   }
 ]
