@@ -22,8 +22,8 @@ import { Slide, Fade } from './transition'
 
 const roundNumber = n => parseFloat(n.toFixed(2))
 
-const FollowButton = () => <Button prominent>Follow</Button>
-const AddButton = () => <Button>Add to bowl</Button>
+const FollowButton = (props) => <Button prominent {...props}>Follow</Button>
+const AddButton = (props) => <Button {...props}>Add to bowl</Button>
 
 class Header extends React.PureComponent {
   static propTypes = {
@@ -81,12 +81,12 @@ class Header extends React.PureComponent {
             <FullHeaderWrapper>
               <BackButton>← Animals</BackButton>
               <Slide in={!isStuck} reverse>
-                <Title full>Tropical Fish</Title>
+                <Title full>Tropical Fish in the world</Title>
               </Slide>
               <Slide in={!isStuck} reverse>
                 <Actions full>
-                  <Button prominent>Follow</Button>
-                  <Button>Add to bowl</Button>
+                  <FollowButton />
+                  <AddButton />
                 </Actions>
               </Slide>
             </FullHeaderWrapper>
@@ -100,10 +100,10 @@ class Header extends React.PureComponent {
               <Slide in={isStuck} appear>
                 <Actions>
                   <Slide in={isStuck} delay={80} appear>
-                    <Button prominent>Follow</Button>
+                    <FollowButton />
                   </Slide>
                   <Slide in={isStuck} delay={160} appear>
-                    <Button>Add to bowl</Button>
+                    <AddButton />
                   </Slide>
                 </Actions>
               </Slide>

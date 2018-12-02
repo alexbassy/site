@@ -24,14 +24,20 @@ export const Button = styled.button`
   display: inline-block;
   margin-right: 20px;
   padding: 5px 12px;
+  text-align: center;
   box-shadow: ${props => props.prominent ? 'none' : 'inset 0 0 0 2px #ffffff40'};
   cursor: pointer;
+
+  :last-child {
+    margin-right: 0;
+  }
 `
 
 export const Title = styled.h1`
   max-width: 100%;
-  font-size: 2.5rem;
-  margin: 1rem 0 1.5rem;
+  font-size: ${props => !props.full ? '1.5rem' : '2.5rem'};
+  margin: 1rem 0;
+  padding-right: 20px;
   color: #fff;
   letter-spacing: -3px;
   white-space: pre;
@@ -74,11 +80,13 @@ export const HeaderCover = styled.div`
   width: 100%;
   height: 80px;
   z-index: 2;
-  background: linear-gradient(
+  pointer-events: none;
+  background-image: linear-gradient(
     to bottom,
     ${props => bgWithAlpha(props.progress * 4)},
     ${bgWithAlpha(0)}
   );
+  will-change: background-image;
 `
 
 export const HeaderShade = styled.div`
@@ -86,14 +94,17 @@ export const HeaderShade = styled.div`
   bottom: 0;
   width: 100%;
   height: ${props => props.height}px;
-  background: radial-gradient(
+  pointer-events: none;
+  background-image: radial-gradient(
     100% ${props => props.height - MINIMISED_HEADER_HEIGHT}px
     at 50%,
     ${props => bgWithAlpha(props.progress * 0.75)}, ${props => bgWithAlpha(props.progress)}
   );
+  will-change: background-image;
 `
 
 export const FullHeaderWrapper = styled.header`
+  max-width: 100%;
   height: ${HEADER_HEIGHT}px;
   position: absolute;
   display: flex;
@@ -132,6 +143,20 @@ export const Container = styled.div`
 
     ${HeaderContent} {
       z-index: 2;
+    }
+
+    @media screen and (max-width: 460px) {
+      ${Actions} {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        min-width: 120px;
+      }
+
+      ${Button} {
+        margin: 5px 0;
+        font-size: .85rem;
+      }
     }
   `}
 `
