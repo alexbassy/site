@@ -1,4 +1,5 @@
 import React from 'react'
+import styled from '@emotion/styled'
 import {
   HEADER_HEIGHT,
   MINIMISED_HEADER_HEIGHT,
@@ -6,30 +7,47 @@ import {
   BACKGROUND_COLOR
 } from './constants'
 
+const Container = styled.nav`
+  position: sticky;
+  margin-top: ${HEADER_HEIGHT}px;
+  top: ${MINIMISED_HEADER_HEIGHT}px;
+  padding: 0 ${PAGE_PADDING}px;
+  background: ${BACKGROUND_COLOR};
+`
+
+const TabList = styled.ul`
+  display: flex;
+  padding: 0;
+  list-style: none;
+`
+
+const TabItem = styled.li`
+  margin-right: 20px;
+  text-transform: uppercase;
+  font-weight: 300;
+  font-size: 14px;
+  letter-spacing: 1px;
+  color: rgba(255, 255, 255, ${props => props.active ? 1 : .65});
+  box-shadow: ${props => props.active ? `0 1px #fff` : '0 4px rgba(255, 255, 255, 0)'};
+  transition: color .2s ease, box-shadow .2s ease;
+
+  :hover {
+    color: #fff;
+  }
+`
+
+const TabButton = styled.button`
+  all: unset;
+  cursor: pointer;
+`
+
 const Tab = ({ id, children, active, onClick }) => {
   return (
-    <li>
-      <button onClick={() => onClick(id)}>{children}</button>
-      <style jsx>{`
-        li {
-          margin-right: 20px;
-          text-transform: uppercase;
-          font-weight: 300;
-          font-size: 14px;
-          letter-spacing: 1px;
-          color: #ffffff${active ? 'ff' : '80'};
-          box-shadow: ${active ? `0 1px #fff` : '0 4px #ffffff00'};
-          transition: color .2s ease, box-shadow .2s ease;
-        }
-        li:hover {
-          color: #fff;
-        }
-        button {
-          all: unset;
-          cursor: pointer;
-        }
-      `}</style>
-    </li>
+    <TabItem active={active}>
+      <TabButton onClick={() => onClick(id)}>
+        {children}
+      </TabButton>
+    </TabItem>
   )
 }
 
@@ -41,36 +59,21 @@ class Nav extends React.PureComponent {
   setActiveTab = activeTab => this.setState({ activeTab })
 
   render () {
-    const { activeTab } = this.state
     return (
-      <nav>
-        <ul>
+      <Container>
+        <TabList>
           {['All Fish', 'Where to Buy', 'Similar Fish'].map((name, i) => (
             <Tab
               key={name}
               id={i}
-              active={activeTab === i}
+              active={this.state.activeTab === i}
               onClick={this.setActiveTab}
             >
               {name}
             </Tab>
           ))}
-        </ul>
-        <style jsx>{`
-          nav {
-            position: sticky;
-            margin-top: ${HEADER_HEIGHT}px;
-            top: ${MINIMISED_HEADER_HEIGHT}px;
-            padding: 0 ${PAGE_PADDING}px;
-            background: ${BACKGROUND_COLOR};
-          }
-          ul {
-            display: flex;
-            padding: 0;
-            list-style: none;
-          }
-        `}</style>
-      </nav>
+        </TabList>
+      </Container>
     )
   }
 }
