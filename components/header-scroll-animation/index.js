@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { Global } from '@emotion/core'
 import styled from '@emotion/styled'
 import withScrollY from './with-scrolly'
 import Header from './header'
@@ -33,6 +34,18 @@ class HeaderScrollAnimationExample extends React.PureComponent {
   render () {
     return (
       <Container>
+        <Global
+          styles={{
+            body: {
+              backgroundColor: BACKGROUND_COLOR,
+            },
+            '[aria-hidden=true]': {
+              width: 0,
+              height: 0,
+              visibility: 'hidden'
+            }
+          }}
+        />
         <Header
           isStuck={this.shouldMinimise()}
           scrollY={this.props.scrollY}
