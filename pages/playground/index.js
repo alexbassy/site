@@ -114,7 +114,7 @@ export default () => (
     <Global
       styles={{
         body: {
-          backgroundColor: '#111'
+          backgroundColor: '#000'
         }
       }}
     />
