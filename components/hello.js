@@ -18,8 +18,8 @@ const Title = styled.h1`
 
 const Line = styled.p`
   font-size: 1.2rem;
-  line-height: 1.2rem;
-  margin: .5rem 0;
+  line-height: 2rem;
+  margin: 0;
 `
 
 export default () => (

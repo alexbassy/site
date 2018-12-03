@@ -14,6 +14,7 @@ const globalCSS = css`
   --text: hsl(56, 100%, 15%);
   --bg: hsl(56, 100%, 50%);
   --links: hsl(54, 100%, 48%);
+  --linksDimmed: hsla(54, 100%, 48%, .2);
   --margin: 30px;
 }
 *, *:before, *:after {

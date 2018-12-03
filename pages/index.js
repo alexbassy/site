@@ -25,6 +25,7 @@ const Canvas = styled.canvas`
 
 const Content = styled.main`
   position: relative;
+  margin-top: calc(var(--margin) * -1);
 `
 
 class Index extends React.Component {
