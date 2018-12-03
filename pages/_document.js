@@ -13,8 +13,8 @@ const globalCSS = css`
 :root {
   --text: hsl(56, 100%, 15%);
   --bg: hsl(56, 100%, 50%);
-  --links: hsl(30, 100%, 33%);
-  --margin: 20px;
+  --links: hsl(54, 100%, 48%);
+  --margin: 30px;
 }
 *, *:before, *:after {
   box-sizing: border-box;
