@@ -35,8 +35,8 @@ const LinkButton = styled.a`
   font-weight: 100;
   text-decoration: none;
   color: #fff;
-  background: #111;
-  border: 2px solid var(--linksDimmed);
+  background: #000;
+  border: 2px solid #ffffff40;
   padding: 6px;
   transition: border-color .2s ease, color .15s ease;
 
