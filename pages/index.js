@@ -22,6 +22,7 @@ const Canvas = styled.canvas`
   position: absolute;
   top: 0;
   left: 0;
+  pointer-events: none;
 `
 
 const Content = styled.main`
