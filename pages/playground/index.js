@@ -80,7 +80,7 @@ const Card = (props) => {
           backgroundImage={`${ASSET_PREFIX}/static/assets/playground/${props.backgroundImage}`}
         >
           <CardTitle>
-            {typeof props.label === 'function' ? <props.label/> : props.label}
+            {typeof props.label === 'function' ? <props.label /> : props.label}
           </CardTitle>
         </CardItem>
       </UnstyledLink>
@@ -114,20 +114,20 @@ export default () => (
     <Global
       styles={{
         body: {
-          backgroundColor: '#000'
+          backgroundColor: '#111'
         }
       }}
     />
     <Content>
-    <Title>Playground</Title>
-    <Subtitle>Experiments and points of reference</Subtitle>
-    <List>
-      {cards.map(card => (
-        <li key={card.link}>
-          <Card {...card} />
-        </li>
-      ))}
-    </List>
+      <Title>Playground</Title>
+      <Subtitle>Experiments and points of reference</Subtitle>
+      <List>
+        {cards.map(card => (
+          <li key={card.link}>
+            <Card {...card} />
+          </li>
+        ))}
+      </List>
     </Content>
   </div>
 )
