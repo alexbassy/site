@@ -1,35 +1,52 @@
+import Link from 'next/link'
+import styled from '@emotion/styled'
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+`
+
+const List = styled.ul`
+  list-style: none;
+  padding-left: 0;
+  margin: 0 0 20px;
+`
+
+const Item = styled.li`
+  display: inline-block;
+  margin-right: 1rem;
+`
+
 const links = [
-  ['LinkedIn', 'https://www.linkedin.com/in/alex-bass-56a28761/'],
-  ['GitHub', 'https://github.com/alexbassy'],
-  ['Twitter', 'https://twitter.com/alexbassy'],
+  {
+    label: 'LinkedIn',
+    url: 'https://www.linkedin.com/in/alex-bass-56a28761/',
+  },
+  {
+    label: 'GitHub',
+    url: 'https://github.com/alexbassy',
+  },
+  {
+    label: 'Twitter',
+    url: 'https://twitter.com/alexbassy',
+  },
+  {
+    label: 'Playground',
+    path: 'playground',
+  }
 ]
 
 export default () => (
-  <div>
-    <h4>Find me on...</h4>
-    <ul>
-      {links.map(([name, url]) => <li key={name}><a href={url}>{name}</a></li>)}
-    </ul>
-    <style jsx>{`
-      div {
-        display: flex;
-        flex-direction: column;
-        flex: 1;
-        background: #fff;
-        padding: .1rem var(--margin);;
-      }
-      h4 {
-        margin: 1rem 0 1rem 0;
-      }
-      ul {
-        list-style: none;
-        padding-left: 0;
-        margin: 0 0 20px;
-      }
-      li {
-        display: inline-block;
-        margin-right: 1rem;
-      }
-    `}</style>
-  </div>
+  <Container>
+    <List>
+      {links.map(({ label, url, path }) => (
+        <Item key={label}>
+          {url
+            ? <a href={url} rel='noopener'>{label}</a>
+            : <Link href={path}><a>{label}</a></Link>}
+        </Item>
+      ))}
+    </List>
+  </Container>
 )
