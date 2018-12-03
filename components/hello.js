@@ -1,32 +1,38 @@
+import styled from '@emotion/styled'
+
 const Typeform = () => <a href='https://www.typeform.com/' target='_blank' rel='noopener'>Typeform</a>
 
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+
+  @media screen and (min-width: 640px) {
+    text-align: left;
+  }
+`
+
+const Title = styled.h1`
+  font-size: 3.2rem;
+  margin: 0 0 25px;
+  font-weight: 100;
+
+  @media screen and (min-width: 640px) {
+    font-size: 4.5rem;
+    margin: 0 0 10px;
+  }
+`
+
+const Line = styled.p`
+  font-size: 1.2rem;
+  line-height: 2rem;
+  margin: 0;
+`
+
 export default () => (
-  <div>
-    <h1>Alex Bass</h1>
-    <p>Front-end developer</p>
-    <p>Killing forms @ <Typeform/></p>
-    <style jsx>{`
-      div {
-        display: flex;
-        flex-direction: column;
-        flex: 1;
-        justify-content: flex-end;
-        padding: 0 var(--margin) var(--margin);
-      }
-      h1 {
-        font-size: 3rem;
-        line-height: 1rem;
-      }
-      @media (min-width: 640px) {
-        h1 {
-          font-size: 4.6rem;
-        }
-      }
-      p {
-        font-size: 1.2rem;
-        line-height: 1.2rem;
-        margin: .5rem 0;
-      }
-    `}</style>
-  </div>
+  <Container>
+    <Title>Alex Bass</Title>
+    <Line>Front-end developer</Line>
+    <Line>Killing forms @ <Typeform/></Line>
+  </Container>
 )

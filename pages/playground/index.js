@@ -71,7 +71,7 @@ const CardTitle = styled.div`
   text-decoration: none;
 `
 
-const Card = (props) => {
+const Card = ({ Title, ...props }) => {
   return (
     <Link href={`${ASSET_PREFIX}/playground/${props.link}`}>
       <UnstyledLink>
@@ -80,7 +80,7 @@ const Card = (props) => {
           backgroundImage={`${ASSET_PREFIX}/static/assets/playground/${props.backgroundImage}`}
         >
           <CardTitle>
-            {typeof props.label === 'function' ? <props.label/> : props.label}
+            <Title />
           </CardTitle>
         </CardItem>
       </UnstyledLink>
@@ -90,18 +90,18 @@ const Card = (props) => {
 
 const cards = [
   {
+    Title: () => 'Responsive/HiDPI images',
     backgroundColor: `#af36e8`,
     backgroundImage: `responsive-images.svg`,
     blendMode: 'color-burn',
     link: 'responsive-images',
-    label: 'Responsive/HiDPI images',
   },
   {
+    Title: () => <span>Scrolling header <i>ala</i> Spotify</span>,
     backgroundColor: `#2d788d`,
     backgroundImage: `marine-header.svg`,
     blendMode: 'color-burn',
     link: 'header-scroll-animation',
-    label: () => <span>Scrolling header <i>ala</i> Spotify</span>
   }
 ]
 
@@ -119,15 +119,15 @@ export default () => (
       }}
     />
     <Content>
-    <Title>Playground</Title>
-    <Subtitle>Experiments and points of reference</Subtitle>
-    <List>
-      {cards.map(card => (
-        <li key={card.link}>
-          <Card {...card} />
-        </li>
-      ))}
-    </List>
+      <Title>Playground</Title>
+      <Subtitle>Experiments and points of reference</Subtitle>
+      <List>
+        {cards.map(card => (
+          <li key={card.link}>
+            <Card {...card} />
+          </li>
+        ))}
+      </List>
     </Content>
   </div>
 )
