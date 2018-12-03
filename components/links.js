@@ -49,6 +49,7 @@ const LinkButton = styled.a`
   }
 
   :hover {
+    color: #fff;
     border-color: #ffffffaa;
   }
 
