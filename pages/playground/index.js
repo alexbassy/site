@@ -102,7 +102,13 @@ const cards = [
     backgroundImage: `marine-header.svg`,
     blendMode: 'color-burn',
     link: 'header-scroll-animation',
-  }
+  },
+  {
+    Title: () => 'Slidy menu',
+    backgroundColor: `#e0a000`,
+    backgroundImage: `slidy-menu.svg`,
+    link: 'slidy-menu',
+  },
 ]
 
 
