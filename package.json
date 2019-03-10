@@ -8,12 +8,12 @@
   "license": "NOLICENSE",
   "private": false,
   "dependencies": {
-    "@emotion/core": "^10.0.0",
-    "@emotion/styled": "^10.0.0",
+    "@emotion/core": "^10.0.7",
+    "@emotion/styled": "^10.0.7",
     "babel-plugin-emotion": "^10.0.0",
     "next": "^7.0.2",
-    "react": "^16.6.3",
-    "react-dom": "^16.6.3",
+    "react": "^16.8.4",
+    "react-dom": "^16.8.4",
     "react-transition-group": "^2.5.0"
   },
   "scripts": {
