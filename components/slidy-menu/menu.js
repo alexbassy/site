@@ -22,6 +22,20 @@ const MenuWrap = styled.div`
 const List = styled.ul`
   list-style: none;
   padding: 0;
+  counter-reset: items;
+`
+
+const Item = styled.li`
+  font-size: 20px;
+  margin-bottom: 10px;
+
+  ::before {
+    counter-increment: items;
+    content: counter(items);
+    color: rgba(0, 0, 0, .25);
+    margin-right: 10px;
+    font-size: 16px;
+  }
 `
 
 const MenuButtonWrap = styled.div`
@@ -42,9 +56,15 @@ const Nav = styled.nav`
   color: #222;
   z-index: 2;
   will-change: transform;
-  transform: ${props => !props.isOpen ? `translateX(-100%)` : 'translateX(0)'};
   transition: transform ${screenAnimationDuration}ms ease;
 `
+
+const navStyles = {
+  entering: { transform: 'translateX(-100%)' },
+  entered: { transform: 'translateX(0)' },
+  exiting: { transform: 'translateX(-100%)' },
+  exited: { transform: 'translateX(-100%)' },
+}
 
 const Screen = styled.div`
   position: fixed;
@@ -70,11 +90,14 @@ const Menu = ({ isOpen, setOpen }) => {
   return (
     <MenuWrap isOpen={isOpen}>
       <MenuButtonWrap>
-        <MenuButton onClick={toggleOpen} />
+        <MenuButton
+          inverted={isOpen}
+          onClick={toggleOpen}
+        />
       </MenuButtonWrap>
       <Transition
         in={isOpen}
-        timeout={isOpen ? 0 : 200}
+        timeout={isOpen ? 0 : screenAnimationDuration}
         mountOnEnter
         unmountOnExit
       >
@@ -86,14 +109,21 @@ const Menu = ({ isOpen, setOpen }) => {
           />
         )}
       </Transition>
-      <Nav isOpen={isOpen}>
-        <h3>Menu</h3>
-        <List>
-          <li>Startseite</li>
-          <li>Mitteilungen</li>
-          <li>Nachrichten</li>
-        </List>
-      </Nav>
+      <Transition
+        in={isOpen}
+        timeout={isOpen ? 0 : screenAnimationDuration}
+      >
+        {state => (
+          <Nav style={navStyles[state]}>
+            <h3>Menu</h3>
+            <List>
+              <Item>Startseite</Item>
+              <Item>Mitteilungen</Item>
+              <Item>Nachrichten</Item>
+            </List>
+          </Nav>
+        )}
+      </Transition>
     </MenuWrap>
   )
 }
