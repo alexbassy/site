@@ -4,11 +4,9 @@ import styled from '@emotion/styled'
 import posed from 'react-pose'
 
 import MenuButton from './menu-button'
-import InPortal from './in-portal'
-
-const screenAnimationDuration = 400
-const VISIBLE = 'visible'
-const HIDDEN = 'hidden'
+import InPortal from '../in-portal'
+import Screen from '../screen'
+import { VISIBLE, ANIMATION_DURATION, HIDDEN } from '../constants'
 
 const menuItems = [
   { name: 'Startseite' },
@@ -21,46 +19,10 @@ const MenuWrap = styled.div`
   top: 0;
   left: 0;
 
-  ${props => props.isOpen && `
-    width: 100%;
-    height: 100%;
-  `}
-`
-
-const MenuButtonWrap = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 3;
-`
-
-const PoseScreen = posed.div({
-  [VISIBLE]: {
-    opacity: 1,
-    transition: {
-      ease: 'easeInOut',
-      duration: screenAnimationDuration,
-    }
-  },
-  [HIDDEN]: {
-    opacity: 0,
-    transition: {
-      ease: 'easeInOut',
-      duration: screenAnimationDuration,
-    }
-  }
-})
-
-const Screen = styled(PoseScreen)`
-  position: fixed;
-  background: rgba(0, 0, 0, .5);
-  cursor: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzMiIGhlaWdodD0iMzMiIHZpZXdCb3g9IjAgMCAzMyAzMyIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMjkuMjMuNTg0bDMuMTMgMy4wMjgtMTIuODIgMTIuOTIyIDEyLjgyIDEzLjEyMy0zLjEzIDIuOTI3LTEyLjYxNy0xMy4xMjMtMTIuNzIgMTMuMTIzLTMuMTI5LTIuOTI3IDEyLjYxOC0xMi45MjJMLjc2NCAzLjYxMiAzLjg5NC41ODQgMTYuNDEgMTMuODA4eiIgZmlsbD0iI0ZGRiIgZmlsbC1ydWxlPSJldmVub2RkIi8+PC9zdmc+'), auto;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  opacity: 0;
-  pointer-events: ${props => props.isVisible ? 'all' : 'none'};
+  ${props =>
+    props.isOpen &&
+    `width: 100%;
+    height: 100%;`}
 `
 
 const PoseNav = posed.nav({
@@ -68,14 +30,14 @@ const PoseNav = posed.nav({
     x: 0,
     transition: {
       ease: 'easeInOut',
-      duration: screenAnimationDuration,
+      duration: ANIMATION_DURATION,
     },
   },
   [HIDDEN]: {
     x: '-100%',
     transition: {
       ease: 'easeInOut',
-      duration: screenAnimationDuration,
+      duration: ANIMATION_DURATION,
     },
   },
 })
@@ -118,14 +80,14 @@ const PoseItem = posed.li({
     opacity: 1,
     transition: {
       duration: 500,
-    }
+    },
   },
   [HIDDEN]: {
     y: 30,
     opacity: 0,
     transition: {
       duration: 500,
-    }
+    },
   },
 })
 
@@ -136,7 +98,7 @@ const Item = styled(PoseItem)`
   ::before {
     counter-increment: items;
     content: counter(items);
-    color: rgba(0, 0, 0, .25);
+    color: rgba(0, 0, 0, 0.25);
     margin-right: 10px;
     font-size: 16px;
   }
@@ -145,22 +107,13 @@ const Item = styled(PoseItem)`
 const Menu = ({ isOpen, setOpen }) => {
   const toggleOpen = () => setOpen(!isOpen)
   const handleClose = () => setOpen(false)
-  const poseState = isOpen ? VISIBLE : HIDDEN
+  const poseState = { pose: isOpen ? VISIBLE : HIDDEN }
   return (
     <MenuWrap isOpen={isOpen}>
-      <MenuButtonWrap>
-        <MenuButton
-          inverted={isOpen}
-          onClick={toggleOpen}
-        />
-      </MenuButtonWrap>
-      <Screen
-        pose={poseState}
-        isVisible={isOpen}
-        onClick={handleClose}
-      />
-      <Nav pose={poseState}>
-        <List pose={poseState}>
+      <MenuButton inverted={isOpen} onClick={toggleOpen} />
+      <Screen {...poseState} isVisible={isOpen} onClick={handleClose} />
+      <Nav {...poseState}>
+        <List {...poseState}>
           {menuItems.map(({ name }) => (
             <Item key={name}>{name}</Item>
           ))}

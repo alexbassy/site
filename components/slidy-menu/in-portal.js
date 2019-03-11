@@ -3,30 +3,30 @@ import { createPortal } from 'react-dom'
 
 const isServer = typeof document === 'undefined'
 
-export default (WrappedComponent) => {
+export default WrappedComponent => {
   return class extends Component {
     constructor() {
       super()
       if (isServer) return
       this.container = document.createElement('div')
     }
-    componentDidMount () {
+
+    componentDidMount() {
       if (isServer) return
       document.body.insertAdjacentElement('beforeend', this.container)
     }
-    componentWillUnmount () {
+
+    componentWillUnmount() {
       if (isServer) return
       document.body.removeChild(this.container)
     }
-    render () {
+
+    render() {
       if (isServer) {
         return <WrappedComponent {...this.props} />
       }
 
-      return createPortal(
-        <WrappedComponent {...this.props} />,
-        this.container
-      )
+      return createPortal(<WrappedComponent {...this.props} />, this.container)
     }
   }
 }

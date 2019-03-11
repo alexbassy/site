@@ -1,10 +1,14 @@
 import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
-import { css, keyframes } from '@emotion/core'
+import { css } from '@emotion/core'
 import styled from '@emotion/styled'
 
-const BurgerButtonWrapper = styled.div`
+const FixedContainer = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
   margin: 20px;
+  z-index: 3;
 `
 
 const BurgerButton = styled.button`
@@ -14,24 +18,15 @@ const BurgerButton = styled.button`
   border: none;
   outline: none;
   cursor: pointer;
-  transition: opacity .15s ease;
+  transition: opacity 0.15s ease;
 
   :active {
-    opacity: .75;
-  }
-`
-
-const enter = keyframes`
-  from {
-    transform: translateX(-120%);
-  }
-  to {
-    transform: translateX(0);
+    opacity: 0.75;
   }
 `
 
 const Line = styled.rect`
-  transition: transform .5s ease;
+  transition: transform 0.5s ease;
   transition-delay: ${props => props.transitionDelay}s;
 `
 
@@ -48,14 +43,16 @@ const DarkLine = styled(Line)`
 const Group = styled.g`
   fill: ${props => props.fill};
 
-  ${props => props.toggled && css`
-    ${LightLine} {
-      transform: translateX(120%);
-    }
-    ${DarkLine} {
-      transform: translateX(0%);
-    }
-  `}
+  ${props =>
+    props.toggled &&
+    css`
+      ${LightLine} {
+        transform: translateX(120%);
+      }
+      ${DarkLine} {
+        transform: translateX(0%);
+      }
+    `}
 `
 
 const MenuButton = ({ inverted, onClick }) => {
@@ -65,7 +62,7 @@ const MenuButton = ({ inverted, onClick }) => {
     { width: 30, height: 3, x: 4, y: 20, transitionDelay: 0.1 },
   ]
   return (
-    <BurgerButtonWrapper>
+    <FixedContainer>
       <BurgerButton onClick={onClick}>
         <svg width='34' height='32' xmlns='http://www.w3.org/2000/svg'>
           <Group fillRule='evenodd' toggled={inverted}>
@@ -78,7 +75,7 @@ const MenuButton = ({ inverted, onClick }) => {
           </Group>
         </svg>
       </BurgerButton>
-    </BurgerButtonWrapper>
+    </FixedContainer>
   )
 }
 
