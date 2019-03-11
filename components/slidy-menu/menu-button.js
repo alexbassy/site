@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { css, keyframes } from '@emotion/core'
 import styled from '@emotion/styled'
@@ -70,10 +70,10 @@ const MenuButton = ({ inverted, onClick }) => {
         <svg width='34' height='32' xmlns='http://www.w3.org/2000/svg'>
           <Group fillRule='evenodd' toggled={inverted}>
             {lines.map((line, i) => (
-              <>
-              <LightLine key={`light:${i}`} {...line} />
-              <DarkLine key={`dark:${i}`} {...line} />
-              </>
+              <Fragment key={i}>
+                <LightLine {...line} />
+                <DarkLine {...line} />
+              </Fragment>
             ))}
           </Group>
         </svg>
