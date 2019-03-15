@@ -3,6 +3,7 @@ import Head from 'next/head'
 import Link from 'next/link'
 import { Global } from '@emotion/core'
 import styled from '@emotion/styled'
+import { ROBOTO_MONO, RobotoMonoFont } from '../../lib/fonts'
 
 const ASSET_PREFIX = process.env.ASSET_PREFIX
 
@@ -56,6 +57,7 @@ const CardItem = styled.div`
   background-blend-mode: ${props => props.blendMode};
   background-position: bottom right;
   background-repeat: no-repeat;
+  font-family: ${ROBOTO_MONO};
   cursor: pointer;
 
   @media screen and (min-width: 460px) {
@@ -109,6 +111,7 @@ export default () => (
   <div>
     <Head>
       <title>Playground / Alex Bass</title>
+      <RobotoMonoFont/>
     </Head>
     <Global
       styles={{

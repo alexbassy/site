@@ -28,11 +28,6 @@ const Index = () => {
           name='description'
           content='Front-end developer from the UK, based in Barcelona'
         />
-        <link
-          href='https://fonts.googleapis.com/css?family=Fira+Sans:400,700'
-          rel='stylesheet'
-          crossOrigin='anonymous'
-        />
       </Head>
       <Content>
         <Hello />

@@ -36,7 +36,6 @@ const PosedTitle = posed.h1({
 })
 
 const Title = styled(PosedTitle)`
-  font-family: 'Fira Sans', sans-serif;
   font-size: 3.5rem;
   margin: 0 0 25px;
   letter-spacing: 2px;
@@ -57,7 +56,6 @@ const PoseStaggeredParent = posed.span({
 const Staggered = withPoseEntry(['off', 'on'], PoseStaggeredParent)
 
 const Line = styled.p`
-  font-family: 'Fira Sans', sans-serif;
   font-size: 1.5rem;
   line-height: 1.8;
   margin: 0;

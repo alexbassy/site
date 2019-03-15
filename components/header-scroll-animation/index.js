@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Global } from '@emotion/core'
 import styled from '@emotion/styled'
+import { ROBOTO_MONO } from '../../lib/fonts'
 import withScrollY from './with-scrolly'
 import Header from './header'
 import Nav from './nav'
@@ -15,6 +16,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   background: ${BACKGROUND_COLOR};
+  font-family: ${ROBOTO_MONO};
 `
 
 const CodeLink = styled.div`
@@ -29,11 +31,11 @@ const CodeLink = styled.div`
 
 class HeaderScrollAnimationExample extends React.PureComponent {
   static propTypes = {
-    scrollY: PropTypes.number
+    scrollY: PropTypes.number,
   }
 
   state = {
-    headerMinimised: false
+    headerMinimised: false,
   }
 
   shouldMinimise = () => {
@@ -48,17 +50,17 @@ class HeaderScrollAnimationExample extends React.PureComponent {
   isAtEndOfPage = () => {
     if (typeof window === 'undefined') return false
     const docHeight = window.document.documentElement.scrollHeight
-    return (this.props.scrollY + window.innerHeight) / docHeight >= .8
+    return (this.props.scrollY + window.innerHeight) / docHeight >= 0.8
   }
 
-  render () {
+  render() {
     return (
       <Container>
         <Global
           styles={{
             body: {
               backgroundColor: BACKGROUND_COLOR,
-            }
+            },
           }}
         />
         <Header
@@ -70,7 +72,10 @@ class HeaderScrollAnimationExample extends React.PureComponent {
         <SkeletonContent />
         <Slide in={this.isAtEndOfPage()}>
           <CodeLink>
-            Get the code <a href={codeLink} target='_blank'>here</a>
+            Get the code{' '}
+            <a href={codeLink} target='_blank'>
+              here
+            </a>
           </CodeLink>
         </Slide>
       </Container>
