@@ -1,7 +1,4 @@
-import getConfig from 'next/config'
-const { publicRuntimeConfig } = getConfig()
-
-export const ASSET_PREFIX = publicRuntimeConfig.assetPrefix
+export const ASSET_PREFIX = process.env.ASSET_PREFIX
 export const HEADER_HEIGHT = 360
 export const MINIMISED_HEADER_HEIGHT = 110
 export const PAGE_PADDING = 20

@@ -3,9 +3,8 @@ import Head from 'next/head'
 import Link from 'next/link'
 import { Global } from '@emotion/core'
 import styled from '@emotion/styled'
-import getConfig from 'next/config'
 
-const ASSET_PREFIX = getConfig().publicRuntimeConfig.assetPrefix
+const ASSET_PREFIX = process.env.ASSET_PREFIX
 
 const Content = styled.main`
   padding: 20px 30px;
