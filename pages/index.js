@@ -10,13 +10,12 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: center;
   color: #fff;
-  background: #000;
+  background: #111;
   padding: 0 var(--margin);
 `
 
 const Content = styled.main`
   position: relative;
-  margin-top: calc(var(--margin) * -1);
 `
 
 const Index = () => {
