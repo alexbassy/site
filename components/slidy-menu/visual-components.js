@@ -6,8 +6,3 @@ export const pageStyles = css`
     background: #222;
   }
 `
-
-export const PageContent = styled.div`
-  max-width: 800px;
-  margin: 0 auto;
-`
