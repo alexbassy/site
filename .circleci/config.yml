@@ -120,7 +120,7 @@ jobs:
                     \"description\": \"Here's a preview\",
                     \"context\": \"ci/circleci: preview\"
                   }" > body.json
-                  curl -0 -v -X POST \
+                  curl -X POST \
                     -H "Authorization: token ${GH_TOKEN}" \
                     -H "Content-type: application/json" \
                     -d @body.json \
