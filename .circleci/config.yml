@@ -59,7 +59,7 @@ jobs:
       - when:
           condition: << parameters.is-preview>>
           steps:
-            - run: PREVIEW_PATH="/build/$CIRCLE_PR_NUMBER/$CIRCLE_BUILD_NUM" yarn export
+            - run: PREVIEW_PATH="/build/$CIRCLE_BRANCH/$CIRCLE_BUILD_NUM" yarn export
       # make the `/out` directory available to the deploy job
       - persist_to_workspace:
             root: ~/repo
@@ -98,7 +98,7 @@ jobs:
           steps:
             - run:
                 name: Deploy preview to S3
-                command: aws s3 sync out s3://${S3_BUCKET_PREVIEW}/build/${CIRCLE_PR_NUMBER}/${CIRCLE_BUILD_NUM}/ --acl public-read --cache-control max-age=604800
+                command: aws s3 sync out s3://${S3_BUCKET_PREVIEW}/build/${CIRCLE_BRANCH}/${CIRCLE_BUILD_NUM}/ --acl public-read --cache-control max-age=604800
             - run:
                 name: Notify GitHub PR
                 # take note of the super weird interpolation syntax in the `target_url` field
@@ -109,7 +109,7 @@ jobs:
                     -H "Authorization: token ${GH_TOKEN}" \
                     -H "Content-type: application/json" -d '{
                       "state": "success",
-                      "target_url": "https://'$S3_BUCKET_PREVIEW'/build/'$CIRCLE_PR_NUMBER'/'$CIRCLE_BUILD_NUM'/",
+                      "target_url": "https://'$S3_BUCKET_PREVIEW'/build/'$CIRCLE_BRANCH'/'$CIRCLE_BUILD_NUM'/",
                       "description": "Preview available",
                       "context": "ci/circleci: preview"
                     }' https://api.github.com/repos/alexbassy/site/statuses/$CIRCLE_SHA1
