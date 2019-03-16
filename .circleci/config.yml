@@ -1,15 +1,24 @@
 version: 2.1
 
+commands:
+  set-preview-env-vars:
+    steps:
+      - run:
+          name: Add preview environment variables
+          command: |
+            export GIT_HASH=$(echo $CIRCLE_SHA1 | cut -c -7)
+            echo "export BUILD_PATH='/build/$GIT_HASH'" >> $BASH_ENV
+
 workflows:
-  version: 2
+  version: 2.1
   build-deploy:
     jobs:
       - build:
           name: build:prod
           is-preview: false
           filters:
-              branches:
-                only: master
+            branches:
+              only: master
       - build:
           name: build:preview
           is-preview: true
@@ -23,7 +32,7 @@ workflows:
             branches:
               only: master
       - deploy:
-          name: deploy-preview
+          name: deploy:preview
           is-preview: true
           requires:
             - build:preview
@@ -44,8 +53,8 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-          - v1-dependencies-{{ checksum "package.json" }}
-          - v1-dependencies-
+            - v1-dependencies-{{ checksum "package.json" }}
+            - v1-dependencies-
       - run: yarn install
       - save_cache:
           paths:
@@ -59,12 +68,14 @@ jobs:
       - when:
           condition: << parameters.is-preview>>
           steps:
-            - run: PREVIEW_PATH="/build/$CIRCLE_SHA1" yarn export
+            - set-preview-env-vars
+            - run:
+                command: PREVIEW_PATH=$BUILD_PATH yarn export
       # make the `/out` directory available to the deploy job
       - persist_to_workspace:
-            root: ~/repo
-            paths:
-              - out
+          root: ~/repo
+          paths:
+            - out
   deploy:
     docker:
       - image: circleci/python:2.7-jessie
@@ -87,7 +98,7 @@ jobs:
           steps:
             - run:
                 name: Deploy to S3
-                command: aws s3 sync out s3://apjbass.com/ --delete  --acl public-read --cache-control max-age=604800
+                command: aws s3 sync out s3://${S3_BUCKET_DIST}/ --delete  --acl public-read --cache-control max-age=604800
             - run:
                 name: Cloudfront invalidation
                 command: aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_DIST_ID --paths "/*"
@@ -96,20 +107,21 @@ jobs:
       - when:
           condition: << parameters.is-preview >>
           steps:
+            - set-preview-env-vars
             - run:
                 name: Deploy preview to S3
-                command: aws s3 sync out s3://preview.apjbass.com/build/${CIRCLE_SHA1}/ --acl public-read --cache-control max-age=604800
+                command: aws s3 sync out s3://${S3_BUCKET_PREVIEW}${BUILD_PATH}/ --acl public-read --cache-control max-age=604800
             - run:
                 name: Notify GitHub PR
-                # take note of the super weird interpolation syntax in the `target_url` field
-                # it took me 20 times to get this right
-                # success is persistence!
                 command: |
-                  curl -XPOST \
+                  echo "{
+                    \"state\": \"success\",
+                    \"target_url\": \"https://$S3_BUCKET_PREVIEW$BUILD_PATH\",
+                    \"description\": \"Here's a preview\",
+                    \"context\": \"ci/circleci: preview\"
+                  }" > body.json
+                  curl -X POST \
                     -H "Authorization: token ${GH_TOKEN}" \
-                    -H "Content-type: application/json" -d '{
-                      "state": "success",
-                      "target_url": "https://preview.apjbass.com/build/'$CIRCLE_SHA1'/",
-                      "description": "Preview available",
-                      "context": "ci/circleci: preview"
-                    }' https://api.github.com/repos/alexbassy/site/statuses/$CIRCLE_SHA1
+                    -H "Content-type: application/json" \
+                    -d @body.json \
+                    https://api.github.com/repos/alexbassy/site/statuses/$CIRCLE_SHA1
