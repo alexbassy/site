@@ -110,6 +110,6 @@ jobs:
                     -H "Content-type: application/json" -d '{
                       "state": "success",
                       "target_url": "https://'$S3_BUCKET_PREVIEW'/build/'$CIRCLE_BRANCH'/'$CIRCLE_BUILD_NUM'/",
-                      "description": "Preview available",
+                      "description": "Here's a preview",
                       "context": "ci/circleci: preview"
                     }' https://api.github.com/repos/alexbassy/site/statuses/$CIRCLE_SHA1
