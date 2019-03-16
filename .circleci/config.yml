@@ -34,7 +34,7 @@ workflows:
             branches:
               only: master
       - deploy:
-          name: deploy-preview
+          name: deploy:preview
           is-preview: true
           requires:
             - build:preview
@@ -71,7 +71,10 @@ jobs:
           condition: << parameters.is-preview>>
           steps:
             - set-preview-env-vars
-            - run: PREVIEW_PATH=$BUILD_PATH yarn export
+            - run:
+                command: |
+                  echo $BUILD_PATH
+                  PREVIEW_PATH=$BUILD_PATH yarn export
       # make the `/out` directory available to the deploy job
       - persist_to_workspace:
           root: ~/repo
@@ -111,7 +114,9 @@ jobs:
             - set-preview-env-vars
             - run:
                 name: Deploy preview to S3
-                command: aws s3 sync out s3://${S3_BUCKET_PREVIEW}${BUILD_PATH}/ --acl public-read --cache-control max-age=604800
+                command: |
+                  echo $BUILD_PATH
+                  aws s3 sync out s3://${S3_BUCKET_PREVIEW}${BUILD_PATH}/ --acl public-read --cache-control max-age=604800
             - run:
                 name: Notify GitHub PR
                 command: |
