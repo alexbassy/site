@@ -7,9 +7,7 @@ commands:
           name: Add preview environment variables
           command: |
             export GIT_HASH=$(echo $CIRCLE_SHA1 | cut -c -7)
-            echo "export BUILD_PATH='/build/$CIRCLE_BRANCH/$GIT_HASH'" >> $BASH_ENV
-            source $BASH_ENV
-            echo $BUILD_PATH
+            echo "export BUILD_PATH='/build/$GIT_HASH'" >> $BASH_ENV
 
 workflows:
   version: 2.1
