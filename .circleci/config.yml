@@ -3,10 +3,12 @@ version: 2.1
 commands:
   set-preview-env-vars:
     description: Setup Environment Variables
-    command: |
-      export GIT_HASH=$(echo $CIRCLE_SHA1 | cut -c -7)
-      echo 'export BUILD_PATH="/build/$CIRCLE_BRANCH/$GIT_HASH"' >> $BASH_ENV
-      source $BASH_ENV
+    steps:
+      - run:
+        command: |
+          export GIT_HASH=$(echo $CIRCLE_SHA1 | cut -c -7)
+          echo 'export BUILD_PATH="/build/$CIRCLE_BRANCH/$GIT_HASH"' >> $BASH_ENV
+          source $BASH_ENV
 
 workflows:
   version: 2
