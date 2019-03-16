@@ -113,16 +113,15 @@ jobs:
                 command: aws s3 sync out s3://${S3_BUCKET_PREVIEW}${BUILD_PATH}/ --acl public-read --cache-control max-age=604800
             - run:
                 name: Notify GitHub PR
-                # take note of the super weird interpolation syntax in the `target_url` field
-                # it took me 20 times to get this right
-                # success is persistence!
                 command: |
-                  export PREVIEW_URL="https://$S3_BUCKET_PREVIEW$BUILD_PATH/"
-                  curl -XPOST \
+                  echo "{
+                    \"state\": \"success\",
+                    \"target_url\": \"https://$S3_BUCKET_PREVIEW$BUILD_PATH/\",
+                    \"description\": \"Here's a preview\",
+                    \"context\": \"ci/circleci: preview\"
+                  }" > body.json
+                  curl -0 -v -X POST \
                     -H "Authorization: token ${GH_TOKEN}" \
-                    -H "Content-type: application/json" -d '{
-                      "state": "success",
-                      "target_url": "'$PREVIEW_URL'",
-                      "description": "Here's a preview",
-                      "context": "ci/circleci: preview"
-                    }' https://api.github.com/repos/alexbassy/site/statuses/$CIRCLE_SHA1
+                    -H "Content-type: application/json" \
+                    -d @body.json \
+                    https://api.github.com/repos/alexbassy/site/statuses/$CIRCLE_SHA1
