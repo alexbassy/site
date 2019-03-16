@@ -1,6 +1,10 @@
 import Link from 'next/link'
 import styled from '@emotion/styled'
 
+const Nav = styled.nav`
+  position: relative;
+`
+
 const buttonStyles = {
   r: {
     bg: '#e80000',
@@ -91,7 +95,7 @@ const links = [
 ]
 
 export default () => (
-  <nav>
+  <Nav>
     <List>
       {links.map(({ label, url, path, style }) => (
         <Item key={label}>
@@ -109,5 +113,5 @@ export default () => (
         </Item>
       ))}
     </List>
-  </nav>
+  </Nav>
 )

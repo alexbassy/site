@@ -14,10 +14,6 @@ const Container = styled.div`
   padding: 0 var(--margin);
 `
 
-const Content = styled.main`
-  position: relative;
-`
-
 const Index = () => {
   return (
     <Container>
@@ -28,10 +24,8 @@ const Index = () => {
           content='Front-end developer from the UK, based in Barcelona'
         />
       </Head>
-      <Content>
-        <Hello />
-        <Links />
-      </Content>
+      <Hello />
+      <Links />
     </Container>
   )
 }

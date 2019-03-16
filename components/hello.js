@@ -2,13 +2,15 @@ import { useState } from 'react'
 import styled from '@emotion/styled'
 import posed from 'react-pose'
 
+import getAssetURL from '../lib/asset'
 import SlinkyText from './slinky-text'
 import withPoseEntry from './with-initial-pose'
 
 const titleEntryDuration = 1600
-const paragraphStagger = 600
+const paragraphStagger = 120
 
 const Container = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
   text-align: center;
@@ -18,9 +20,54 @@ const Container = styled.div`
   }
 `
 
+const PosedBackgroundImageWrap = posed.div({
+  on: {
+    opacity: 1,
+  },
+  off: {
+    opacity: 0,
+  },
+})
+
+const BackgroundImageWrap = styled(PosedBackgroundImageWrap)`
+  display: flex;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: radial-gradient(rgba(0, 0, 0, 0) 20%, #000 140%);
+`
+
+const PosedBackgroundImage = posed.img({
+  on: {
+    scale: 1.15,
+    opacity: 0.3,
+    transition: {
+      default: { easing: 'easeInOut', duration: 2000 },
+      opacity: { duration: 800 },
+    },
+  },
+  off: {
+    scale: 1,
+    opacity: 0,
+    transition: {
+      default: { easing: 'easeInOut', duration: 2000 },
+      opacity: { duration: 800 },
+    },
+  },
+})
+
+const BackgroundImage = styled(PosedBackgroundImage)`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+`
+
 const PosedTitle = posed.h1({
   entering: {
-    y: 80,
+    y: 60,
     scale: 1.4,
     transformOrigin: 'left',
   },
@@ -64,8 +111,8 @@ const Line = styled.p`
 `
 
 const PosedFadeIn = posed.span({
-  off: { opacity: 0 },
-  on: { opacity: 1 },
+  off: { opacity: 0, y: 5 },
+  on: { opacity: 1, y: 0 },
 })
 
 const FadeIn = styled(PosedFadeIn)`
@@ -73,26 +120,59 @@ const FadeIn = styled(PosedFadeIn)`
   white-space: pre;
 `
 
+const BarcelonaText = styled.span`
+  cursor: crosshair;
+`
+
 export default () => {
   const [titlePose, setTitlePose] = useState('entering')
+  const [isShowingBackgroundImage, showBackgroundImage] = useState(false)
+  const [hasHoveredOnCity, hoveredOnCity] = useState(false)
   setTimeout(() => setTitlePose('entered'), titleEntryDuration)
+  if (isShowingBackgroundImage && !hasHoveredOnCity) hoveredOnCity(true)
   return (
-    <Container>
-      <Title pose={titlePose}>
-        <SlinkyText pat>Alex Bass</SlinkyText>
-      </Title>
-      <Line>
-        <Staggered delay={titleEntryDuration + paragraphStagger}>
-          <FadeIn>Front-end developer. </FadeIn>
-          <FadeIn>Accessibility enthusiast. </FadeIn>
-          <FadeIn>Procrastination expert...</FadeIn>
-        </Staggered>
-      </Line>
-      <Line dimmed>
-        <Staggered delay={titleEntryDuration + paragraphStagger * 4}>
-          <FadeIn>Based in sunny Barcelona</FadeIn>
-        </Staggered>
-      </Line>
-    </Container>
+    <>
+      {hasHoveredOnCity && (
+        <BackgroundImageWrap
+          initialPose='off'
+          pose={isShowingBackgroundImage ? 'on' : 'off'}
+        >
+          <BackgroundImage
+            src={getAssetURL('bcn.jpg')}
+            alt='Barcelona palm trees'
+          />
+        </BackgroundImageWrap>
+      )}
+      <Container>
+        <Line>
+          <Staggered delay={titleEntryDuration + paragraphStagger * 2}>
+            <FadeIn>Hello, I'm</FadeIn>
+          </Staggered>
+        </Line>
+        <Title pose={titlePose}>
+          <SlinkyText pat>Alex Bass</SlinkyText>
+        </Title>
+        <Line>
+          <Staggered delay={titleEntryDuration + paragraphStagger * 6}>
+            <FadeIn>Front-end developer. </FadeIn>
+            <FadeIn>Accessibility enthusiast. </FadeIn>
+            <FadeIn>Procrastination expert...</FadeIn>
+          </Staggered>
+        </Line>
+        <Line dimmed>
+          <Staggered delay={titleEntryDuration + paragraphStagger * 12}>
+            <FadeIn>
+              Based in{' '}
+              <BarcelonaText
+                onMouseOver={() => showBackgroundImage(true)}
+                onMouseOut={() => showBackgroundImage(false)}
+              >
+                sunny Barcelona
+              </BarcelonaText>
+            </FadeIn>
+          </Staggered>
+        </Line>
+      </Container>
+    </>
   )
 }
