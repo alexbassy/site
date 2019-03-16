@@ -117,11 +117,12 @@ jobs:
                 # it took me 20 times to get this right
                 # success is persistence!
                 command: |
+                  export PREVIEW_URL="https://$S3_BUCKET_PREVIEW$BUILD_PATH/"
                   curl -XPOST \
                     -H "Authorization: token ${GH_TOKEN}" \
                     -H "Content-type: application/json" -d '{
                       "state": "success",
-                      "target_url": "https://'$S3_BUCKET_PREVIEW''$BUILD_PATH'/",
+                      "target_url": "'$PREVIEW_URL'",
                       "description": "Here's a preview",
                       "context": "ci/circleci: preview"
                     }' https://api.github.com/repos/alexbassy/site/statuses/$CIRCLE_SHA1
