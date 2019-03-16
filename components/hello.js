@@ -20,23 +20,13 @@ const Container = styled.div`
   }
 `
 
-const PosedBackgroundImageWrap = posed.div({
-  on: {
-    opacity: 1,
-  },
-  off: {
-    opacity: 0,
-  },
-})
-
-const BackgroundImageWrap = styled(PosedBackgroundImageWrap)`
+const BackgroundImageWrap = styled.div`
   display: flex;
   position: absolute;
   width: 100%;
   height: 100%;
   top: 0;
   left: 0;
-  background: radial-gradient(rgba(0, 0, 0, 0) 20%, #000 140%);
 `
 
 const PosedBackgroundImage = posed.img({
@@ -63,6 +53,7 @@ const BackgroundImage = styled(PosedBackgroundImage)`
   height: 100%;
   object-fit: cover;
   pointer-events: none;
+  mask-image: radial-gradient(#000 20%, rgba(0, 0, 0, 0) 100%);
 `
 
 const PosedTitle = posed.h1({
@@ -103,7 +94,7 @@ const PoseStaggeredParent = posed.span({
 const Staggered = withPoseEntry(['off', 'on'], PoseStaggeredParent)
 
 const Line = styled.p`
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   line-height: 1.8;
   margin: 0;
   font-weight: 400;
@@ -122,6 +113,11 @@ const FadeIn = styled(PosedFadeIn)`
 
 const BarcelonaText = styled.span`
   cursor: crosshair;
+  transition: color 0.5s ease;
+
+  :hover {
+    color: yellow;
+  }
 `
 
 export default () => {
@@ -133,11 +129,10 @@ export default () => {
   return (
     <>
       {hasHoveredOnCity && (
-        <BackgroundImageWrap
-          initialPose='off'
-          pose={isShowingBackgroundImage ? 'on' : 'off'}
-        >
+        <BackgroundImageWrap>
           <BackgroundImage
+            initialPose='off'
+            pose={isShowingBackgroundImage ? 'on' : 'off'}
             src={getAssetURL('bcn.jpg')}
             alt='Barcelona palm trees'
           />
