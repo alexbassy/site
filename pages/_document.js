@@ -1,6 +1,7 @@
 import Document, { Head, Main, NextScript } from 'next/document'
 import { Global, css } from '@emotion/core'
 import { FIRA_SANS, FiraSansFont } from '../lib/fonts'
+import getAssetURL from '../lib/asset'
 
 const analyticsSnippet = `
 window.dataLayer = window.dataLayer || [];
@@ -56,10 +57,7 @@ export default class MyDocument extends Document {
       <html lang='en'>
         <Head>
           <meta name='viewport' content='width=device-width, initial-scale=1' />
-          <link
-            rel='icon'
-            href={`${process.env.ASSET_PREFIX}/static/assets/favicon.png`}
-          />
+          <link rel='icon' href={getAssetURL('favicon.png')} />
           <FiraSansFont />
           <script
             async

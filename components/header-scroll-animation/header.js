@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import getAssetURL from '../../lib/asset'
 import {
   Actions,
   BackButton,
@@ -14,7 +15,6 @@ import {
   Title
 } from './atoms'
 import {
-  ASSET_PREFIX,
   HEADER_HEIGHT,
   MINIMISED_HEADER_HEIGHT
 } from './constants'
@@ -65,7 +65,7 @@ class Header extends React.PureComponent {
     const currentHeight = this.getCurrentHeight()
     const prog = this.getTransitionProgress()
     const headerMargin = this.getHeaderMargin()
-    const bg = `${ASSET_PREFIX}/static/assets/header-scroll-animation/header.jpg`
+    const bg = getAssetURL('header-scroll-animation/header.jpg')
 
     return (
       <Container

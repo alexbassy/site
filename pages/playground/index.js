@@ -4,8 +4,8 @@ import Link from 'next/link'
 import { Global } from '@emotion/core'
 import styled from '@emotion/styled'
 import { ROBOTO_MONO, RobotoMonoFont } from '../../lib/fonts'
-
-const ASSET_PREFIX = process.env.ASSET_PREFIX
+import getAssetURL from '../../lib/asset'
+import { ASSET_PREFIX } from '../../lib/constants'
 
 const Content = styled.main`
   padding: 20px 30px;
@@ -78,7 +78,7 @@ const Card = ({ Title, ...props }) => {
       <UnstyledLink>
         <CardItem
           {...props}
-          backgroundImage={`${ASSET_PREFIX}/static/assets/playground/${props.backgroundImage}`}
+          backgroundImage={getAssetURL(`playground/${props.backgroundImage}`)}
         >
           <CardTitle>
             <Title />
@@ -98,26 +98,29 @@ const cards = [
     link: 'responsive-images',
   },
   {
-    Title: () => <span>Scrolling header <i>ala</i> Spotify</span>,
+    Title: () => (
+      <span>
+        Scrolling header <i>ala</i> Spotify
+      </span>
+    ),
     backgroundColor: `#2d788d`,
     backgroundImage: `marine-header.svg`,
     blendMode: 'color-burn',
     link: 'header-scroll-animation',
-  }
+  },
 ]
-
 
 export default () => (
   <div>
     <Head>
       <title>Playground / Alex Bass</title>
-      <RobotoMonoFont/>
+      <RobotoMonoFont />
     </Head>
     <Global
       styles={{
         body: {
-          backgroundColor: '#000'
-        }
+          backgroundColor: '#000',
+        },
       }}
     />
     <Content>
