@@ -109,7 +109,7 @@ jobs:
                     -H "Authorization: token ${GH_TOKEN}" \
                     -H "Content-type: application/json" -d '{
                       "state": "success",
-                      "target_url": "https://${S3_BUCKET_PREVIEW}/build/${CIRCLE_PR_NUMBER}/${CIRCLE_BUILD_NUM}/",
+                      "target_url": "https://'$S3_BUCKET_PREVIEW'/build/'$CIRCLE_PR_NUMBER'/'$CIRCLE_BUILD_NUM'/",
                       "description": "Preview available",
                       "context": "ci/circleci: preview"
                     }' https://api.github.com/repos/alexbassy/site/statuses/$CIRCLE_SHA1
