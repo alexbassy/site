@@ -4,6 +4,8 @@ import Hello from '../components/hello'
 import Links from '../components/links'
 import styled from '@emotion/styled'
 
+import { ASSET_PREFIX } from '../lib/constants'
+
 const Container = styled.div`
   height: 100%;
   display: flex;
@@ -15,6 +17,7 @@ const Container = styled.div`
 `
 
 const Index = () => {
+  console.log("asset prefix:", ASSET_PREFIX)
   return (
     <Container>
       <Head>

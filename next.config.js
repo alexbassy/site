@@ -1,8 +1,9 @@
 const { PREVIEW_PATH } = process.env
+const assetPrefix = PREVIEW_PATH || ''
 
 module.exports = {
-  assetPrefix: PREVIEW_PATH || '',
-  env: {
-    ASSET_PREFIX: PREVIEW_PATH || ''
-  }
+  assetPrefix,
+  publicRuntimeConfig: {
+    assetPrefix,
+  },
 }

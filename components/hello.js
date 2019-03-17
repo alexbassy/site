@@ -145,7 +145,7 @@ export default () => {
           </Staggered>
         </Line>
         <Title pose={titlePose}>
-          <SlinkyText pat>Alex Bass</SlinkyText>
+          <SlinkyText>Alex Bass</SlinkyText>
         </Title>
         <Line>
           <Staggered delay={titleEntryDuration + paragraphStagger * 6}>
