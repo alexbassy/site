@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import styled from '@emotion/styled'
 import posed from 'react-pose'
 
-import withPoseEntry from '../with-initial-pose'
+import withPoseEntry from '../front-page/with-initial-pose'
 
 const Wrap = posed.div({
   on: {

@@ -1,10 +1,8 @@
 import React from 'react'
 import Head from 'next/head'
-import Hello from '../components/hello'
-import Links from '../components/links'
+import Hello from '../components/front-page/hello'
+import Links from '../components/front-page/links'
 import styled from '@emotion/styled'
-
-import { ASSET_PREFIX } from '../lib/constants'
 
 const Container = styled.div`
   height: 100%;
@@ -17,7 +15,6 @@ const Container = styled.div`
 `
 
 const Index = () => {
-  console.log("asset prefix:", ASSET_PREFIX)
   return (
     <Container>
       <Head>

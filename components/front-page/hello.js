@@ -2,8 +2,8 @@ import { useState } from 'react'
 import styled from '@emotion/styled'
 import posed from 'react-pose'
 
-import getAssetURL from '../lib/asset'
-import SlinkyText from './slinky-text'
+import getAssetURL from '../../lib/asset'
+import SlinkyText from '../slinky-text'
 import withPoseEntry from './with-initial-pose'
 
 const titleEntryDuration = 1600
@@ -120,54 +120,73 @@ const BarcelonaText = styled.span`
   }
 `
 
+const LocationImage = React.memo(
+  ({ wasVisible, isVisible }) => {
+    if (!wasVisible) return null
+    return (
+      <BackgroundImageWrap>
+        <BackgroundImage
+          initialPose='off'
+          pose={isVisible ? 'on' : 'off'}
+          src={getAssetURL('bcn.jpg')}
+          alt='Barcelona palm trees'
+        />
+      </BackgroundImageWrap>
+    )
+  }
+)
+
+const Intro = React.memo(({ titlePose, onLocationHover }) => (
+  <Container>
+    <Line>
+      <Staggered delay={titleEntryDuration + paragraphStagger * 2}>
+        <FadeIn>Hello, I'm</FadeIn>
+      </Staggered>
+    </Line>
+    <Title pose={titlePose}>
+      <SlinkyText>Alex Bass</SlinkyText>
+    </Title>
+    <Line>
+      <Staggered delay={titleEntryDuration + paragraphStagger * 6}>
+        <FadeIn>Front-end developer. </FadeIn>
+        <FadeIn>Accessibility enthusiast. </FadeIn>
+        <FadeIn>Procrastination expert...</FadeIn>
+      </Staggered>
+    </Line>
+    <Line dimmed>
+      <Staggered delay={titleEntryDuration + paragraphStagger * 12}>
+        <FadeIn>
+          Based in{' '}
+          <BarcelonaText
+            onMouseOver={() => onLocationHover(true)}
+            onMouseOut={() => onLocationHover(false)}
+          >
+            sunny Barcelona
+          </BarcelonaText>
+        </FadeIn>
+      </Staggered>
+    </Line>
+  </Container>
+))
+
 export default () => {
   const [titlePose, setTitlePose] = useState('entering')
   const [isShowingBackgroundImage, showBackgroundImage] = useState(false)
   const [hasHoveredOnCity, hoveredOnCity] = useState(false)
-  setTimeout(() => setTitlePose('entered'), titleEntryDuration)
   if (isShowingBackgroundImage && !hasHoveredOnCity) hoveredOnCity(true)
+  if (titlePose !== 'entered') {
+    setTimeout(() => {
+      setTitlePose('entered')
+    }, titleEntryDuration)
+  }
+
   return (
     <>
-      {hasHoveredOnCity && (
-        <BackgroundImageWrap>
-          <BackgroundImage
-            initialPose='off'
-            pose={isShowingBackgroundImage ? 'on' : 'off'}
-            src={getAssetURL('bcn.jpg')}
-            alt='Barcelona palm trees'
-          />
-        </BackgroundImageWrap>
-      )}
-      <Container>
-        <Line>
-          <Staggered delay={titleEntryDuration + paragraphStagger * 2}>
-            <FadeIn>Hello, I'm</FadeIn>
-          </Staggered>
-        </Line>
-        <Title pose={titlePose}>
-          <SlinkyText>Alex Bass</SlinkyText>
-        </Title>
-        <Line>
-          <Staggered delay={titleEntryDuration + paragraphStagger * 6}>
-            <FadeIn>Front-end developer. </FadeIn>
-            <FadeIn>Accessibility enthusiast. </FadeIn>
-            <FadeIn>Procrastination expert...</FadeIn>
-          </Staggered>
-        </Line>
-        <Line dimmed>
-          <Staggered delay={titleEntryDuration + paragraphStagger * 12}>
-            <FadeIn>
-              Based in{' '}
-              <BarcelonaText
-                onMouseOver={() => showBackgroundImage(true)}
-                onMouseOut={() => showBackgroundImage(false)}
-              >
-                sunny Barcelona
-              </BarcelonaText>
-            </FadeIn>
-          </Staggered>
-        </Line>
-      </Container>
+      <LocationImage
+        isVisible={isShowingBackgroundImage}
+        wasVisible={hasHoveredOnCity}
+      />
+      <Intro titlePose={titlePose} onLocationHover={showBackgroundImage} />
     </>
   )
 }

@@ -1,6 +1,10 @@
 import Link from 'next/link'
 import styled from '@emotion/styled'
 
+import linkedinIcon from './icons/linkedin'
+import githubIcon from './icons/github'
+import twitterIcon from './icons/twitter'
+
 const Nav = styled.nav`
   position: relative;
 `
@@ -23,7 +27,7 @@ const buttonStyles = {
 const List = styled.ul`
   display: flex;
   list-style: none;
-  margin-top: 30px;
+  margin-top: 24px;
   padding-left: 0;
 
   @media screen and (max-width: 640px) {
@@ -36,7 +40,7 @@ const List = styled.ul`
 
 const Item = styled.li`
   display: inline-block;
-  margin-right: 1rem;
+  margin-right: 20px;
 
   @media screen and (max-width: 640px) {
     flex: 1 0 calc(50% - 15px);
@@ -49,15 +53,16 @@ const Item = styled.li`
 `
 
 const LinkButton = styled.a`
-  display: block;
-  text-align: center;
-  font-weight: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
   text-decoration: none;
   background-color: ${props => props.style.bg};
   color: ${props => props.style.text};
   border-radius: 30px;
-  padding: 6px;
-  transition: border-color 0.2s ease, color 0.15s ease;
+  transition: color 0.15s ease;
 
   :visited {
     color: ${props => props.style.text};
@@ -71,24 +76,32 @@ const LinkButton = styled.a`
     color: ${props => props.style.text};
   }
 
-  @media screen and (min-width: 640px) {
-    padding: 6px 16px;
+  svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  svg path {
+    fill: currentColor;
   }
 `
 
 const links = [
   {
     label: 'LinkedIn',
+    icon: linkedinIcon,
     url: 'https://www.linkedin.com/in/alex-bass-56a28761/',
     style: buttonStyles.r,
   },
   {
     label: 'GitHub',
+    icon: githubIcon,
     url: 'https://github.com/alexbassy',
     style: buttonStyles.g,
   },
   {
     label: 'Twitter',
+    icon: twitterIcon,
     url: 'https://twitter.com/alexbassy',
     style: buttonStyles.b,
   },
@@ -97,17 +110,24 @@ const links = [
 export default () => (
   <Nav>
     <List>
-      {links.map(({ label, url, path, style }) => (
+      {links.map(({ label, icon, url, path, style }) => (
         <Item key={label}>
           {url ? (
-            <LinkButton style={style} href={url} rel='noopener'>
-              {label}
-            </LinkButton>
+            <LinkButton
+              style={style}
+              href={url}
+              rel='noopener'
+              title={label}
+              dangerouslySetInnerHTML={{ __html: icon }}
+            />
           ) : (
             <Link href={path}>
-              <LinkButton style={style} href={path}>
-                {label}
-              </LinkButton>
+              <LinkButton
+                style={style}
+                href={path}
+                title={label}
+                dangerouslySetInnerHTML={{ __html: icon }}
+              />
             </Link>
           )}
         </Item>
