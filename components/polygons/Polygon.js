@@ -1,14 +1,16 @@
 export default class Polygon {
   constructor ({ vertices, size }) {
     this.vertices = vertices
-    this.size = 100
+    this.size = size
   }
 
   getPoints () {
     const points = []
     const { vertices } = this
-    const size = this.size / 2
-    const center = this.size / 2
+
+    // we will calculate the values as percentages
+    const size = 50
+    const center = 50
 
     points.push([
       center + size * Math.cos(0),
