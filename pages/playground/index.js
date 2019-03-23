@@ -116,7 +116,7 @@ const cards = [
     link: 'slidy-menu',
   },
   {
-    Title: () => <span style={{ color: '#005a3e' }}>Easy polygons</span>,
+    Title: () => <span style={{ color: '#005a3e' }}>Polygons and masks</span>,
     backgroundColor: `#00e098`,
     backgroundImage: `polygons.svg`,
     blendMode: 'hard-light',

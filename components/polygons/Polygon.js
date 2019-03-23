@@ -1,55 +1,39 @@
-export default class Polygon {
-  constructor ({ vertices, size }) {
-    this.vertices = vertices
-    this.size = size
-  }
+const getPointX = (center, size, pointIndex, numVertices) => {
+  return center + size * Math.cos((pointIndex * 2 * Math.PI) / numVertices)
+}
 
-  getPoints () {
-    const points = []
-    const { vertices } = this
+const getPointY = (center, size, pointIndex, numVertices) => {
+  return center + size * Math.sin((pointIndex * 2 * Math.PI) / numVertices)
+}
 
-    // we will calculate the values as percentages
-    const size = 50
-    const center = 50
+/**
+ * Calculate points in the polygon. Values are percentages.
+ * @param {number} numVertices
+ */
+function getPoints(numVertices) {
+  const points = []
+  const size = 50
+  const center = 50
 
+  for (let i = 0; i < numVertices; ++i) {
     points.push([
-      center + size * Math.cos(0),
-      center + size * Math.sin(0)
+      getPointX(center, size, i, numVertices),
+      getPointY(center, size, i, numVertices),
     ])
-
-    for (let i = 1; i < vertices; ++i) {
-      points.push([
-        center + size * Math.cos(i * 2 * Math.PI / vertices),
-        center + size * Math.sin(i * 2 * Math.PI / vertices)
-      ])
-    }
-
-    return points
   }
 
-  getPointsAsClipPath () {
-    const points = this.getPoints()
-    const getPointAsPercentage = p => Math.floor(p) + '%'
-    return `polygon(${
-      points.map(xy => xy.map(getPointAsPercentage).join(' '))
-    })`
-  }
+  return points
+}
 
-  render (node) {
-    node.innerHTML = ''
-    const elem = document.createElement('div')
+const toRoundedPercentageValue = num => Math.floor(num) + '%'
 
-    const points = this.getPoints()
-    const polygon = `polygon(${
-      points.map(xy => `${xy[0]}% ${xy[1]}%`)
-    })`
-    elem.style.clipPath = polygon
-    elem.style.shapeOutside = polygon
-
-    elem.style.width = `${this.size}px`
-    elem.style.height = `${this.size}px`
-    elem.style.backgroundColor = '#000'
-
-    node.appendChild(elem)
-  }
+/**
+ * Get polygon path points as percentages for css `clip-path` property
+ * @param {number} numVertices
+ */
+export function polygonAsClipPath(numVertices) {
+  const points = getPoints(numVertices)
+  return `polygon(${points.map(xy =>
+    xy.map(toRoundedPercentageValue).join(' ')
+  )})`
 }

@@ -2,7 +2,8 @@ import React from 'react'
 import Head from 'next/head'
 import { css, Global } from '@emotion/core'
 import styled from '@emotion/styled'
-import PolygonShape from './Polygon'
+import { Polygon } from './visual-components'
+import { polygonAsClipPath } from './Polygon'
 import {
   initialise as initialiseLoremIpsum,
   getParagraph,
@@ -28,29 +29,6 @@ const Wrap = styled.div`
   color: #5f4a00;
 `
 
-const PolygonElement = styled.div`
-  width: ${props => props.size}px;
-  height: ${props => props.size}px;
-  margin: 15px;
-  float: ${props => props.float};
-  clip-path: ${props => props.shape};
-  shape-outside: ${props => props.shape};
-  background-image: url(${props => props.backgroundImage});
-`
-
-const Polygon = ({ backgroundImage, vertices, size, float }) => {
-  const polly = new PolygonShape({ vertices, size })
-  const path = polly.getPointsAsClipPath()
-  return (
-    <PolygonElement
-      shape={path}
-      size={size}
-      backgroundImage={backgroundImage}
-      float={float}
-    />
-  )
-}
-
 export default () => {
   initialiseLoremIpsum()
   return (
@@ -66,7 +44,7 @@ export default () => {
         <p>{getParagraph()}</p>
 
         <Polygon
-          vertices={10}
+          path={polygonAsClipPath(6)}
           size={220}
           backgroundImage='https://source.unsplash.com/VuBzplNNi0k/220x220'
           float='left'
@@ -77,7 +55,7 @@ export default () => {
         <p>{getParagraph()}</p>
 
         <Polygon
-          vertices={10}
+          path={polygonAsClipPath(8)}
           size={300}
           backgroundImage='https://source.unsplash.com/WLUHO9A_xik/300x300'
           float='right'
@@ -87,7 +65,7 @@ export default () => {
         <p>{getParagraph()}</p>
 
         <Polygon
-          vertices={8}
+          path={polygonAsClipPath(10)}
           size={180}
           backgroundImage='https://source.unsplash.com/H5PnIYI_1I0/300x300'
           float='left'
@@ -97,7 +75,7 @@ export default () => {
         <p>{getParagraph()}</p>
 
         <Polygon
-          vertices={9}
+          path={polygonAsClipPath(12)}
           size={300}
           backgroundImage='https://source.unsplash.com/5NE6mX0WVfQ/300x300'
           float='right'
