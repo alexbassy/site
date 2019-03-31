@@ -108,6 +108,19 @@ const cards = [
     blendMode: 'color-burn',
     link: 'header-scroll-animation',
   },
+  {
+    Title: () => 'Slidy menu',
+    backgroundColor: `#e0a000`,
+    backgroundImage: `slidy-menu.svg`,
+    link: 'slidy-menu',
+  },
+  {
+    Title: () => <span style={{ color: '#005a3e' }}>Polygons and masks</span>,
+    backgroundColor: `#00e098`,
+    backgroundImage: `polygons.svg`,
+    blendMode: 'hard-light',
+    link: 'polygons',
+  },
 ]
 
 export default () => (
