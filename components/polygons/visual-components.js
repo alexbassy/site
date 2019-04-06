@@ -1,9 +1,12 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import styled from '@emotion/styled'
 
+const unitise = n => typeof n === 'number' ? `${n}px` : n
+
 const PolygonElement = styled.div`
-  width: ${props => props.size}px;
-  height: ${props => props.size}px;
+  width: ${props => unitise(props.size)};
+  height: ${props => unitise(props.size)};
   margin: 15px;
   float: ${props => props.float};
   clip-path: ${props => props.path};
@@ -18,6 +21,7 @@ export const Polygon = ({
   path,
   size,
   float,
+  ...props
 }) => {
   return (
     <PolygonElement
@@ -26,6 +30,15 @@ export const Polygon = ({
       backgroundImage={backgroundImage}
       backgroundColor={backgroundColor}
       float={float}
+      {...props}
     />
   )
+}
+
+Polygon.propTypes = {
+  backgroundImage: PropTypes.string,
+  backgroundColor: PropTypes.string,
+  path: PropTypes.string,
+  size: PropTypes.number,
+  float: PropTypes.oneOf(['left', 'right']),
 }

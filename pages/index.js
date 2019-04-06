@@ -1,8 +1,9 @@
 import React from 'react'
 import Head from 'next/head'
+import styled from '@emotion/styled'
 import Hello from '../components/front-page/hello'
 import Links from '../components/front-page/links'
-import styled from '@emotion/styled'
+import PolygonBackground from '../components/front-page/shapes'
 
 const Container = styled.div`
   height: 100%;
@@ -24,6 +25,7 @@ const Index = () => {
           content='Front-end developer from the UK, based in Barcelona'
         />
       </Head>
+      <PolygonBackground/>
       <Hello />
       <Links />
     </Container>
