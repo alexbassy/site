@@ -1,6 +1,16 @@
 import styled from '@emotion/styled'
 
-const Typeform = () => <a href='https://www.typeform.com/' target='_blank' rel='noopener'>Typeform</a>
+const Link = styled.a`
+  color: #48ac98;
+  :hover {
+    color: #48ac98;
+  }
+  :visited {
+    color: #48ac98;
+  }
+`
+
+const N26 = () => <Link href='https://www.n26.com/' target='_blank' rel='noopener'>N26</Link>
 
 const Container = styled.div`
   display: flex;
@@ -33,6 +43,6 @@ export default () => (
   <Container>
     <Title>Alex Bass</Title>
     <Line>Front-end developer</Line>
-    <Line>Killing forms @ <Typeform/></Line>
+    <Line>Currently at <N26/> in Berlin</Line>
   </Container>
 )
