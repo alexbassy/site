@@ -77,7 +77,9 @@ const Card = ({ Title, ...props }) => {
       <UnstyledLink>
         <CardItem
           {...props}
-          backgroundImage={`${ASSET_PREFIX}/static/assets/playground/${props.backgroundImage}`}
+          backgroundImage={`${ASSET_PREFIX}/static/assets/playground/${
+            props.backgroundImage
+          }`}
         >
           <CardTitle>
             <Title />
@@ -97,7 +99,11 @@ const cards = [
     link: 'responsive-images',
   },
   {
-    Title: () => <span>Scrolling header <i>ala</i> Spotify</span>,
+    Title: () => (
+      <span>
+        Scrolling header <i>ala</i> Spotify
+      </span>
+    ),
     backgroundColor: `#2d788d`,
     backgroundImage: `marine-header.svg`,
     blendMode: 'color-burn',
@@ -109,8 +115,14 @@ const cards = [
     backgroundImage: `slidy-menu.svg`,
     link: 'slidy-menu',
   },
+  {
+    Title: () => <span style={{ color: '#005a3e' }}>Polygons and masks</span>,
+    backgroundColor: `#00e098`,
+    backgroundImage: `polygons.svg`,
+    blendMode: 'hard-light',
+    link: 'polygons',
+  },
 ]
-
 
 export default () => (
   <div>
@@ -120,8 +132,8 @@ export default () => (
     <Global
       styles={{
         body: {
-          backgroundColor: '#000'
-        }
+          backgroundColor: '#000',
+        },
       }}
     />
     <Content>
