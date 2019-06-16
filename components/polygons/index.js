@@ -7,7 +7,8 @@ import Generator from './generator'
 import WallOfText from './wall-of-text'
 
 const Nav = styled.div`
-  margin: 20px auto;
+  padding: 20px;
+  margin: auto;
   max-width: 800px;
   text-align: center;
 `
