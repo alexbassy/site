@@ -1,8 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import Link from 'next/link'
 import {
   Actions,
-  BackButton,
+  BackLink,
   Button,
   Container,
   FullHeaderWrapper,
@@ -11,40 +12,40 @@ import {
   HeaderCover,
   HeaderShade,
   StuckHeaderWrapper,
-  Title
+  Title,
 } from './atoms'
 import {
   ASSET_PREFIX,
   HEADER_HEIGHT,
-  MINIMISED_HEADER_HEIGHT
+  MINIMISED_HEADER_HEIGHT,
 } from './constants'
 import { Slide, Fade } from './transition'
 
 const roundNumber = n => parseFloat(n.toFixed(2))
 
-const FollowButton = (props) => <Button prominent {...props}>Follow</Button>
-const AddButton = (props) => <Button {...props}>Add to bowl</Button>
+const FollowButton = props => (
+  <Button prominent {...props}>
+    Follow
+  </Button>
+)
+const AddButton = props => <Button {...props}>Add to bowl</Button>
 
 class Header extends React.PureComponent {
   static propTypes = {
     scrollY: PropTypes.number,
-    isStuck: PropTypes.bool
+    isStuck: PropTypes.bool,
   }
 
   static defaultProps = {
-    isStuck: false
+    isStuck: false,
   }
 
   getHeaderHeight = () => {
-    return this.props.isStuck
-      ? MINIMISED_HEADER_HEIGHT
-      : HEADER_HEIGHT
+    return this.props.isStuck ? MINIMISED_HEADER_HEIGHT : HEADER_HEIGHT
   }
 
   getHeaderMargin = () => {
-    return this.props.isStuck
-      ? 0
-      : -this.props.scrollY
+    return this.props.isStuck ? 0 : -this.props.scrollY
   }
 
   getCurrentHeight = () => {
@@ -59,7 +60,7 @@ class Header extends React.PureComponent {
     return roundNumber(-this.props.scrollY / distance)
   }
 
-  render () {
+  render() {
     const { isStuck, title } = this.props
     const headerHeight = this.getHeaderHeight()
     const currentHeight = this.getCurrentHeight()
@@ -79,7 +80,9 @@ class Header extends React.PureComponent {
         <HeaderContent>
           <Fade in={!isStuck}>
             <FullHeaderWrapper>
-              <BackButton>← Animals</BackButton>
+              <Link href='/playground'>
+                <BackLink>← Animals</BackLink>
+              </Link>
               <Slide in={!isStuck} reverse>
                 <Title full>{title}</Title>
               </Slide>

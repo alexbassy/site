@@ -30,7 +30,8 @@ const Link = styled.a`
 `
 
 export default ({ view }) => {
-  const navigateTo = view => () => Router.push({ pathname: '/playground/polygons', query: { view } })
+  const navigateTo = view => () =>
+    Router.push({ pathname: '/playground/polygons', query: { view } })
   return (
     <>
       <Nav>
