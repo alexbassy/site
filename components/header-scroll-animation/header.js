@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Link from 'next/link'
+import Link from 'next-isomorphic-link'
 import {
   Actions,
   BackLink,
@@ -14,6 +14,7 @@ import {
   StuckHeaderWrapper,
   Title,
 } from './atoms'
+import { BACK_ARROW } from '../../lib/constants'
 import {
   ASSET_PREFIX,
   HEADER_HEIGHT,
@@ -81,7 +82,7 @@ class Header extends React.PureComponent {
           <Fade in={!isStuck}>
             <FullHeaderWrapper>
               <Link href='/playground'>
-                <BackLink>← Animals</BackLink>
+                <BackLink>{BACK_ARROW} Animals</BackLink>
               </Link>
               <Slide in={!isStuck} reverse>
                 <Title full>{title}</Title>

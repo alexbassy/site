@@ -12,11 +12,12 @@ export const BackLink = styled.a`
   all: unset;
   color: #fff;
   -webkit-text-fill-color: currentColor;
+  cursor: pointer;
 
   :hover {
     text-decoration: underline;
+    text-decoration-color: rgba(255, 255, 255, 0.2);
     color: #fff;
-    cursor: pointer;
   }
 `
 
@@ -51,7 +52,7 @@ export const Title = styled.h1`
   overflow: hidden;
   text-overflow: ellipsis;
 
-  @media screen and (min-width: 460px) {
+  @media screen and (min-width: 500px) {
     font-size: ${props => (!props.full ? '2rem' : '3.5rem')};
     margin: ${props => (!props.full ? '0' : '1rem 0 2rem')};
   }
@@ -154,7 +155,7 @@ export const Container = styled.div`
         z-index: 2;
       }
 
-      @media screen and (max-width: 460px) {
+      @media screen and (max-width: 500px) {
         ${Actions} {
           display: flex;
           flex-direction: column;

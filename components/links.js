@@ -4,7 +4,7 @@ import styled from '@emotion/styled'
 const List = styled.ul`
   display: flex;
   list-style: none;
-  margin-top: 30px;
+  margin-top: var(--margin);
   padding-left: 0;
 
   @media screen and (max-width: 640px) {
@@ -38,7 +38,7 @@ const LinkButton = styled.a`
   background: #000;
   border: 2px solid #ffffff40;
   padding: 6px;
-  transition: border-color .2s ease, color .15s ease;
+  transition: border-color 0.2s ease, color 0.15s ease;
 
   :visited {
     color: #fff;
@@ -74,26 +74,22 @@ const links = [
   {
     label: 'Playground',
     path: 'playground',
-  }
+  },
 ]
 
 export default () => (
   <List>
     {links.map(({ label, url, path }) => (
       <Item key={label}>
-        {url
-          ? (
-            <LinkButton href={url} rel='noopener'>
-              {label}
-            </LinkButton>
-          )
-          : (
-            <Link href={path}>
-              <LinkButton href={path}>
-                {label}
-              </LinkButton>
-            </Link>
-          )}
+        {url ? (
+          <LinkButton href={url} rel='noopener'>
+            {label}
+          </LinkButton>
+        ) : (
+          <Link href={path}>
+            <LinkButton href={path}>{label}</LinkButton>
+          </Link>
+        )}
       </Item>
     ))}
   </List>
