@@ -60,17 +60,22 @@ jobs:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
-      - run: yarn build
-      - unless:
-          condition: << parameters.is-preview>>
-          steps:
-            - run: yarn export
       - when:
           condition: << parameters.is-preview>>
           steps:
             - set-preview-env-vars
             - run:
-                command: PREVIEW_PATH=$BUILD_PATH yarn export
+                name: Create preview build
+                command: PREVIEW_PATH=$BUILD_PATH yarn build
+      - unless:
+          condition: << parameters.is-preview>>
+          steps:
+            - run:
+                name: Create production build
+                command: yarn build
+      - run:
+          name: Export
+          command: yarn export
       # make the `/out` directory available to the deploy job
       - persist_to_workspace:
           root: ~/repo
