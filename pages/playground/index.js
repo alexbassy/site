@@ -1,24 +1,52 @@
 import React from 'react'
 import Head from 'next/head'
-import Link from 'next/link'
 import { Global } from '@emotion/core'
 import styled from '@emotion/styled'
 import getConfig from 'next/config'
+import IsoLink from 'next-isomorphic-link'
+import { BACK_ARROW } from '../../lib/constants'
 
 const ASSET_PREFIX = getConfig().publicRuntimeConfig.assetPrefix
 
 const Content = styled.main`
-  padding: 20px 30px;
+  padding: 20px var(--margin);
   text-align: center;
 
-  @media screen and (min-width: 460px) {
+  @media screen and (min-width: 500px) {
     text-align: left;
+  }
+`
+
+const BackLink = styled.a`
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.3);
+  border-radius: 3px;
+  padding: 2px;
+  cursor: pointer;
+
+  :hover {
+    color: white;
+  }
+
+  :focus {
+    outline: none;
+    transition: box-shadow 0.25s ease;
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.5);
+  }
+
+  @media screen and (max-width: 500px) {
+    position: absolute;
+    left: var(--margin);
   }
 `
 
 const Title = styled.h1`
   color: #fff;
   font-weight: 100;
+
+  @media screen and (max-width: 500px) {
+    margin-top: var(--margin);
+  }
 `
 
 const Subtitle = styled.h2`
@@ -35,20 +63,38 @@ const List = styled.ul`
   list-style: none;
   padding: 0;
 
-  @media screen and (min-width: 460px) {
+  @media screen and (min-width: 500px) {
     justify-content: flex-start;
+  }
+
+  @media screen and (max-width: 500px) {
+    width: 200px;
+    margin: 0 auto;
   }
 `
 
-const UnstyledLink = styled.a`
-  text-decoration: none;
+const ListItem = styled.li`
+  @media screen and (max-width: 500px) {
+    display: block;
+    position: relative;
+    margin: 0 0 calc(var(--margin) * 1.5);
+  }
+
+  @media screen and (min-width: 500px) {
+    margin: 0 var(--margin) var(--margin) 0;
+  }
 `
+
+function getBoxShadow(state, backgroundColor = 'black') {
+  return state === 'focus'
+    ? `0 0 0 4px black, 0 0 0 6px white, 0 0 14px 8px ${backgroundColor}`
+    : `0 0 0 2px black, 0 0 0 4px black`
+}
 
 const CardItem = styled.div`
   width: 200px;
   height: 270px;
   padding: 20px;
-  margin: 0 0 30px;
   color: #fff;
   text-align: left;
   border-radius: 12px;
@@ -57,10 +103,21 @@ const CardItem = styled.div`
   background-blend-mode: ${props => props.blendMode};
   background-position: bottom right;
   background-repeat: no-repeat;
+  box-shadow: ${getBoxShadow('blur')};
+  transition: box-shadow 0.25s ease;
   cursor: pointer;
+`
 
-  @media screen and (min-width: 460px) {
-    margin: 0 30px 30px 0;
+const CardLink = styled.a`
+  display: block;
+  text-decoration: none;
+
+  :focus {
+    outline: none;
+  }
+
+  :focus-within ${CardItem} {
+    box-shadow: ${props => getBoxShadow('focus', props.backgroundColor)};
   }
 `
 
@@ -73,20 +130,18 @@ const CardTitle = styled.div`
 
 const Card = ({ Title, ...props }) => {
   return (
-    <Link href={`${ASSET_PREFIX}/playground/${props.link}`}>
-      <UnstyledLink>
+    <IsoLink href={`${ASSET_PREFIX}/playground/${props.link}`}>
+      <CardLink {...props}>
         <CardItem
           {...props}
-          backgroundImage={`${ASSET_PREFIX}/static/assets/playground/${
-            props.backgroundImage
-          }`}
+          backgroundImage={`${ASSET_PREFIX}/static/assets/playground/${props.backgroundImage}`}
         >
           <CardTitle>
             <Title />
           </CardTitle>
         </CardItem>
-      </UnstyledLink>
-    </Link>
+      </CardLink>
+    </IsoLink>
   )
 }
 
@@ -137,13 +192,16 @@ export default () => (
       }}
     />
     <Content>
+      <IsoLink href='..'>
+        <BackLink>{BACK_ARROW} Back</BackLink>
+      </IsoLink>
       <Title>Playground</Title>
       <Subtitle>Experiments and points of reference</Subtitle>
       <List>
         {cards.map(card => (
-          <li key={card.link}>
+          <ListItem key={card.link}>
             <Card {...card} />
-          </li>
+          </ListItem>
         ))}
       </List>
     </Content>

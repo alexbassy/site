@@ -30,7 +30,7 @@ const Wrap = styled.section`
 `
 
 const P = styled.p`
-  transition: color .25s ease;
+  transition: color 0.25s ease;
   :hover {
     color: #fff;
   }
@@ -39,9 +39,11 @@ const P = styled.p`
 const UnstyledButton = styled.button`
   all: unset;
   padding: 2px 10px;
-  color: var(--links);
-  ${props => props.active && `
-    background: var(--links);
+  color: var(--yellow);
+  ${props =>
+    props.active &&
+    `
+    background: var(--yellow);
     color: black;
   `};
 `
@@ -53,7 +55,7 @@ export default () => {
     lang => () => {
       setLang(lang)
     },
-    [setLang],
+    [setLang]
   )
 
   initialiseLoremIpsum(lang)

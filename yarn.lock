@@ -3247,6 +3247,11 @@ neo-async@^2.5.0, neo-async@^2.6.1:
   resolved "https://registry.yarnpkg.com/neo-async/-/neo-async-2.6.1.tgz#ac27ada66167fa8849a6addd837f6b189ad2081c"
   integrity sha512-iyam8fBuCUpWeKPGpaNMetEocMt364qkCsfL9JuhjXX6dRnguRVOfk2GZaDpPjcOKiiXCPINZC1GczQ7iTq3Zw==
 
+next-isomorphic-link@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/next-isomorphic-link/-/next-isomorphic-link-0.2.0.tgz#1ab8982a395419c8128923b83925a802f35e32cb"
+  integrity sha512-0AhNcayafdzAameQ+I0kULG4STuL5dht1jj8+2qdr17jO1qg+YywGGyy04EM6uhEbGWW3xw8JP7mxQDMvSrZHA==
+
 next-server@9.0.5:
   version "9.0.5"
   resolved "https://registry.yarnpkg.com/next-server/-/next-server-9.0.5.tgz#4b7fe976d0900dd865b3c5777287ccd4df200794"
