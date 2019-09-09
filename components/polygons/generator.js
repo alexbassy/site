@@ -11,8 +11,9 @@ const Wrap = styled.div`
 
 const ShapeContainer = styled.div`
   position: absolute;
-  display: flex;
-  justify-content: space-between;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
   align-items: center;
   width: 100%;
   height: 100%;
@@ -38,8 +39,7 @@ const ControlsContainer = styled.div`
   font-weight: 600;
   font-size: 14px;
   padding: 10px;
-  box-shadow: 5px 5px rgb(255, 0, 0),
-    10px 10px rgb(0, 210, 0),
+  box-shadow: 5px 5px rgb(255, 0, 0), 10px 10px rgb(0, 210, 0),
     15px 15px rgb(0, 0, 255);
   position: absolute;
   top: 20px;
@@ -65,7 +65,7 @@ const trackStyles = `
   background-size: 3px;
   `
 
-  const trackStylesFocus = `
+const trackStylesFocus = `
   width: 100%;
   background: linear-gradient(90deg, white 50%, #ffb4f0 50%);
   background-size: 3px;
