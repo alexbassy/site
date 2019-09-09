@@ -1,6 +1,5 @@
-import React from 'react'
+import React, { useRef, useEffect } from 'react'
 import Head from 'next/head'
-import { Global, css } from '@emotion/core'
 import Hello from '../components/hello'
 import Links from '../components/links'
 import styled from '@emotion/styled'
@@ -30,34 +29,29 @@ const Content = styled.main`
   margin-top: calc(var(--margin) * -1);
 `
 
-class Index extends React.Component {
-  constructor (props) {
-    super(props)
-    this.canvasRef = React.createRef()
-  }
+const Index = () => {
+  const canvasRef = useRef()
 
-  componentDidMount () {
-    const controlled = new CanvasLib(this.canvasRef.current)
-    this.setState({
-      canvas: controlled
-    })
-  }
+  useEffect(() => {
+    new CanvasLib(canvasRef.current)
+  }, [])
 
-  render () {
-    return (
-      <Container>
-        <Head>
-          <title>Alex Bass / Front-end developer</title>
-          <meta name='description' content='Front-end developer from Devon, UK, based in Barcelona' />
-        </Head>
-        <Canvas ref={this.canvasRef} />
-        <Content>
-          <Hello />
-          <Links />
-        </Content>
-      </Container>
-    )
-  }
+  return (
+    <Container>
+      <Head>
+        <title>Alex Bass / Front-end Developer</title>
+        <meta
+          name='description'
+          content='Front-end developer from Devon, UK, based in Berlin'
+        />
+      </Head>
+      <Canvas ref={canvasRef} />
+      <Content>
+        <Hello />
+        <Links />
+      </Content>
+    </Container>
+  )
 }
 
 export default Index
