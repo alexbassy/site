@@ -17,6 +17,21 @@ const Container = styled.div`
   grid-template-rows: 3fr 1fr;
 `
 
+const PhotoSpace = styled.div`
+  grid-area: photo;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`
+
+const PhotoContainer = styled.div`
+  --aspect-ratio: 9 / 16;
+  width: 70%;
+  padding-bottom: calc(var(--aspect-ratio) * 100%);
+  max-height: 100%;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+`
+
 const Controls = styled.section`
   grid-area: controls;
 `
@@ -46,16 +61,17 @@ const KnobWheel = styled.button`
   font-size: inherit;
   background-color: unset;
   /* End button reset */
-  cursor: pointer;
+
   --size: 2.5em;
   width: var(--size);
   height: var(--size);
-  margin-bottom: 0.5em;
+  margin-bottom: 0.65em;
   border-radius: var(--size);
   box-shadow: 0 0 0 1px white;
   transition-property: box-shadow;
   transition-duration: 0.25s;
   transition-timing-function: ease;
+  cursor: pointer;
 
   :focus {
     outline: none;
@@ -64,7 +80,7 @@ const KnobWheel = styled.button`
 `
 
 const KnobLabel = styled.span`
-  font-size: 70%;
+  font-size: 65%;
   text-transform: uppercase;
   letter-spacing: 2px;
 `
@@ -84,6 +100,9 @@ export default () => {
     <>
       <Global styles={pageStyles} />
       <Container>
+        <PhotoSpace>
+          <PhotoContainer />
+        </PhotoSpace>
         <Controls>
           <Knobs>
             {controlsKnobs.map(item => (
