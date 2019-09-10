@@ -34,6 +34,10 @@ const PhotoContainer = styled.div`
 
 const Controls = styled.section`
   grid-area: controls;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 `
 
 const Knobs = styled.ul`
@@ -95,6 +99,18 @@ const controlsKnobs = [
   'sharpness',
 ]
 
+const Ruler = styled.div`
+  width: 70%;
+  height: 3em;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  margin: 1em 0;
+
+  /* Temp */
+  color: white;
+  text-align: center;
+  font-size: 50%;
+`
+
 export default () => {
   return (
     <>
@@ -112,6 +128,7 @@ export default () => {
               </Knob>
             ))}
           </Knobs>
+          <Ruler>*Slider*</Ruler>
         </Controls>
       </Container>
     </>
