@@ -49,6 +49,9 @@ export const Knob = styled.li`
   color: white;
 `
 
+const idleShadow = `0 0 0 1px white`
+const activeShadow = `0 0 0 1px white, 0 0 3px 5px rgba(255, 255, 255, 0.3)`
+
 export const KnobWheel = styled.button`
   /* Button reset */
   display: block;
@@ -64,7 +67,9 @@ export const KnobWheel = styled.button`
   height: var(--size);
   margin-bottom: 0.65em;
   border-radius: var(--size);
-  box-shadow: 0 0 0 1px white;
+  box-shadow: 0 0 0 1px;
+  background: ${props => (props.isActive ? 'white' : 'none')};
+  box-shadow: ${props => (props.isActive ? activeShadow : idleShadow)};
   transition-property: box-shadow;
   transition-duration: 0.25s;
   transition-timing-function: ease;
@@ -72,7 +77,7 @@ export const KnobWheel = styled.button`
 
   :focus {
     outline: none;
-    box-shadow: 0 0 0 1px white, 0 0 3px 5px rgba(255, 255, 255, 0.3);
+    box-shadow: ${activeShadow};
   }
 `
 
@@ -80,16 +85,5 @@ export const KnobLabel = styled.span`
   font-size: 65%;
   text-transform: uppercase;
   letter-spacing: 2px;
-`
-
-export const Ruler = styled.div`
-  width: 70%;
-  height: 3em;
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  margin: 1em 0;
-
-  /* Temp */
-  color: white;
-  text-align: center;
-  font-size: 50%;
+  user-select: none;
 `

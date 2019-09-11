@@ -11,6 +11,7 @@ import {
   KnobLabel,
   Ruler,
 } from './visual-components'
+import Slider from './Slider'
 
 const pageStyles = css`
   body {
@@ -29,6 +30,7 @@ const controlsKnobs = [
 ]
 
 export default () => {
+  const [activeKnob, setActiveKnob] = useState(null)
   return (
     <>
       <Global styles={pageStyles} />
@@ -40,12 +42,15 @@ export default () => {
           <Knobs>
             {controlsKnobs.map(item => (
               <Knob key={item}>
-                <KnobWheel />
+                <KnobWheel
+                  isActive={item === activeKnob}
+                  onClick={() => setActiveKnob(item)}
+                />
                 <KnobLabel>{item}</KnobLabel>
               </Knob>
             ))}
           </Knobs>
-          <Ruler>*Slider*</Ruler>
+          <Slider />
         </Controls>
       </Container>
     </>
