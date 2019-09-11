@@ -6,7 +6,7 @@ export const Container = styled.div`
   grid-template-areas:
     'photo'
     'controls';
-  grid-template-rows: 3fr 1fr;
+  grid-template-rows: 2fr 1fr;
 `
 
 export const PhotoSpace = styled.div`
@@ -18,7 +18,7 @@ export const PhotoSpace = styled.div`
 `
 
 export const PhotoContainer = styled.div`
-  --aspect-ratio: 9 / 20;
+  --aspect-ratio: 9 / 24;
   width: 70%;
   padding-bottom: calc(var(--aspect-ratio) * 100%);
   max-height: 100%;
