@@ -14,10 +14,11 @@ export const PhotoSpace = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 5vh;
 `
 
 export const PhotoContainer = styled.div`
-  --aspect-ratio: 9 / 16;
+  --aspect-ratio: 9 / 20;
   width: 70%;
   padding-bottom: calc(var(--aspect-ratio) * 100%);
   max-height: 100%;
