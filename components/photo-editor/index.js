@@ -16,6 +16,7 @@ import Slider from './Slider'
 const pageStyles = css`
   body {
     background: black;
+    overflow: hidden;
   }
 `
 

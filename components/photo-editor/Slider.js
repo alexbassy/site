@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState, useCallback } from 'react'
 import { useSpring, animated } from 'react-spring'
-import { useDrag } from 'react-use-gesture'
+import { useGesture } from 'react-use-gesture'
 import styled from '@emotion/styled'
 
 const Container = styled.div`
@@ -71,13 +71,20 @@ const Slider = () => {
   const [delta, setDelta] = useState(0)
 
   // 1. Define the gesture
-  const bind = useDrag(({ down, delta, last }) => {
-    if (down) setDelta(delta[0])
+  const onGesture = isDrag => ({ down, delta, last }) => {
+    if (down || !isDrag) setDelta(delta[0])
     if (last) {
       setDelta(0)
       setX(x => x + delta[0])
     }
-  })
+  }
+
+  const [onDrag, onWheel] = [
+    useCallback(onGesture(true), [onGesture]),
+    useCallback(onGesture(false), [onGesture]),
+  ]
+
+  const bind = useGesture({ onDrag, onWheel })
 
   const translateX = x + delta
 
