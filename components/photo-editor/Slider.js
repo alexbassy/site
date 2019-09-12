@@ -1,10 +1,12 @@
 import React, { useState, useCallback } from 'react'
-import { useSpring, animated } from 'react-spring'
+import { animated } from 'react-spring'
 import { useGesture } from 'react-use-gesture'
 import styled from '@emotion/styled'
+import { constrain, getProgress, hasReachedLimit } from './helpers'
+import { SLIDER_CONTAINER_WIDTH } from './constants'
 
 const Container = styled.div`
-  width: 80%;
+  width: ${SLIDER_CONTAINER_WIDTH}px;
   position: relative;
 `
 
@@ -15,10 +17,9 @@ const DialContainer = styled.div`
 `
 
 const Dial = styled.div`
-  width: 200%;
+  width: 100%;
   height: 100%;
   position: relative;
-  left: -50%;
   --minor: rgba(255, 255, 255, 0.25);
   --major: rgba(255, 255, 255, 0.75);
   background-image: linear-gradient(
@@ -28,7 +29,7 @@ const Dial = styled.div`
     transparent 1%,
     transparent 100%
   );
-  background-size: 100px;
+  background-size: 10%;
   border-right: 1px solid var(--major);
   cursor: grab;
 
@@ -49,7 +50,7 @@ const Dial = styled.div`
       transparent 10%,
       transparent 100%
     );
-    background-size: 10px;
+    background-size: 1%;
   }
 `
 
@@ -66,40 +67,41 @@ const SliderValue = styled.span`
 const AnimatedDial = animated(Dial)
 
 const Slider = () => {
-  // const [{ xy }, set] = useSpring(() => ({ xy: [0, 0] }))
   const [x, setX] = useState(0)
   const [delta, setDelta] = useState(0)
+  const position = x + delta
 
-  // 1. Define the gesture
-  const onGesture = isDrag => ({ down, delta, last }) => {
-    if (down || !isDrag) setDelta(delta[0])
+  const onGesture = React.useCallback(isDrag => ({ down, delta, last }) => {
+    const [dx] = delta
+    const progress = getProgress(x + dx)
+    const hasReachedBounds = hasReachedLimit(progress)
+
+    // mouse pointer is pressed, or if it’s a mousewheel event
+    if ((down || !isDrag) && !hasReachedBounds) setDelta(constrain(dx))
+
+    // if last event, update the last known position (aka X)
     if (last) {
       setDelta(0)
-      setX(x => x + delta[0])
+      setX(x => constrain(x + dx))
     }
-  }
+  })
 
-  const [onDrag, onWheel] = [
-    useCallback(onGesture(true), [onGesture]),
-    useCallback(onGesture(false), [onGesture]),
-  ]
-
-  const bind = useGesture({ onDrag, onWheel })
-
-  const translateX = x + delta
+  const bind = useGesture({
+    onDrag: onGesture(true),
+    onWheel: onGesture(false),
+  })
 
   return (
     <Container>
       <DialContainer>
         <AnimatedDial
-          // 2. Bind it to a component
           {...bind()}
           style={{
-            transform: `translate3D(${translateX}px, 0, 0)`,
+            transform: `translate3D(${position}px, 0, 0)`,
           }}
         />
       </DialContainer>
-      <SliderValue>{translateX * -1}%</SliderValue>
+      <SliderValue>{getProgress(position)}%</SliderValue>
     </Container>
   )
 }
