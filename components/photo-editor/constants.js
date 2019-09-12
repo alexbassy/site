@@ -1,0 +1,1 @@
+export const SLIDER_CONTAINER_WIDTH = 1200
