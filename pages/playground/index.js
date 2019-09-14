@@ -162,10 +162,10 @@ const cards = [
     link: 'info-sheet',
   },
   {
-    Title: () => <span style={{ color: '#005a3e' }}>Photo Editor</span>,
-    backgroundColor: `#00e098`,
-    backgroundImage: `polygons.svg`,
-    blendMode: 'soft',
+    Title: () => 'Photo Editor',
+    backgroundColor: `#3429c1`,
+    backgroundImage: `photo-editor.svg`,
+    blendMode: 'lighten',
     link: 'photo-editor',
   },
 ]
