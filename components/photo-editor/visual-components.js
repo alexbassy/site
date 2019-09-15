@@ -1,4 +1,5 @@
 import styled from '@emotion/styled'
+import { SMALL_SCREEN } from './constants'
 
 export const Container = styled.div`
   height: 100%;
@@ -23,6 +24,11 @@ export const PhotoContainer = styled.div`
   padding-bottom: calc(var(--aspect-ratio) * 100%);
   max-height: 100%;
   border: 1px solid rgba(255, 255, 255, 0.5);
+
+  ${SMALL_SCREEN} {
+    --aspect-ratio: 9 / 16;
+    width: 100%;
+  }
 `
 
 export const Controls = styled.section`
@@ -36,8 +42,10 @@ export const Controls = styled.section`
 export const Knobs = styled.ul`
   display: flex;
   justify-content: center;
-  padding: 0;
+  overflow-x: auto;
+  padding: 1em 0;
   margin: 0;
+  width: 100vw;
 `
 
 export const Knob = styled.li`
