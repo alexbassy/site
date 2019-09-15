@@ -49,8 +49,8 @@ export const Knob = styled.li`
   color: white;
 `
 
-const idleShadow = `0 0 0 1px white`
-const activeShadow = `0 0 0 1px white, 0 0 3px 5px rgba(255, 255, 255, 0.3)`
+const idleShadow = `0 0 0 1px rgba(255, 255, 255, 0.5)`
+const activeShadow = `0 2px #bbbbbb, 0 2px 5px rgba(0,0,0,0.8), 0 1px 8px 4px rgba(255, 255, 255, 0.4)`
 
 export const KnobWheel = styled.button`
   /* Button reset */
