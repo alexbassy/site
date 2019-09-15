@@ -12,8 +12,8 @@ export default () => (
     preserveAspectRatio='xMinYMin slice'
     xmlns='http://www.w3.org/2000/svg'
   >
-    <symbol id='a'>
-      <rect width='2' height={height} rx='1' />
+    <symbol id='a' fill='rgba(255, 255, 255, 0.5)'>
+      <rect width='2' height={height} rx='1' fill='#eeeeee' />
       <rect x='10' y={minorY} width='1' height={minorHeight} rx='1' />
       <rect x='21' y={minorY} width='1' height={minorHeight} rx='1' />
       <rect x='31' y={minorY} width='1' height={minorHeight} rx='1' />
@@ -23,9 +23,9 @@ export default () => (
       <rect x='72' y={minorY} width='1' height={minorHeight} rx='1' />
       <rect x='82' y={minorY} width='1' height={minorHeight} rx='1' />
       <rect x='93' y={minorY} width='1' height={minorHeight} rx='1' />
-      <rect x='103' width='2' height={height} rx='1' />
+      <rect x='103' width='2' height={height} rx='1' fill='#eeeeee' />
     </symbol>
-    <g fillRule='evenodd' fill='#eeeeee'>
+    <g fillRule='evenodd'>
       <use href='#a' />
       <use href='#a' transform='translate(103)' />
       <use href='#a' transform='translate(206)' />

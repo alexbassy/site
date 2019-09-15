@@ -3,17 +3,15 @@ import PropTypes from 'prop-types'
 import { animated } from 'react-spring'
 import { useGesture } from 'react-use-gesture'
 import styled from '@emotion/styled'
-import getConfig from 'next/config'
 import { constrain, getProgress, hasReachedLimit } from './helpers'
 import { SMALL_SCREEN } from './constants'
 import SliderDial from './SliderDial'
-
-const ASSET_PREFIX = getConfig().publicRuntimeConfig.assetPrefix
 
 const Container = styled.div`
   width: calc(100% - 4em);
   position: relative;
   margin: 0 auto;
+  user-select: none;
 
   ::before {
     content: '${props => props.width}';
@@ -38,23 +36,26 @@ const Dial = styled.div`
   }
 
   ${SMALL_SCREEN} {
+    width: 200%;
+    left: -100%;
     margin: 0 auto;
   }
 `
 
 const SliderValue = styled.span`
   position: absolute;
-  top: 100%;
+  font-weight: 100;
+  top: 80%;
   left: 50%;
   transform: translateX(-50%);
   color: white;
-  font-size: 80%;
+  font-size: 90%;
   font-weight: 600;
 `
 
 const AnimatedDial = animated(Dial)
 
-const Slider = ({ value }) => {
+const Slider = ({ value, onChange }) => {
   const containerRef = React.useRef()
   const [containerWidth, setContainerWidth] = useState()
   const [x, setX] = useState(0)
@@ -87,6 +88,8 @@ const Slider = ({ value }) => {
       setDelta(0)
       setX(x => constrain(x + dx, containerWidth))
     }
+
+    onChange(x + dx)
   }
 
   const bind = useGesture({

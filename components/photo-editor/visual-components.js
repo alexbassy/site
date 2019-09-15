@@ -3,36 +3,27 @@ import { SMALL_SCREEN } from './constants'
 
 export const Container = styled.div`
   height: 100%;
-  display: grid;
-  grid-template-areas:
-    'photo'
-    'controls';
-  grid-template-rows: 2fr 1fr;
+  display: flex;
+  flex-direction: column;
+  grid-template-rows: 60vh 40vh;
 `
 
 export const PhotoSpace = styled.div`
-  grid-area: photo;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  flex: 5;
   padding: 5vh;
 `
 
 export const PhotoContainer = styled.div`
-  --aspect-ratio: 9 / 24;
-  width: 70%;
-  padding-bottom: calc(var(--aspect-ratio) * 100%);
-  max-height: 100%;
+  width: 100%;
+  height: 100%;
   border: 1px solid rgba(255, 255, 255, 0.5);
 
   ${SMALL_SCREEN} {
-    --aspect-ratio: 9 / 16;
-    width: 100%;
   }
 `
 
 export const Controls = styled.section`
-  grid-area: controls;
+  flex: 2;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -40,19 +31,18 @@ export const Controls = styled.section`
 `
 
 export const Knobs = styled.ul`
+  width: 100%;
   display: flex;
-  justify-content: center;
   overflow-x: auto;
-  padding: 1em 0;
+  padding: 0.2em 0;
   margin: 0;
-  width: 100vw;
 `
 
 export const Knob = styled.li`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 0 1em 1em 1em;
+  margin: 0 1em;
   list-style: none;
   color: white;
 `
@@ -68,6 +58,7 @@ export const KnobWheel = styled.button`
   padding: 0;
   font-size: inherit;
   background-color: unset;
+  -webkit-tap-highlight-color: transparent;
   /* End button reset */
 
   --size: 2.5em;
@@ -87,11 +78,24 @@ export const KnobWheel = styled.button`
     outline: none;
     box-shadow: ${activeShadow};
   }
+
+  ${props =>
+    props.isActive &&
+    `+ ${KnobLabel} {
+    color: white;
+  }
+  `}
 `
 
 export const KnobLabel = styled.span`
-  font-size: 65%;
+  font-size: 60%;
   text-transform: uppercase;
-  letter-spacing: 2px;
+  letter-spacing: 1px;
   user-select: none;
+  color: ${props => (props.isActive ? '#fff' : 'rgba(255, 255, 255, 0.5)')};
+
+  ${SMALL_SCREEN} {
+    font-size: 40%;
+    font-weight: 600;
+  }
 `
