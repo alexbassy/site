@@ -58,7 +58,7 @@ const AnimatedDial = animated(Dial)
 const Slider = ({ value, onChange }) => {
   const containerRef = React.useRef()
   const [containerWidth, setContainerWidth] = useState()
-  const [x, setX] = useState(0)
+  const [x, setX] = useState(value)
   const [delta, setDelta] = useState(0)
   const position = x + delta
 
@@ -73,6 +73,13 @@ const Slider = ({ value, onChange }) => {
     onResize()
     return () => window.removeEventListener('resize', onResize)
   }, [])
+
+  useEffect(() => {
+    const newX = containerWidth * (value / 100)
+    console.log('value changed', value, newX)
+    setX(newX)
+    setDelta(0)
+  }, [value])
 
   const onGesture = isDrag => ({ down, delta, last }) => {
     const [dx] = delta
@@ -89,7 +96,7 @@ const Slider = ({ value, onChange }) => {
       setX(x => constrain(x + dx, containerWidth))
     }
 
-    onChange(x + dx)
+    onChange(progress)
   }
 
   const bind = useGesture({

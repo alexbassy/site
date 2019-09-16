@@ -30,28 +30,49 @@ const controlsKnobs = [
   'sharpness',
 ]
 
+const initialTransformations = controlsKnobs.reduce((transformations, mode) => {
+  transformations[mode] = 0
+  return transformations
+}, {})
+
 export default () => {
-  const [activeKnob, setActiveKnob] = useState(null)
+  const [activeMode, setActiveMode] = useState(null)
+  const [transformations, setTransformations] = useState(initialTransformations)
+  const [sliderValue, setSliderValue] = useState(null)
+
+  const onSliderChange = value => {
+    setTransformations(t => ({ ...t, [activeMode]: value }))
+  }
+
+  const onKnobClick = mode => () => {
+    setActiveMode(mode)
+    setSliderValue(transformations[mode])
+  }
+
   return (
     <>
       <Global styles={pageStyles} />
       <Container>
         <PhotoSpace>
-          <PhotoContainer />
+          <PhotoContainer>
+            <pre style={{ color: '#fff' }}>
+              {JSON.stringify(transformations, null, 2)}
+            </pre>
+          </PhotoContainer>
         </PhotoSpace>
         <Controls>
           <Knobs>
-            {controlsKnobs.map(item => (
-              <Knob key={item}>
-                <KnobWheel
-                  isActive={item === activeKnob}
-                  onClick={() => setActiveKnob(item)}
-                />
-                <KnobLabel>{item}</KnobLabel>
-              </Knob>
-            ))}
+            {controlsKnobs.map(mode => {
+              const isActive = mode === activeMode
+              return (
+                <Knob key={mode}>
+                  <KnobWheel isActive={isActive} onClick={onKnobClick(mode)} />
+                  <KnobLabel isActive={isActive}>{mode}</KnobLabel>
+                </Knob>
+              )
+            })}
           </Knobs>
-          <Slider />
+          <Slider value={sliderValue} onChange={onSliderChange} />
         </Controls>
       </Container>
     </>
