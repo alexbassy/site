@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useEffect } from 'react'
 import PropTypes from 'prop-types'
-import { animated } from 'react-spring'
+import { Motion, spring } from 'react-motion'
 import { useGesture } from 'react-use-gesture'
 import styled from '@emotion/styled'
 import {
@@ -58,13 +58,12 @@ const SliderValue = styled.span`
   font-weight: 600;
 `
 
-const AnimatedDial = animated(Dial)
-
 const Slider = ({ value, onChange, enabled }) => {
   const containerRef = React.useRef()
   const [containerWidth, setContainerWidth] = useState()
   const [x, setX] = useState(value)
   const [delta, setDelta] = useState(0)
+  const [isResetting, setIsResetting] = useState(false)
   const position = x + delta
 
   // listen for resize events to resize the container
@@ -80,14 +79,15 @@ const Slider = ({ value, onChange, enabled }) => {
   }, [])
 
   useEffect(() => {
-    setX(
-      value === 0
-        ? // if value is 0, reset the slider
-          value
-        : // otherwise, get the x translation from the progress
-          getDeltaFromProgress(value, containerWidth)
-    )
-    setDelta(0)
+    // if value is 0, reset the slider
+    // otherwise, get the x translation from the progress
+    setIsResetting(true)
+    setTimeout(() => {
+      setIsResetting(false)
+      setDelta(0)
+    }, 800)
+    setDelta(position)
+    setX(value === 0 ? value : getDeltaFromProgress(value, containerWidth))
   }, [value])
 
   const onGesture = isDrag => ({ down, delta, last }) => {
@@ -112,24 +112,36 @@ const Slider = ({ value, onChange, enabled }) => {
   const bind = useGesture({
     onDrag: onGesture(true),
     onWheel: onGesture(false),
-    // onMove: onGesture(true),
   })
 
   return (
     <Container ref={containerRef}>
-      <DialContainer>
-        <AnimatedDial
-          {...bind()}
-          style={{
-            transform: `translate3D(${position}px, 0, 0)`,
-          }}
-        >
-          <SliderDial />
-        </AnimatedDial>
-      </DialContainer>
-      {enabled && (
-        <SliderValue>{getProgress(position, containerWidth)}%</SliderValue>
-      )}
+      <Motion
+        defaultStyle={{ x: delta }}
+        style={{ x: isResetting ? spring(x) : x }}
+      >
+        {value => (
+          <>
+            <DialContainer>
+              <Dial
+                {...bind()}
+                style={{
+                  transform: `translate3D(${
+                    isResetting ? value.x : position
+                  }px, 0, 0)`,
+                }}
+              >
+                <SliderDial />
+              </Dial>
+            </DialContainer>
+            {enabled && (
+              <SliderValue>
+                {getProgress(isResetting ? value.x : position, containerWidth)}%
+              </SliderValue>
+            )}
+          </>
+        )}
+      </Motion>
     </Container>
   )
 }
