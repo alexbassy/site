@@ -38,10 +38,11 @@ const initialTransformations = controlsKnobs.reduce((transformations, mode) => {
 export default () => {
   const [activeMode, setActiveMode] = useState(null)
   const [transformations, setTransformations] = useState(initialTransformations)
-  const [sliderValue, setSliderValue] = useState(null)
+  const [sliderValue, setSliderValue] = useState(0)
 
   const onSliderChange = value => {
     setTransformations(t => ({ ...t, [activeMode]: value }))
+    setSliderValue(value)
   }
 
   const onKnobClick = mode => () => {
@@ -56,7 +57,15 @@ export default () => {
         <PhotoSpace>
           <PhotoContainer>
             <pre style={{ color: '#fff' }}>
-              {JSON.stringify(transformations, null, 2)}
+              {JSON.stringify(
+                {
+                  ...transformations,
+                  __ACTIVE__: activeMode,
+                  __SLIDER_VALUE__: sliderValue,
+                },
+                null,
+                2
+              )}
             </pre>
           </PhotoContainer>
         </PhotoSpace>
@@ -72,7 +81,11 @@ export default () => {
               )
             })}
           </Knobs>
-          <Slider value={sliderValue} onChange={onSliderChange} />
+          <Slider
+            value={sliderValue}
+            onChange={onSliderChange}
+            enabled={activeMode !== null}
+          />
         </Controls>
       </Container>
     </>
