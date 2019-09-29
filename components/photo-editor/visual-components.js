@@ -16,10 +16,8 @@ export const PhotoSpace = styled.div`
 export const PhotoContainer = styled.div`
   width: 100%;
   height: 100%;
-  border: 1px solid rgba(255, 255, 255, 0.5);
-
-  ${SMALL_SCREEN} {
-  }
+  border: 2px dotted rgba(255, 255, 255, 0.15);
+  border-radius: 0.5em;
 `
 
 export const Controls = styled.section`
@@ -33,6 +31,7 @@ export const Controls = styled.section`
 export const Knobs = styled.ul`
   width: 100%;
   display: flex;
+  justify-content: center;
   overflow-x: auto;
   padding: 0.2em 0;
   margin: 0;
