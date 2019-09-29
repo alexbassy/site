@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from 'react'
+import React, { useReducer, useCallback, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { Motion, spring } from 'react-motion'
 import { useGesture } from 'react-use-gesture'
@@ -58,12 +58,51 @@ const SliderValue = styled.span`
   font-weight: 600;
 `
 
+const initialState = {
+  containerWidth: undefined,
+  x: 0,
+  delta: 0,
+  isResetting: false,
+}
+
+const SET_X = 'setX'
+const SET_DELTA = 'setDelta'
+const SET_CONTAINER_WIDTH = 'setContainerWidth'
+const RESET = 'reset'
+const END_RESET = 'endReset'
+
+function sliderReducer(state, action) {
+  switch (action.type) {
+    case SET_X:
+      return { ...state, x: action.payload }
+    case SET_DELTA:
+      return { ...state, delta: action.payload }
+    case SET_CONTAINER_WIDTH:
+      return { ...state, containerWidth: action.payload }
+    case RESET:
+      return {
+        ...state,
+        x: action.payload,
+        delta: state.x + state.delta,
+        isResetting: true,
+      }
+    case END_RESET:
+      return {
+        ...state,
+        delta: 0,
+        isResetting: false,
+      }
+    default:
+      throw new Error()
+  }
+}
+
 const Slider = ({ value, onChange, enabled }) => {
   const containerRef = React.useRef()
-  const [containerWidth, setContainerWidth] = useState()
-  const [x, setX] = useState(value)
-  const [delta, setDelta] = useState(0)
-  const [isResetting, setIsResetting] = useState(false)
+  const [{ containerWidth, x, delta, isResetting }, dispatch] = useReducer(
+    sliderReducer,
+    initialState
+  )
   const position = x + delta
 
   // listen for resize events to resize the container
@@ -71,7 +110,8 @@ const Slider = ({ value, onChange, enabled }) => {
   useEffect(() => {
     const onResize = ev => {
       const container = containerRef.current
-      if (container) setContainerWidth(container.offsetWidth)
+      if (container)
+        dispatch({ type: SET_CONTAINER_WIDTH, payload: container.offsetWidth })
     }
     window.addEventListener('resize', onResize)
     onResize()
@@ -81,13 +121,11 @@ const Slider = ({ value, onChange, enabled }) => {
   useEffect(() => {
     // if value is 0, reset the slider
     // otherwise, get the x translation from the progress
-    setIsResetting(true)
-    setTimeout(() => {
-      setIsResetting(false)
-      setDelta(0)
-    }, 800)
-    setDelta(position)
-    setX(value === 0 ? value : getDeltaFromProgress(value, containerWidth))
+    const newPosition =
+      value === 0 ? value : getDeltaFromProgress(value, containerWidth)
+
+    dispatch({ type: RESET, payload: newPosition })
+    setTimeout(() => dispatch({ type: END_RESET }), 800)
   }, [value])
 
   const onGesture = isDrag => ({ down, delta, last }) => {
@@ -99,12 +137,12 @@ const Slider = ({ value, onChange, enabled }) => {
 
     // mouse pointer is pressed, or if it’s a mousewheel event
     if ((down || !isDrag) && !hasReachedBounds)
-      setDelta(constrain(dx, containerWidth))
+      dispatch({ type: SET_DELTA, payload: constrain(dx, containerWidth) })
 
     // if last event, update the last known position (aka X)
     if (last) {
-      setDelta(0)
-      setX(x => constrain(x + dx, containerWidth))
+      dispatch({ type: SET_DELTA, payload: 0 })
+      dispatch({ type: SET_X, payload: constrain(x + dx, containerWidth) })
       onChange(progress)
     }
   }
