@@ -3,7 +3,12 @@ import PropTypes from 'prop-types'
 import { animated } from 'react-spring'
 import { useGesture } from 'react-use-gesture'
 import styled from '@emotion/styled'
-import { constrain, getProgress, hasReachedLimit } from './helpers'
+import {
+  constrain,
+  getProgress,
+  hasReachedLimit,
+  getDeltaFromProgress,
+} from './helpers'
 import { SMALL_SCREEN } from './constants'
 import SliderDial from './SliderDial'
 
@@ -55,7 +60,7 @@ const SliderValue = styled.span`
 
 const AnimatedDial = animated(Dial)
 
-const Slider = ({ value, onChange }) => {
+const Slider = ({ value, onChange, enabled }) => {
   const containerRef = React.useRef()
   const [containerWidth, setContainerWidth] = useState()
   const [x, setX] = useState(value)
@@ -75,15 +80,21 @@ const Slider = ({ value, onChange }) => {
   }, [])
 
   useEffect(() => {
-    const newX = containerWidth * (value / 100)
-    console.log('value changed', value, newX)
-    setX(newX)
+    setX(
+      value === 0
+        ? // if value is 0, reset the slider
+          value
+        : // otherwise, get the x translation from the progress
+          getDeltaFromProgress(value, containerWidth)
+    )
     setDelta(0)
   }, [value])
 
   const onGesture = isDrag => ({ down, delta, last }) => {
+    if (!enabled) return
     const [dx] = delta
-    const progress = getProgress(x + dx, containerWidth)
+    const constrainedDelta = constrain(x + dx, containerWidth)
+    const progress = getProgress(constrainedDelta, containerWidth)
     const hasReachedBounds = hasReachedLimit(progress)
 
     // mouse pointer is pressed, or if it’s a mousewheel event
@@ -94,9 +105,8 @@ const Slider = ({ value, onChange }) => {
     if (last) {
       setDelta(0)
       setX(x => constrain(x + dx, containerWidth))
+      onChange(progress)
     }
-
-    onChange(progress)
   }
 
   const bind = useGesture({
@@ -117,7 +127,9 @@ const Slider = ({ value, onChange }) => {
           <SliderDial />
         </AnimatedDial>
       </DialContainer>
-      <SliderValue>{getProgress(position, containerWidth)}%</SliderValue>
+      {enabled && (
+        <SliderValue>{getProgress(position, containerWidth)}%</SliderValue>
+      )}
     </Container>
   )
 }

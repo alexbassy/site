@@ -33,4 +33,15 @@ describe('Slider helpers', () => {
       expect(expected).toEqual(actual)
     })
   })
+
+  describe('getDeltaFromProgress()', () => {
+    const bounds = 1000
+
+    it('should return the x value from a given progress', () => {
+      expect(helpers.getDeltaFromProgress(15, bounds)).toEqual(-75)
+      expect(helpers.getDeltaFromProgress(-100, bounds)).toEqual(500)
+      expect(helpers.getDeltaFromProgress(100, bounds)).toEqual(-500)
+      expect(helpers.getDeltaFromProgress(0, bounds)).toEqual(0)
+    })
+  })
 })
