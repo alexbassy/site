@@ -5,8 +5,11 @@ import { Global } from '@emotion/core'
 import MobileViewport from './MobileViewport'
 import InfoSheet from './InfoSheet'
 import { pageStyles, Page, Title, Subtitle, Button } from './visual-components'
+import useViewportSize from '../../hooks/useViewportSize'
 
 function InfoSheetPage() {
+  const { w } = useViewportSize()
+  const isProbablyDesktop = w > 720
   const [isOpen, setIsOpen] = useState(false)
   const [isMobileViewportEnabled, setIsMobileViewportEnabled] = useState(false)
   const [activeContent, setActiveContent] = useState('initialState')
@@ -29,16 +32,18 @@ function InfoSheetPage() {
       <MobileViewport enabled={isMobileViewportEnabled}>
         <Page>
           <Title>Info Sheet</Title>
-          <p>
-            <label>
-              <input
-                type='checkbox'
-                checked={isMobileViewportEnabled}
-                onChange={handleCheckboxChange}
-              />{' '}
-              Enable mobile viewport
-            </label>
-          </p>
+          {isProbablyDesktop && (
+            <p>
+              <label>
+                <input
+                  type='checkbox'
+                  checked={isMobileViewportEnabled}
+                  onChange={handleCheckboxChange}
+                />{' '}
+                Toggle mobile viewport
+              </label>
+            </p>
+          )}
           <Subtitle>👆 Tap the button to open the info sheet</Subtitle>
           <Subtitle>🌒 Drag down, or tap the underlay to close</Subtitle>
           <Button
