@@ -7,7 +7,7 @@
       "jsx": true
     }
   },
-  "extends": ["plugin:react/recommended"],
+  "extends": ["plugin:react/recommended", "prettier"],
   "plugins": ["react-hooks"],
   "rules": {
     "react-hooks/rules-of-hooks": "error",
