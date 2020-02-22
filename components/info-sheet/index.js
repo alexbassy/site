@@ -12,9 +12,15 @@ function InfoSheetPage() {
   const isProbablyDesktop = w > 720
   const [isOpen, setIsOpen] = useState(false)
   const [isMobileViewportEnabled, setIsMobileViewportEnabled] = useState(false)
-  const [activeContent, setActiveContent] = useState('initialState')
-  const handleCheckboxChange = event =>
+  const [activeContent, setActiveContent] = useState()
+  const handleViewportEmulatorCheckboxChange = event =>
     setIsMobileViewportEnabled(event.target.checked)
+  const showContent = which => () => {
+    setActiveContent(which)
+    setIsOpen(true)
+  }
+
+  // Hit the like button and subscribe
   const content = {
     one: `I am some fresh content ⚡️`,
     two: `I too, am fresh content 🔥`,
@@ -33,12 +39,14 @@ function InfoSheetPage() {
         <Page>
           <Title>Info Sheet</Title>
           {isProbablyDesktop && (
+            // Show viewport emulator toggle
+            // when not on a mobile device
             <p>
               <label>
                 <input
                   type='checkbox'
                   checked={isMobileViewportEnabled}
-                  onChange={handleCheckboxChange}
+                  onChange={handleViewportEmulatorCheckboxChange}
                 />{' '}
                 Toggle mobile viewport
               </label>
@@ -46,22 +54,14 @@ function InfoSheetPage() {
           )}
           <Subtitle>👆 Tap the button to open the info sheet</Subtitle>
           <Subtitle>🌒 Drag down, or tap the underlay to close</Subtitle>
-          <Button
-            onClick={() => {
-              setActiveContent('one')
-              setIsOpen(true)
-            }}
-          >
-            Open Info Sheet
-          </Button>{' '}
-          <Button
-            onClick={() => {
-              setActiveContent('two')
-              setIsOpen(true)
-            }}
-          >
-            Open a different Info Sheet
-          </Button>
+          <p>
+            <Button onClick={showContent('one')}>Open Info Sheet</Button>
+          </p>
+          <p>
+            <Button onClick={showContent('two')}>
+              Open a different Info Sheet
+            </Button>
+          </p>
         </Page>
         <InfoSheet open={isOpen} onClose={() => setIsOpen(false)}>
           {content[activeContent]}

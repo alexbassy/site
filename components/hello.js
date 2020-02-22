@@ -1,3 +1,4 @@
+import React from 'react'
 import styled from '@emotion/styled'
 
 const Link = styled.a`
@@ -10,7 +11,11 @@ const Link = styled.a`
   }
 `
 
-const N26 = () => <Link href='https://www.n26.com/' target='_blank' rel='noopener'>N26</Link>
+const N26 = () => (
+  <Link href='https://www.n26.com/' target='_blank' rel='noopener'>
+    N26
+  </Link>
+)
 
 const Container = styled.div`
   display: flex;
@@ -43,6 +48,8 @@ export default () => (
   <Container>
     <Title>Alex Bass</Title>
     <Line>Front-end developer</Line>
-    <Line>Currently at <N26/> in Berlin</Line>
+    <Line>
+      Find me at <N26 /> in Berlin
+    </Line>
   </Container>
 )

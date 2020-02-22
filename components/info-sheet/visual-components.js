@@ -87,11 +87,11 @@ export const InfoSheetContainer = styled(motion.dialog)`
   ::before {
     content: '';
     position: absolute;
-    top: 20px;
+    top: 15px;
     left: 50%;
     transform: translateX(-50%);
-    width: 40px;
-    height: 5px;
+    width: 30px;
+    height: 4px;
     background-color: #eee;
     border-radius: 5px;
   }
