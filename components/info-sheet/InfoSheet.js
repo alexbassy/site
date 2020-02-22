@@ -1,6 +1,7 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useEffect, useRef } from 'react'
 import { Global } from '@emotion/core'
 import { AnimatePresence } from 'framer-motion'
+import VisuallyHidden from '../VisuallyHidden'
 import {
   stopScroll,
   InfoSheetContainer,
@@ -18,15 +19,28 @@ const infoSheetCurtainStates = {
 }
 
 function InfoSheet({ onClose, open, children }) {
+  const closeButton = useRef()
+  const previouslyFocussedElement = useRef()
+
+  // Trap the focus when the info sheet is opened, and
+  // restore focus to the previously focussed element
+  // then the sheet is closed.
+  useEffect(() => {
+    if (open) previouslyFocussedElement.current = document.activeElement
+  }, [open])
+  const focusCloseButton = () => closeButton.current.focus()
+  const refocusPreviouslyFocussedElement = () =>
+    previouslyFocussedElement.current.focus()
+
+  // Close the info sheet when it’s dragged down
+  // more than 120px
   const handleDragEnd = useCallback(
-    (event, info) => {
-      if (info.offset.y > 180) onClose()
-    },
+    (_, info) => info.offset.y > 120 && onClose(),
     [onClose]
   )
 
   return (
-    <AnimatePresence>
+    <AnimatePresence onExitComplete={refocusPreviouslyFocussedElement}>
       {open && (
         <>
           <Global styles={stopScroll} />
@@ -38,6 +52,8 @@ function InfoSheet({ onClose, open, children }) {
             onClick={onClose}
           />
           <InfoSheetContainer
+            tabIndex='-1'
+            aria-modal
             variants={infoSheetStates}
             initial='hidden'
             exit='hidden'
@@ -45,7 +61,14 @@ function InfoSheet({ onClose, open, children }) {
             drag='y'
             dragConstraints={{ top: 0, bottom: 0 }}
             onDragEnd={handleDragEnd}
+            onAnimationComplete={focusCloseButton}
           >
+            <VisuallyHidden>
+              {/* Provide a way for screen reader users to close the info sheet */}
+              <button ref={closeButton} onClick={onClose}>
+                Close Info Sheet
+              </button>
+            </VisuallyHidden>
             {children}
           </InfoSheetContainer>
         </>

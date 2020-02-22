@@ -74,7 +74,7 @@ export const Button = styled.button`
   }
 `
 
-export const InfoSheetContainer = styled(motion.div)`
+export const InfoSheetContainer = styled(motion.dialog)`
   position: absolute;
   display: flex;
   bottom: 0;
