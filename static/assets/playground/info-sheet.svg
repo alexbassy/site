@@ -1,0 +1,69 @@
+<svg width="200" height="270" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs>
+    <linearGradient x1="50%" y1=".08%" x2="50%" y2="99.92%" id="d">
+      <stop stop-color="#FF7276" stop-opacity=".25" offset=".08%"/>
+      <stop stop-color="#FFFC00" stop-opacity=".2" offset="100%"/>
+    </linearGradient>
+    <linearGradient x1="67.12%" y1="91.6%" x2="32.88%" y2="-8.4%" id="g">
+      <stop stop-color="#FFF" stop-opacity=".8" offset="0%"/>
+      <stop stop-color="#DD54FF" stop-opacity=".6" offset="100%"/>
+    </linearGradient>
+    <linearGradient x1="77.94%" y1="0%" x2="22.06%" y2="83.19%" id="j">
+      <stop stop-color="#FFF" stop-opacity=".6" offset="0%"/>
+      <stop stop-color="#3594FF" stop-opacity=".8" offset="100%"/>
+    </linearGradient>
+    <linearGradient x1="90.03%" y1="0%" x2="9.97%" y2="83.19%" id="m">
+      <stop stop-color="#FFF" stop-opacity=".6" offset="0%"/>
+      <stop stop-color="#FFF" stop-opacity=".8" offset="100%"/>
+    </linearGradient>
+    <rect id="a" x="0" y="0" width="200" height="270" rx="12"/>
+    <rect id="f" x="17" y="0" width="136" height="212" rx="8"/>
+    <rect id="i" x="10" y="10" width="151" height="202" rx="8"/>
+    <rect id="l" x="0" y="22" width="170" height="190" rx="8"/>
+    <filter x="-11.4%" y="-6.8%" width="122.8%" height="114.6%" filterUnits="objectBoundingBox" id="e">
+      <feOffset dy="1" in="SourceAlpha" result="shadowOffsetOuter1"/>
+      <feGaussianBlur stdDeviation="5" in="shadowOffsetOuter1" result="shadowBlurOuter1"/>
+      <feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.102627841 0" in="shadowBlurOuter1"/>
+    </filter>
+    <filter x="-10.3%" y="-7.2%" width="120.5%" height="115.3%" filterUnits="objectBoundingBox" id="h">
+      <feOffset dy="1" in="SourceAlpha" result="shadowOffsetOuter1"/>
+      <feGaussianBlur stdDeviation="5" in="shadowOffsetOuter1" result="shadowBlurOuter1"/>
+      <feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.102627841 0" in="shadowBlurOuter1"/>
+    </filter>
+    <filter x="-9.1%" y="-7.6%" width="118.2%" height="116.3%" filterUnits="objectBoundingBox" id="k">
+      <feOffset dy="1" in="SourceAlpha" result="shadowOffsetOuter1"/>
+      <feGaussianBlur stdDeviation="5" in="shadowOffsetOuter1" result="shadowBlurOuter1"/>
+      <feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.102627841 0" in="shadowBlurOuter1"/>
+    </filter>
+    <radialGradient cx="50%" cy="0%" fx="50%" fy="0%" r="67.81%" gradientTransform="matrix(0 -.89474 1 0 .5 .45)" id="n">
+      <stop stop-color="#FFF" offset="0%"/>
+      <stop stop-color="#FFF" stop-opacity="0" offset="100%"/>
+    </radialGradient>
+    <path id="c" d="M0 0h200v270H0z"/>
+  </defs>
+  <g fill="none" fill-rule="evenodd">
+    <mask id="b" fill="#fff">
+      <use xlink:href="#a"/>
+    </mask>
+    <g mask="url(#b)">
+      <use fill="#FF7276" xlink:href="#c"/>
+      <use fill="url(#d)" xlink:href="#c"/>
+    </g>
+    <g mask="url(#b)">
+      <g transform="translate(15 69)">
+        <g opacity=".5">
+          <use fill="#000" filter="url(#e)" xlink:href="#f"/>
+          <use fill="url(#g)" xlink:href="#f"/>
+        </g>
+        <g opacity=".75">
+          <use fill="#000" filter="url(#h)" xlink:href="#i"/>
+          <use fill="url(#j)" xlink:href="#i"/>
+        </g>
+        <use fill="#000" filter="url(#k)" xlink:href="#l"/>
+        <use fill="url(#m)" xlink:href="#l"/>
+        <use fill="url(#n)" xlink:href="#l"/>
+        <rect fill="#EEE" x="77" y="29" width="16" height="2" rx="1"/>
+      </g>
+    </g>
+  </g>
+</svg>
