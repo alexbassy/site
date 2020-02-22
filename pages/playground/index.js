@@ -42,7 +42,7 @@ const BackLink = styled.a`
 
 const Title = styled.h1`
   color: #fff;
-  font-weight: 100;
+  font-weight: 400;
 
   @media screen and (max-width: 500px) {
     margin-top: var(--margin);
@@ -177,6 +177,13 @@ const cards = [
     blendMode: 'hard-light',
     link: 'polygons',
   },
+  {
+    Title: () => 'Info Sheet',
+    backgroundColor: `#ff7276`,
+    backgroundImage: `info-sheet.svg`,
+    blendMode: 'hard-light',
+    link: 'info-sheet',
+  },
 ]
 
 export default () => (
@@ -196,7 +203,7 @@ export default () => (
         <BackLink>{BACK_ARROW} Back</BackLink>
       </IsoLink>
       <Title>Playground</Title>
-      <Subtitle>Experiments and points of reference</Subtitle>
+      <Subtitle>(Experiments and explorations)</Subtitle>
       <List>
         {cards.map(card => (
           <ListItem key={card.link}>
