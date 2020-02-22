@@ -17,14 +17,17 @@ const infoSheetCurtainStates = {
   hidden: { opacity: 0 },
 }
 
-function InfoSheet(props) {
-  const handleDragEnd = useCallback((event, info) => {
-    if (info.offset.y > 180) props.onClose()
-  })
+function InfoSheet({ onClose, open, children }) {
+  const handleDragEnd = useCallback(
+    (event, info) => {
+      if (info.offset.y > 180) onClose()
+    },
+    [onClose]
+  )
 
   return (
     <AnimatePresence>
-      {props.open && (
+      {open && (
         <>
           <Global styles={stopScroll} />
           <InfoSheetCurtain
@@ -32,7 +35,7 @@ function InfoSheet(props) {
             initial='hidden'
             animate='visible'
             exit='hidden'
-            onClick={() => props.onClose()}
+            onClick={onClose}
           />
           <InfoSheetContainer
             variants={infoSheetStates}
@@ -40,10 +43,10 @@ function InfoSheet(props) {
             exit='hidden'
             animate='visible'
             drag='y'
-            dragConstraints={{ bottom: 0, top: 0 }}
+            dragConstraints={{ top: 0, bottom: 0 }}
             onDragEnd={handleDragEnd}
           >
-            Info sheet fresh content
+            {children}
           </InfoSheetContainer>
         </>
       )}
