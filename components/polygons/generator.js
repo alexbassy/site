@@ -12,8 +12,7 @@ const Wrap = styled.div`
 const ShapeContainer = styled.div`
   position: absolute;
 
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  display: flex;
   align-items: center;
   width: 100%;
   height: 100%;
@@ -27,6 +26,12 @@ const ShapeContainer = styled.div`
 const rotate = keyframes`
   from { transform: rotate(20deg); }
   to { transform: rotate(380deg); }
+`
+
+const PolygonWrap = styled.div`
+  flex: ${props => props.flex};
+  display: flex;
+  justify-content: center;
 `
 
 const FloatingPolygon = styled(Polygon)`
@@ -141,9 +146,15 @@ export default () => {
   return (
     <>
       <ShapeContainer>
-        <FloatingPolygon size={200} path={path} backgroundColor='red' />
-        <FloatingPolygon size={400} path={path} backgroundColor='#00d200' />
-        <FloatingPolygon size={600} path={path} backgroundColor='blue' />
+        <PolygonWrap flex='2'>
+          <FloatingPolygon size={200} path={path} backgroundColor='red' />
+        </PolygonWrap>
+        <PolygonWrap flex='3'>
+          <FloatingPolygon size={400} path={path} backgroundColor='#00d200' />
+        </PolygonWrap>
+        <PolygonWrap flex='4'>
+          <FloatingPolygon size={600} path={path} backgroundColor='blue' />
+        </PolygonWrap>
       </ShapeContainer>
       <ControlsContainer>
         <label>

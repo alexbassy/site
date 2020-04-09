@@ -44,19 +44,19 @@ export default () => (
       }
     `}</style>
     <img
-      src="https://via.placeholder.com/100"
-
-      srcSet=" https://via.placeholder.com/100 100w,
+      src='https://via.placeholder.com/100'
+      srcSet=' https://via.placeholder.com/100 100w,
         https://via.placeholder.com/200 200w,
         https://via.placeholder.com/400 400w,
-        https://via.placeholder.com/600 600w"
-
-        sizes="(min-width: 1200px) 300px,
+        https://via.placeholder.com/600 600w'
+      sizes='(min-width: 1200px) 300px,
                (min-width: 768px)  200px,
-               100px"
+               100px'
     />
     <div>
-      <p>To see images change, open inspector, disable cache, and resize the page</p>
+      <p>
+        To see images change, open inspector, disable cache, and resize the page
+      </p>
     </div>
   </main>
 )

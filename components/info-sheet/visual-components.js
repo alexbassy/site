@@ -42,7 +42,7 @@ export const Page = styled.div`
 `
 
 export const Title = styled.h1`
-  font-family: 'Fira Sans';
+  font-family: 'Fira Sans', sans-serif;
 `
 
 export const Subtitle = styled.p`

@@ -14,8 +14,12 @@ const ListItem = styled.li`
   border-bottom: 1px solid #ffffff20;
   padding: 0 ${PAGE_PADDING}px;
 
-  > * { margin-right: 20px; }
-  > *:last-child { margin-right: 0; }
+  > * {
+    margin-right: 20px;
+  }
+  > *:last-child {
+    margin-right: 0;
+  }
 `
 
 const Avatar = styled.div`
@@ -32,7 +36,7 @@ const Line = styled.div`
   height: 14px;
 `
 
-const SkeletonContentItem = (props) => {
+const SkeletonContentItem = props => {
   return (
     <ListItem>
       <Avatar />
@@ -49,8 +53,9 @@ class SkeletonContent extends React.Component {
   render() {
     return (
       <List>
-        {[...Array(30).keys()].map(k =>
-          <SkeletonContentItem key={k} />)}
+        {[...Array(30).keys()].map(k => (
+          <SkeletonContentItem key={k} />
+        ))}
       </List>
     )
   }

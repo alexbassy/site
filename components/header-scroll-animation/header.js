@@ -67,7 +67,7 @@ class Header extends React.PureComponent {
     const currentHeight = this.getCurrentHeight()
     const prog = this.getTransitionProgress()
     const headerMargin = this.getHeaderMargin()
-    const bg = `${ASSET_PREFIX}/static/assets/header-scroll-animation/header.jpg`
+    const bg = `${ASSET_PREFIX}/assets/header-scroll-animation/header.jpg`
 
     return (
       <Container

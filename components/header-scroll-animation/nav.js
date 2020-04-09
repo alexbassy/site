@@ -4,7 +4,7 @@ import {
   HEADER_HEIGHT,
   MINIMISED_HEADER_HEIGHT,
   PAGE_PADDING,
-  BACKGROUND_COLOR
+  BACKGROUND_COLOR,
 } from './constants'
 
 const Container = styled.nav`
@@ -30,9 +30,10 @@ const TabItem = styled.li`
   letter-spacing: 1px;
   text-transform: uppercase;
   font-weight: 300;
-  color: rgba(255, 255, 255, ${props => props.active ? 1 : .65});
-  box-shadow: ${props => props.active ? `0 1px #ffffff80` : '0 4px #ffffff00'};
-  transition: color .2s ease, box-shadow .2s ease;
+  color: rgba(255, 255, 255, ${props => (props.active ? 1 : 0.65)});
+  box-shadow: ${props =>
+    props.active ? `0 1px #ffffff80` : '0 4px #ffffff00'};
+  transition: color 0.2s ease, box-shadow 0.2s ease;
 
   :hover {
     color: #fff;
@@ -47,21 +48,19 @@ const TabButton = styled.button`
 const Tab = ({ id, children, active, onClick }) => {
   return (
     <TabItem active={active}>
-      <TabButton onClick={() => onClick(id)}>
-        {children}
-      </TabButton>
+      <TabButton onClick={() => onClick(id)}>{children}</TabButton>
     </TabItem>
   )
 }
 
 class Nav extends React.PureComponent {
   state = {
-    activeTab: 0
+    activeTab: 0,
   }
 
   setActiveTab = activeTab => this.setState({ activeTab })
 
-  render () {
+  render() {
     return (
       <Container>
         <TabList>

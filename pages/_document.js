@@ -52,10 +52,10 @@ export default class MyDocument extends Document {
           <meta name='viewport' content='width=device-width, initial-scale=1' />
           <link
             rel='icon'
-            href={`${publicRuntimeConfig.assetPrefix}/static/assets/favicon.png`}
+            href={`${publicRuntimeConfig.assetPrefix}/assets/favicon.png`}
           />
           <link
-            href='https://fonts.googleapis.com/css?family=Roboto+Mono:400,700'
+            href='https://fonts.googleapis.com/css?family=Roboto+Mono:400,700&display=swap'
             rel='stylesheet'
           />
           <script

@@ -134,7 +134,7 @@ const Card = ({ Title, ...props }) => {
       <CardLink {...props}>
         <CardItem
           {...props}
-          backgroundImage={`${ASSET_PREFIX}/static/assets/playground/${props.backgroundImage}`}
+          backgroundImage={`${ASSET_PREFIX}/assets/playground/${props.backgroundImage}`}
         >
           <CardTitle>
             <Title />
