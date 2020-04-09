@@ -33,7 +33,11 @@ const Index = () => {
   const canvasRef = useRef()
 
   useEffect(() => {
-    new CanvasLib(canvasRef.current)
+    const canvas = new CanvasLib(canvasRef.current)
+
+    return () => {
+      canvas.destroy()
+    }
   }, [])
 
   return (
