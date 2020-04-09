@@ -1,7 +1,6 @@
-import React, { useState } from 'react'
+import React from 'react'
 import Head from 'next/head'
 import Router from 'next/router'
-import { css, Global } from '@emotion/core'
 import styled from '@emotion/styled'
 import Generator from './generator'
 import WallOfText from './wall-of-text'

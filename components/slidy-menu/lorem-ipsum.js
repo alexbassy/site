@@ -4,7 +4,7 @@ import styled from '@emotion/styled'
 const Wrap = styled.div`
   max-width: 800px;
   margin: 0 auto;
-  font-family: Fira Sans, sans-serif;
+  font-family: 'Fira Sans', sans-serif;
 `
 
 const H2 = styled.h2`

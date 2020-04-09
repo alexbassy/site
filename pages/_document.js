@@ -55,7 +55,7 @@ export default class MyDocument extends Document {
             href={`${publicRuntimeConfig.assetPrefix}/assets/favicon.png`}
           />
           <link
-            href='https://fonts.googleapis.com/css?family=Roboto+Mono:400,700'
+            href='https://fonts.googleapis.com/css?family=Roboto+Mono:400,700&display=swap'
             rel='stylesheet'
           />
           <script
