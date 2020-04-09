@@ -6,14 +6,17 @@ const PolygonsPage = ({ view }) => (
   <>
     <Head>
       <title>Polygons with CSS, SVG and Canvas / Alex Bass</title>
-      <meta name='description' content='Showing the various ways to make shapes (polygons) with CSS, SVG and Canvas (JS)' />
+      <meta
+        name='description'
+        content='Showing the various ways to make shapes (polygons) with CSS, SVG and Canvas (JS)'
+      />
     </Head>
     <PolygonsExample view={view} />
   </>
 )
 
 PolygonsPage.getInitialProps = async ({ query }) => {
-  const view = query.view || 'generator'
+  const view = query.view || 'wall-of-text'
   return { view }
 }
 

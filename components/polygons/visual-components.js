@@ -1,8 +1,10 @@
 import React from 'react'
-import {css} from '@emotion/core'
+import isPropValid from '@emotion/is-prop-valid'
 import styled from '@emotion/styled'
 
-const PolygonElement = styled.div`
+const PolygonElement = styled('div', {
+  shouldForwardProp: prop => isPropValid(prop) && prop !== 'size',
+})`
   width: ${props => props.size}px;
   height: ${props => props.size}px;
   margin: 15px;
