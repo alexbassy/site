@@ -1,19 +1,16 @@
 import { Transition } from 'react-transition-group'
 
 const BaseTransiton = ({ duration, delay, defaultStyle, states, ...props }) => (
-  <Transition
-    timeout={duration + delay}
-    {...props}
-  >
-    {state => (
+  <Transition timeout={duration + delay} {...props}>
+    {state =>
       React.cloneElement(props.children, {
         style: {
           ...defaultStyle,
-          ...states[state]
+          ...states[state],
         },
-        'aria-hidden': state === 'exited'
+        'aria-hidden': state === 'exited',
       })
-    )}
+    }
   </Transition>
 )
 
@@ -29,13 +26,13 @@ export const Slide = ({
     opacity: 0,
     transform: `translateY(${reverse ? offset * -1 : offset}px)`,
     transition: `opacity ${duration}ms ease, transform ${duration}ms ease`,
-    transitionDelay: `${delay}ms`
+    transitionDelay: `${delay}ms`,
   }
 
   const states = {
     entering: {
       opacity: 1,
-      transform: `translateY(0px)`
+      transform: `translateY(0px)`,
     },
     entered: {
       opacity: 1,
@@ -43,20 +40,16 @@ export const Slide = ({
     },
     exiting: {
       opacity: 0,
-      transform: `translateY(${offset}px)`
+      transform: `translateY(${offset}px)`,
     },
     exited: {
       opacity: 0,
       transform: `translateY(${offset}px)`,
-    }
+    },
   }
 
   return (
-    <BaseTransiton
-      states={states}
-      defaultStyle={defaultStyle}
-      {...props}
-    />
+    <BaseTransiton states={states} defaultStyle={defaultStyle} {...props} />
   )
 }
 
@@ -69,21 +62,17 @@ export const Fade = ({
   const defaultStyle = {
     opacity: 0,
     transition: `opacity ${duration}ms ease`,
-    transitionDelay: `${delay}ms`
+    transitionDelay: `${delay}ms`,
   }
 
   const states = {
     entering: { opacity: 1 },
     entered: { opacity: 1 },
     exiting: { opacity: 0 },
-    exited: { opacity: 0 }
+    exited: { opacity: 0 },
   }
 
   return (
-    <BaseTransiton
-      states={states}
-      defaultStyle={defaultStyle}
-      {...props}
-    />
+    <BaseTransiton states={states} defaultStyle={defaultStyle} {...props} />
   )
 }

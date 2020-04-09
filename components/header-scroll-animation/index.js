@@ -29,11 +29,11 @@ const CodeLink = styled.div`
 
 class HeaderScrollAnimationExample extends React.PureComponent {
   static propTypes = {
-    scrollY: PropTypes.number
+    scrollY: PropTypes.number,
   }
 
   state = {
-    headerMinimised: false
+    headerMinimised: false,
   }
 
   shouldMinimise = () => {
@@ -48,17 +48,17 @@ class HeaderScrollAnimationExample extends React.PureComponent {
   isAtEndOfPage = () => {
     if (typeof window === 'undefined') return false
     const docHeight = window.document.documentElement.scrollHeight
-    return (this.props.scrollY + window.innerHeight) / docHeight >= .8
+    return (this.props.scrollY + window.innerHeight) / docHeight >= 0.8
   }
 
-  render () {
+  render() {
     return (
       <Container>
         <Global
           styles={{
             body: {
               backgroundColor: BACKGROUND_COLOR,
-            }
+            },
           }}
         />
         <Header
@@ -70,7 +70,10 @@ class HeaderScrollAnimationExample extends React.PureComponent {
         <SkeletonContent />
         <Slide in={this.isAtEndOfPage()}>
           <CodeLink>
-            Get the code <a href={codeLink} target='_blank'>here</a>
+            Get the code{' '}
+            <a href={codeLink} target='_blank'>
+              here
+            </a>
           </CodeLink>
         </Slide>
       </Container>

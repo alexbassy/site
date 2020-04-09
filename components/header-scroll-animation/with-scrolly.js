@@ -7,14 +7,14 @@ const withScrollY = WrappedComponent => {
     state = {
       ticking: false,
       scrollY: 0,
-      lastKnownScrollY: 0
+      lastKnownScrollY: 0,
     }
 
-    componentDidMount () {
-      window.addEventListener('scroll', this.handleScroll, { passive: true });
+    componentDidMount() {
+      window.addEventListener('scroll', this.handleScroll, { passive: true })
     }
 
-    componentWillUnmount () {
+    componentWillUnmount() {
       window.removeEventListener('scroll', this.handleScroll, { passive: true })
     }
 
@@ -33,15 +33,15 @@ const withScrollY = WrappedComponent => {
     updateState = () => {
       this.setState(state => ({
         ticking: false,
-        scrollY: state.lastKnownScrollY
+        scrollY: state.lastKnownScrollY,
       }))
     }
 
-    shouldComponentUpdate (nextProps, nextState) {
+    shouldComponentUpdate(nextProps, nextState) {
       return this.state.scrollY !== nextState.scrollY
     }
 
-    render () {
+    render() {
       return <WrappedComponent scrollY={this.state.scrollY} />
     }
   }

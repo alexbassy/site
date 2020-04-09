@@ -6,7 +6,10 @@ export default () => (
   <div>
     <Head>
       <title>Slidy menu animation / Alex Bass</title>
-      <meta name='description' content='The typical burger animated menu but with a bit more pizzazz' />
+      <meta
+        name='description'
+        content='The typical burger animated menu but with a bit more pizzazz'
+      />
     </Head>
     <SlidyMenu />
   </div>

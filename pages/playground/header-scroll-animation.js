@@ -6,7 +6,10 @@ export default () => (
   <div>
     <Head>
       <title>iOS/Spotify style header animation / Alex Bass</title>
-      <meta name='description' content='Emulating the cool scroll effect found in Spotify, influenced by iOS' />
+      <meta
+        name='description'
+        content='Emulating the cool scroll effect found in Spotify, influenced by iOS'
+      />
     </Head>
     <HeaderScrollAnimationExample />
   </div>

@@ -22,14 +22,14 @@ import {
 } from './constants'
 import { Slide, Fade } from './transition'
 
-const roundNumber = (n) => parseFloat(n.toFixed(2))
+const roundNumber = n => parseFloat(n.toFixed(2))
 
-const FollowButton = (props) => (
+const FollowButton = props => (
   <Button prominent {...props}>
     Follow
   </Button>
 )
-const AddButton = (props) => <Button {...props}>Add to bowl</Button>
+const AddButton = props => <Button {...props}>Add to bowl</Button>
 
 class Header extends React.PureComponent {
   static propTypes = {

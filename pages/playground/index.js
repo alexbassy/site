@@ -98,9 +98,9 @@ const CardItem = styled.div`
   color: #fff;
   text-align: left;
   border-radius: 12px;
-  background-color: ${(props) => props.backgroundColor};
-  background-image: url(${(props) => props.backgroundImage});
-  background-blend-mode: ${(props) => props.blendMode};
+  background-color: ${props => props.backgroundColor};
+  background-image: url(${props => props.backgroundImage});
+  background-blend-mode: ${props => props.blendMode};
   background-position: bottom right;
   background-repeat: no-repeat;
   box-shadow: ${getBoxShadow('blur')};
@@ -117,7 +117,7 @@ const CardLink = styled.a`
   }
 
   :focus-within ${CardItem} {
-    box-shadow: ${(props) => getBoxShadow('focus', props.backgroundColor)};
+    box-shadow: ${props => getBoxShadow('focus', props.backgroundColor)};
   }
 `
 
@@ -205,7 +205,7 @@ export default () => (
       <Title>Playground</Title>
       <Subtitle>(Experiments and explorations)</Subtitle>
       <List>
-        {cards.map((card) => (
+        {cards.map(card => (
           <ListItem key={card.link}>
             <Card {...card} />
           </ListItem>
