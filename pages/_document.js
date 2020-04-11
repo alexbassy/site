@@ -2,12 +2,11 @@ import Document, { Head, Main, NextScript } from 'next/document'
 import { Global, css } from '@emotion/core'
 import getConfig from 'next/config'
 
-const analyticsSnippet = `
-window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
-gtag('config', 'UA-129387017-1');
-`.trim()
+const analyticsSnippet =
+  'window.dataLayer = window.dataLayer || [];' +
+  'const gtag = (...args) => dataLayer.push(args);' +
+  'gtag("js", new Date());' +
+  'gtag("config", "UA-129387017-2");'
 
 const globalCSS = css`
   :root {
@@ -60,7 +59,7 @@ export default class MyDocument extends Document {
           />
           <script
             async
-            src='https://www.googletagmanager.com/gtag/js?id=UA-129387017-1'
+            src='https://www.googletagmanager.com/gtag/js?id=UA-129387017-2'
           />
           <script
             id='ga'
