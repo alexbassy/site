@@ -1,12 +1,15 @@
-import Document, { Head, Main, NextScript } from 'next/document'
+import React from 'react'
+import Document, { Html, Head, Main, NextScript } from 'next/document'
 import { Global, css } from '@emotion/core'
 import getConfig from 'next/config'
 
+const gaMeasurementID = 'UA-129387017-2'
+
 const analyticsSnippet =
-  'window.dataLayer = window.dataLayer || [];' +
-  'const gtag = (...args) => dataLayer.push(args);' +
-  'gtag("js", new Date());' +
-  'gtag("config", "UA-129387017-2");'
+  `window.dataLayer = window.dataLayer || [];` +
+  `function gtag(){dataLayer.push(arguments);}` +
+  `gtag('js', new Date());` +
+  `gtag('config', '${gaMeasurementID}');`
 
 const globalCSS = css`
   :root {
@@ -37,7 +40,7 @@ const globalCSS = css`
   }
 `
 
-export default class MyDocument extends Document {
+export default class Page extends Document {
   static async getInitialProps(ctx) {
     const initialProps = await Document.getInitialProps(ctx)
     return { ...initialProps }
@@ -46,8 +49,18 @@ export default class MyDocument extends Document {
   render() {
     const { publicRuntimeConfig } = getConfig()
     return (
-      <html lang='en'>
+      <Html lang='en'>
         <Head>
+          <script
+            async
+            src={
+              'https://www.googletagmanager.com/gtag/js?id=' + gaMeasurementID
+            }
+          />
+          <script
+            id='ga'
+            dangerouslySetInnerHTML={{ __html: analyticsSnippet }}
+          />
           <meta name='viewport' content='width=device-width, initial-scale=1' />
           <link
             rel='icon'
@@ -57,25 +70,13 @@ export default class MyDocument extends Document {
             href='https://fonts.googleapis.com/css?family=Roboto+Mono:400,700&display=swap'
             rel='stylesheet'
           />
-          <script
-            async
-            src='https://www.googletagmanager.com/gtag/js?id=UA-129387017-2'
-          />
-          <script
-            id='ga'
-            dangerouslySetInnerHTML={{ __html: analyticsSnippet }}
-          />
         </Head>
         <body>
           <Global styles={globalCSS} />
           <Main className='main' />
           <NextScript />
-          <script
-            async
-            src='https://www.googletagmanager.com/gtag/js?id=UA-129387017-1'
-          />
         </body>
-      </html>
+      </Html>
     )
   }
 }
