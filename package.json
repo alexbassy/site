@@ -11,8 +11,11 @@
     "@emotion/core": "^10.0.35",
     "@emotion/is-prop-valid": "^0.8.8",
     "@emotion/styled": "^10.0.27",
+    "@mdx-js/loader": "^1.6.1",
+    "@next/mdx": "^9.3.6",
     "babel-plugin-emotion": "^10.0.33",
     "framer-motion": "^2.9.4",
+    "gray-matter": "^4.0.2",
     "next": "^10.0.0",
     "next-isomorphic-link": "^0.2.1",
     "react": "^17.0.1",
@@ -27,6 +30,7 @@
     "start": "next start"
   },
   "devDependencies": {
+    "@fec/remark-a11y-emoji": "^1.0.0",
     "babel-eslint": "^10.0.3",
     "eslint": "^7.11.0",
     "eslint-config-prettier": "^6.12.0",
