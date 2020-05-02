@@ -2,14 +2,13 @@ import React from 'react'
 import Document, { Html, Head, Main, NextScript } from 'next/document'
 import { Global, css } from '@emotion/core'
 import getConfig from 'next/config'
-
-const gaMeasurementID = 'UA-129387017-2'
+import { GA_TRACKING_ID } from '../lib/gtag'
 
 const analyticsSnippet =
   `window.dataLayer = window.dataLayer || [];` +
   `function gtag(){dataLayer.push(arguments);}` +
   `gtag('js', new Date());` +
-  `gtag('config', '${gaMeasurementID}');`
+  `gtag('config','${GA_TRACKING_ID}', { page_path: window.location.pathname });`
 
 const globalCSS = css`
   :root {
@@ -53,9 +52,7 @@ export default class Page extends Document {
         <Head>
           <script
             async
-            src={
-              'https://www.googletagmanager.com/gtag/js?id=' + gaMeasurementID
-            }
+            src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`}
           />
           <script
             id='ga'
