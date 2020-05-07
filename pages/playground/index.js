@@ -4,7 +4,7 @@ import { Global } from '@emotion/core'
 import styled from '@emotion/styled'
 import getConfig from 'next/config'
 import IsoLink from 'next-isomorphic-link'
-import { BACK_ARROW } from '../../lib/constants'
+import BackLink from '../../components/BackLink'
 
 const ASSET_PREFIX = getConfig().publicRuntimeConfig.assetPrefix
 
@@ -14,29 +14,6 @@ const Content = styled.main`
 
   @media screen and (min-width: 500px) {
     text-align: left;
-  }
-`
-
-const BackLink = styled.a`
-  text-decoration: none;
-  color: rgba(255, 255, 255, 0.3);
-  border-radius: 3px;
-  padding: 2px;
-  cursor: pointer;
-
-  :hover {
-    color: white;
-  }
-
-  :focus {
-    outline: none;
-    transition: box-shadow 0.25s ease;
-    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.5);
-  }
-
-  @media screen and (max-width: 500px) {
-    position: absolute;
-    left: var(--margin);
   }
 `
 
@@ -199,9 +176,7 @@ const Index = () => (
       }}
     />
     <Content>
-      <IsoLink href='..'>
-        <BackLink>{BACK_ARROW} Back</BackLink>
-      </IsoLink>
+      <BackLink />
       <Title>Playground</Title>
       <Subtitle>(Experiments and explorations)</Subtitle>
       <List>
