@@ -4,6 +4,7 @@ import { Global } from '@emotion/core'
 import styled from '@emotion/styled'
 import IsoLink from 'next-isomorphic-link'
 import BackLink from '../../components/BackLink'
+import getPosts from '../../lib/getPosts'
 
 const Content = styled.main`
   padding: 20px var(--margin);
@@ -30,7 +31,7 @@ const Subtitle = styled.h2`
   margin: 0 0 40px;
 `
 
-export default () => (
+const ThoughtsPage = props => (
   <div>
     <Head>
       <title>Thoughts / Alex Bass</title>
@@ -43,13 +44,34 @@ export default () => (
       }}
     />
     <Content>
-      <IsoLink href='..'>
-        <BackLink />
-      </IsoLink>
+      <BackLink />
       <Title>Thoughts</Title>
-      <Subtitle>
-        Not succinct enough to call a blog, but not really ramblings either.
-      </Subtitle>
+      <Subtitle>Not succinct enough to call a blog.</Subtitle>
+      <ul>
+        {props.posts.map(post => {
+          return (
+            <li key={post.slug}>
+              <IsoLink href={`/thoughts/${post.slug}`}>
+                <a>{post.title}</a>
+              </IsoLink>
+            </li>
+          )
+        })}
+      </ul>
     </Content>
   </div>
 )
+
+export async function getStaticProps() {
+  const posts = await getPosts()
+
+  console.log('Posts:', posts)
+
+  return {
+    props: {
+      posts,
+    },
+  }
+}
+
+export default ThoughtsPage
