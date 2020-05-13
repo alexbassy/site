@@ -5,7 +5,8 @@ import { BACK_ARROW } from '../lib/constants'
 
 const Link = styled.a`
   text-decoration: none;
-  color: rgba(255, 255, 255, 0.3);
+  color: ${props =>
+    props.invert ? `rgba(0 0 0 0.3)` : `rgba(255 255 255 0.3)`};
   border-radius: 3px;
   padding: 2px;
   cursor: pointer;
@@ -17,7 +18,8 @@ const Link = styled.a`
   :focus {
     outline: none;
     transition: box-shadow 0.25s ease;
-    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.5);
+    box-shadow: 0 0 0 2px
+      ${props => (props.invert ? `rgba(0 0 0 0.5)` : `rgba(255 255 255 0.5)`)};
   }
 
   @media screen and (max-width: 500px) {
@@ -26,8 +28,8 @@ const Link = styled.a`
   }
 `
 
-const BackLink = () => (
-  <IsoLink href='/'>
+const BackLink = props => (
+  <IsoLink href={props.absolute ? '/' : '..'}>
     <Link>{BACK_ARROW} Back</Link>
   </IsoLink>
 )
