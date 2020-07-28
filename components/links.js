@@ -77,7 +77,7 @@ const links = [
   },
 ]
 
-export default () => (
+const Links = () => (
   <List>
     {links.map(({ label, url, path }) => (
       <Item key={label}>
@@ -94,3 +94,5 @@ export default () => (
     ))}
   </List>
 )
+
+export default Links

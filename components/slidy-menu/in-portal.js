@@ -3,7 +3,7 @@ import { createPortal } from 'react-dom'
 
 const isServer = typeof document === 'undefined'
 
-export default WrappedComponent => {
+const InPortal = WrappedComponent => {
   return class extends Component {
     constructor() {
       super()
@@ -30,3 +30,5 @@ export default WrappedComponent => {
     }
   }
 }
+
+export default InPortal

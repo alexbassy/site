@@ -2,7 +2,7 @@ import React from 'react'
 import Head from 'next/head'
 import SlidyMenu from '../../components/slidy-menu'
 
-export default () => (
+const SlidyMenuComponent = () => (
   <div>
     <Head>
       <title>Slidy menu animation / Alex Bass</title>
@@ -14,3 +14,5 @@ export default () => (
     <SlidyMenu />
   </div>
 )
+
+export default SlidyMenuComponent

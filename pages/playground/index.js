@@ -186,7 +186,7 @@ const cards = [
   },
 ]
 
-export default () => (
+const Index = () => (
   <div>
     <Head>
       <title>Playground / Alex Bass</title>
@@ -214,3 +214,5 @@ export default () => (
     </Content>
   </div>
 )
+
+export default Index
