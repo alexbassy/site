@@ -58,7 +58,6 @@ export default class Page extends Document {
             id='ga'
             dangerouslySetInnerHTML={{ __html: analyticsSnippet }}
           />
-          <meta name='viewport' content='width=device-width, initial-scale=1' />
           <link
             rel='icon'
             href={`${publicRuntimeConfig.assetPrefix}/assets/favicon.png`}
