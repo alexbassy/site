@@ -9,7 +9,7 @@ import {
 } from './visual-components'
 
 const infoSheetStates = {
-  visible: { y: 0, opacity: 1 },
+  visible: { y: '0%', opacity: 1 },
   hidden: { y: '100%', opacity: 0 },
 }
 
