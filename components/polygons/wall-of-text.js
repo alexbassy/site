@@ -48,7 +48,7 @@ const UnstyledButton = styled.button`
   `};
 `
 
-export default () => {
+const WallOfText = () => {
   const [lang, setLang] = useState('de')
 
   const handleClick = useCallback(
@@ -114,3 +114,5 @@ export default () => {
     </>
   )
 }
+
+export default WallOfText

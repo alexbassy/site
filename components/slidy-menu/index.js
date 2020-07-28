@@ -5,7 +5,7 @@ import Menu from './menu'
 import LoremIpsum from './lorem-ipsum'
 import { pageStyles } from './visual-components'
 
-export default () => {
+const Index = () => {
   const [isMenuOpen, setOpen] = useState(false)
   return (
     <div>
@@ -15,3 +15,5 @@ export default () => {
     </div>
   )
 }
+
+export default Index

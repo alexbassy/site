@@ -2,7 +2,7 @@ import React from 'react'
 import Head from 'next/head'
 import InfoSheet from '../../components/info-sheet'
 
-export default () => (
+const InfoSheetComponent = () => (
   <div>
     <Head>
       <title>Info Sheet / Alex Bass</title>
@@ -14,3 +14,5 @@ export default () => (
     <InfoSheet />
   </div>
 )
+
+export default InfoSheetComponent

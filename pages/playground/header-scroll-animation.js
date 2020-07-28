@@ -2,7 +2,7 @@ import React from 'react'
 import Head from 'next/head'
 import HeaderScrollAnimationExample from '../../components/header-scroll-animation'
 
-export default () => (
+const HeaderScrollAnimation = () => (
   <div>
     <Head>
       <title>iOS/Spotify style header animation / Alex Bass</title>
@@ -14,3 +14,5 @@ export default () => (
     <HeaderScrollAnimationExample />
   </div>
 )
+
+export default HeaderScrollAnimation

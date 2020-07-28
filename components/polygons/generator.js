@@ -137,7 +137,7 @@ const Slider = styled.input`
   }
 `
 
-export default () => {
+const PolygonGenerator = () => {
   const [numVertices, setNumVertices] = useState(8)
   const handleChange = useCallback(ev => setNumVertices(ev.target.value), [
     setNumVertices,
@@ -172,3 +172,5 @@ export default () => {
     </>
   )
 }
+
+export default PolygonGenerator

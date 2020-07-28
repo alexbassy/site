@@ -44,7 +44,7 @@ const Line = styled.p`
   margin: 0;
 `
 
-export default () => (
+const Hello = () => (
   <Container>
     <Title>Alex Bass</Title>
     <Line>Front-end developer</Line>
@@ -53,3 +53,5 @@ export default () => (
     </Line>
   </Container>
 )
+
+export default Hello

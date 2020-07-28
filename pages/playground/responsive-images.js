@@ -1,7 +1,7 @@
 import React from 'react'
 import Head from 'next/head'
 
-export default () => (
+const ResponsiveImages = () => (
   <main>
     <Head>
       <title>iOS/Spotify style header animation / Alex Bass</title>
@@ -46,12 +46,12 @@ export default () => (
     <img
       src='https://via.placeholder.com/100'
       srcSet=' https://via.placeholder.com/100 100w,
-        https://via.placeholder.com/200 200w,
-        https://via.placeholder.com/400 400w,
-        https://via.placeholder.com/600 600w'
+      https://via.placeholder.com/200 200w,
+      https://via.placeholder.com/400 400w,
+      https://via.placeholder.com/600 600w'
       sizes='(min-width: 1200px) 300px,
-               (min-width: 768px)  200px,
-               100px'
+             (min-width: 768px)  200px,
+             100px'
     />
     <div>
       <p>
@@ -60,3 +60,5 @@ export default () => (
     </div>
   </main>
 )
+
+export default ResponsiveImages
