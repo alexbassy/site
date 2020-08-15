@@ -184,6 +184,13 @@ const cards = [
     blendMode: 'hard-light',
     link: 'info-sheet',
   },
+  {
+    Title: () => 'Togglable List',
+    backgroundColor: `#ff7276`,
+    backgroundImage: `info-sheet.svg`,
+    blendMode: 'hard-light',
+    link: 'toggle-list',
+  },
 ]
 
 export default () => (
