@@ -74,6 +74,13 @@ const WallOfText = () => {
           </UnstyledButton>
         ))}
 
+        <P>
+          The polygons below fit neatly in with the content. The images are
+          simple square assets and are masked with a CSS shape. The adjacent
+          paragraphs wrap around the polygons, preserving their shape. Then the
+          language switcher is just because it’s fun to see how content looks
+          with other writing systems 😄
+        </P>
         <P>{getParagraph()}</P>
         <Polygon
           path={polygonAsClipPath(6)}
