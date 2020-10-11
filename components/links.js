@@ -1,4 +1,5 @@
-import Link from 'next/link'
+import React from 'react'
+import Link from 'next-isomorphic-link'
 import styled from '@emotion/styled'
 
 const List = styled.ul`
