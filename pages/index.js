@@ -1,5 +1,6 @@
 import React, { useRef, useEffect } from 'react'
 import Head from 'next/head'
+import { css, Global } from '@emotion/core'
 import Hello from '../components/hello'
 import Links from '../components/links'
 import styled from '@emotion/styled'
@@ -49,6 +50,13 @@ const Index = () => {
           content='Front-end developer from Devon, UK, based in Berlin'
         />
       </Head>
+      <Global
+        styles={css`
+          body {
+            background-color: #000;
+          }
+        `}
+      />
       <Canvas ref={canvasRef} />
       <Content>
         <Hello />

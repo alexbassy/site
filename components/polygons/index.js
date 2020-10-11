@@ -41,9 +41,8 @@ const Link = styled.a`
   }
 `
 
-export default ({ view }) => {
-  const navigateTo = view => () =>
-    Router.push({ pathname: '/playground/polygons', query: { view } })
+export default function PolygonsExample({ view }) {
+  const navigateTo = view => () => Router.push({ query: { view } })
 
   return (
     <>

@@ -4,7 +4,11 @@ import { motion } from 'framer-motion'
 
 export const pageStyles = css`
   body {
-    background: #2e0a3c;
+    background: radial-gradient(
+      circle at bottom left,
+      rgb(46, 10, 60),
+      rgb(29 10 60)
+    );
   }
 `
 
@@ -36,7 +40,6 @@ export const Page = styled.div`
   max-width: 80ch;
   min-height: 100%;
   color: #fff;
-  background: #2e0a3c;
   position: absolute;
   padding: 2em;
 `

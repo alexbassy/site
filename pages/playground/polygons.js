@@ -1,23 +1,22 @@
 import React from 'react'
+import { useRouter } from 'next/router'
 import Head from 'next/head'
 import PolygonsExample from '../../components/polygons'
 
-const PolygonsPage = ({ view }) => (
-  <>
-    <Head>
-      <title>Polygons with CSS, SVG and Canvas / Alex Bass</title>
-      <meta
-        name='description'
-        content='Showing the various ways to make shapes (polygons) with CSS, SVG and Canvas (JS)'
-      />
-    </Head>
-    <PolygonsExample view={view} />
-  </>
-)
+export default function PolygonsPage() {
+  const router = useRouter()
+  const view = router.query?.view || 'wall-of-text'
 
-PolygonsPage.getInitialProps = async ({ query }) => {
-  const view = query.view || 'wall-of-text'
-  return { view }
+  return (
+    <>
+      <Head>
+        <title>Polygons with CSS, SVG and Canvas / Alex Bass</title>
+        <meta
+          name='description'
+          content='Showing the various ways to make shapes (polygons) with CSS, SVG and Canvas (JS)'
+        />
+      </Head>
+      <PolygonsExample view={view} />
+    </>
+  )
 }
-
-export default PolygonsPage

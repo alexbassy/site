@@ -1,4 +1,5 @@
-import Link from 'next/link'
+import React from 'react'
+import Link from 'next-isomorphic-link'
 import styled from '@emotion/styled'
 
 const List = styled.ul`
@@ -77,7 +78,7 @@ const links = [
   },
 ]
 
-export default () => (
+const Links = () => (
   <List>
     {links.map(({ label, url, path }) => (
       <Item key={label}>
@@ -94,3 +95,5 @@ export default () => (
     ))}
   </List>
 )
+
+export default Links

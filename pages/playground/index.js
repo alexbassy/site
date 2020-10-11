@@ -130,7 +130,7 @@ const CardTitle = styled.div`
 
 const Card = ({ Title, ...props }) => {
   return (
-    <IsoLink href={`${ASSET_PREFIX}/playground/${props.link}`}>
+    <IsoLink href={`/playground/${props.link}`}>
       <CardLink {...props}>
         <CardItem
           {...props}
@@ -186,7 +186,7 @@ const cards = [
   },
 ]
 
-export default () => (
+const Index = () => (
   <div>
     <Head>
       <title>Playground / Alex Bass</title>
@@ -214,3 +214,5 @@ export default () => (
     </Content>
   </div>
 )
+
+export default Index

@@ -39,7 +39,7 @@ const Canvas = styled.div`
     position: absolute;
     top: 0;
     left: 0;
-    background-image: url("${imagePath}");
+    background-image: url('${imagePath}');
     background-size: cover;
     background-position: center;
     z-index: -1;
@@ -52,7 +52,7 @@ const Canvas = styled.div`
 
   ${reducedMotion} {
     ::after {
-      background-image: url("${notFoundFallbackImage}");
+      background-image: url('${notFoundFallbackImage}');
       animation-duration: 0;
     }
   }
@@ -141,7 +141,7 @@ const NotFound = () => {
         <Title
           title={
             code !== 'en'
-              ? `That’s how to say “Not found” in ${language}. At least you learned something from this page.`
+              ? `That’s how to say “Not found” in ${language}. At least something on the page might have been useful.`
               : 'Sorry again'
           }
         >
