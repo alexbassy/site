@@ -1,7 +1,7 @@
 const assetPrefix = process.env.PREVIEW_PATH || ''
 
 module.exports = {
-  exportTrailingSlash: true,
+  trailingSlash: true,
   assetPrefix,
   publicRuntimeConfig: {
     assetPrefix,
