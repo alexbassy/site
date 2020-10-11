@@ -9,8 +9,10 @@ import {
 } from './visual-components'
 
 const infoSheetStates = {
-  visible: { y: '0%', opacity: 1 },
-  hidden: { y: '100%', opacity: 0 },
+  visible: { y: 0, opacity: 1 },
+  // Arbitrary `y` is due to Framer V2 changing the layout on draggable elements
+  // https://twitter.com/mattgperry/status/1288125664181157890
+  hidden: { y: 400, opacity: 0 },
 }
 
 const infoSheetCurtainStates = {
