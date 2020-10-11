@@ -130,7 +130,7 @@ const CardTitle = styled.div`
 
 const Card = ({ Title, ...props }) => {
   return (
-    <IsoLink href={`${ASSET_PREFIX}/playground/${props.link}`}>
+    <IsoLink href={`/playground/${props.link}`}>
       <CardLink {...props}>
         <CardItem
           {...props}
