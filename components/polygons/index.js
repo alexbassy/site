@@ -41,7 +41,7 @@ const Link = styled.a`
   }
 `
 
-export default ({ view }) => {
+export default function PolygonsExample({ view }) {
   const navigateTo = view => () => Router.push({ query: { view } })
 
   return (
