@@ -38,7 +38,7 @@ const Hero = styled.div`
     position: absolute;
     width: 100%;
     height: 100%;
-    background-image: url(https://source.unsplash.com/SBNQ_V6Pt08/1600x900);
+    background-image: url('https://source.unsplash.com/SBNQ_V6Pt08/1600x900');
     background-size: cover;
     transform: translateY(-15%) skewY(-3deg) scaleY(1.2);
     transform-origin: bottom right;
@@ -63,7 +63,7 @@ const Photo = styled.img`
   padding: 20px;
 `
 
-export default () => (
+const Text = () => (
   <>
     <Hero>
       <Wrap>
@@ -150,3 +150,5 @@ export default () => (
     </Wrap>
   </>
 )
+
+export default Text
