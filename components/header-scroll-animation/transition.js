@@ -1,9 +1,10 @@
+import { cloneElement } from 'react'
 import { Transition } from 'react-transition-group'
 
 const BaseTransiton = ({ duration, delay, defaultStyle, states, ...props }) => (
   <Transition timeout={duration + delay} {...props}>
     {state =>
-      React.cloneElement(props.children, {
+      cloneElement(props.children, {
         style: {
           ...defaultStyle,
           ...states[state],
