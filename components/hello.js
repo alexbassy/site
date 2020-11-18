@@ -11,12 +11,6 @@ const Link = styled.a`
   }
 `
 
-const N26 = () => (
-  <Link href='https://www.n26.com/' target='_blank' rel='noopener'>
-    N26
-  </Link>
-)
-
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -47,10 +41,7 @@ const Line = styled.p`
 const Hello = () => (
   <Container>
     <Title>Alex Bass</Title>
-    <Line>Front-end developer</Line>
-    <Line>
-      Find me at <N26 /> in Berlin
-    </Line>
+    <Line>Senior front-end developer, based in Berlin</Line>
   </Container>
 )
 
