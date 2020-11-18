@@ -81,7 +81,9 @@ const ThoughtsPage = props => (
                   <PostLink>{post.title}</PostLink>
                 </IsoLink>{' '}
               </PostTitle>
-              <PostPublishDate>{post.publishedFormatted}</PostPublishDate>
+              <PostPublishDate datetime={post.published}>
+                {post.publishedFormatted}
+              </PostPublishDate>
             </ListItem>
           )
         })}

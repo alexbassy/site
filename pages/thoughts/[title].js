@@ -35,6 +35,7 @@ const Post = props => {
   return (
     <>
       <Head>
+        <title>{props.post.title} / Alex Bass</title>
         <link
           href='https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap'
           rel='stylesheet'
@@ -45,8 +46,8 @@ const Post = props => {
         <Content>
           <Published>
             Written{' '}
-            <time time={props.post.published}>
-              {new Date(props.post.published).toLocaleDateString()}
+            <time datetime={props.post.published}>
+              {props.post.publishedFormatted}
             </time>{' '}
             in Berlin • {wordCount} words
           </Published>
