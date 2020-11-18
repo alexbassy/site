@@ -126,7 +126,7 @@ const Slider = ({ value, onChange, enabled }) => {
 
     dispatch({ type: RESET, payload: newPosition })
     setTimeout(() => dispatch({ type: END_RESET }), 800)
-  }, [value])
+  }, [value, containerWidth])
 
   const onGesture = isDrag => ({ down, delta, last }) => {
     if (!enabled) return
