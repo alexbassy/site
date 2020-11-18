@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from '@emotion/styled'
 import IsoLink from 'next-isomorphic-link'
+import { useRouter } from 'next/router'
 import { BACK_ARROW } from '../lib/constants'
 
 const Link = styled.a`
@@ -30,10 +31,13 @@ const Link = styled.a`
   }
 `
 
-const BackLink = props => (
-  <IsoLink href={props.absolute ? '/' : '..'}>
-    <Link invert={props.invert}>{BACK_ARROW} Back</Link>
-  </IsoLink>
-)
+const BackLink = props => {
+  const router = useRouter()
+  return (
+    <IsoLink href={props.absolute ? '/' : router.pathName + '/..'}>
+      <Link invert={props.invert}>{BACK_ARROW} Back</Link>
+    </IsoLink>
+  )
+}
 
 export default BackLink
