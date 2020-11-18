@@ -12,13 +12,18 @@
     "@emotion/is-prop-valid": "^0.8.8",
     "@emotion/styled": "^10.0.27",
     "babel-plugin-emotion": "^10.0.33",
+    "date-fns": "^2.16.1",
     "framer-motion": "^2.9.4",
+    "gray-matter": "^4.0.2",
     "next": "^10.0.0",
     "next-isomorphic-link": "^0.2.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-pose": "^4.0.8",
-    "react-transition-group": "^4.4.1"
+    "react-transition-group": "^4.4.1",
+    "remark-parse": "^8.0.2",
+    "remark-react": "^7.0.1",
+    "unified": "^9.0.0"
   },
   "scripts": {
     "dev": "next",
@@ -27,6 +32,7 @@
     "start": "next start"
   },
   "devDependencies": {
+    "@fec/remark-a11y-emoji": "^1.0.0",
     "babel-eslint": "^10.0.3",
     "eslint": "^7.11.0",
     "eslint-config-prettier": "^6.12.0",
