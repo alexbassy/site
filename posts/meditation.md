@@ -1,7 +1,7 @@
 ---
 title: Meditation
 slug: meditation
-published: '2020-05-08 09:55:00'
+published: 2020-05-08 09:55:00
 ---
 
 # A thought exercise

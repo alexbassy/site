@@ -31,6 +31,31 @@ const Subtitle = styled.h2`
   margin: 0 0 40px;
 `
 
+const List = styled.ul`
+  list-style: none;
+  padding: 0;
+`
+
+const ListItem = styled.li`
+  border-left: 3px solid rgb(255 255 255 / 0.5);
+  padding-left: 1rem;
+`
+
+const PostTitle = styled.p`
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin: 0.25rem 0;
+`
+
+const PostPublishDate = styled.time`
+  color: rgb(255 255 255 / 0.8);
+`
+
+const PostLink = styled.a`
+  color: #fff;
+  cursor: pointer;
+`
+
 const ThoughtsPage = props => (
   <div>
     <Head>
@@ -47,25 +72,26 @@ const ThoughtsPage = props => (
       <BackLink />
       <Title>Thoughts</Title>
       <Subtitle>Not succinct enough to call a blog.</Subtitle>
-      <ul>
+      <List>
         {props.posts.map(post => {
           return (
-            <li key={post.slug}>
-              <IsoLink href={`/thoughts/${post.slug}`}>
-                <a>{post.title}</a>
-              </IsoLink>
-            </li>
+            <ListItem key={post.slug}>
+              <PostTitle>
+                <IsoLink href={`/thoughts/${post.slug}`}>
+                  <PostLink>{post.title}</PostLink>
+                </IsoLink>{' '}
+              </PostTitle>
+              <PostPublishDate>{post.publishedFormatted}</PostPublishDate>
+            </ListItem>
           )
         })}
-      </ul>
+      </List>
     </Content>
   </div>
 )
 
 export async function getStaticProps() {
   const posts = await getPosts()
-
-  console.log('Posts:', posts)
 
   return {
     props: {
