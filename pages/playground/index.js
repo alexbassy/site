@@ -161,6 +161,19 @@ const cards = [
     blendMode: 'hard-light',
     link: 'info-sheet',
   },
+  {
+    Title: () => (
+      <>
+        Photo editor
+        <br />
+        <span style={{ color: '#ffffff90' }}>(WIP)</span>
+      </>
+    ),
+    backgroundColor: `#3429c1`,
+    backgroundImage: `photo-editor.svg`,
+    blendMode: 'lighten',
+    link: 'photo-editor',
+  },
 ]
 
 const Index = () => (
