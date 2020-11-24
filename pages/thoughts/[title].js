@@ -8,8 +8,9 @@ import BackLink from '../../components/BackLink'
 import getPosts from '../../lib/getPosts'
 
 const ContentWrap = styled.div`
-  max-width: 60ch;
-  margin: 2rem auto;
+  max-width: 65ch;
+  margin: 0 auto;
+  padding: 2rem 0;
 `
 
 const Content = styled.main`
