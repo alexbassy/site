@@ -8,8 +8,9 @@ import BackLink from '../../components/BackLink'
 import getPosts from '../../lib/getPosts'
 
 const ContentWrap = styled.div`
-  max-width: 60ch;
-  margin: 2rem auto;
+  max-width: 65ch;
+  margin: 0 auto;
+  padding: 2rem 0;
 `
 
 const Content = styled.main`
@@ -24,10 +25,23 @@ const Published = styled.div`
   color: rgb(100 100 100);
 `
 
+const CodeBlock = styled.pre`
+  font-size: 85%;
+  margin: 2rem -2rem;
+  padding: 1rem;
+  overflow-x: auto;
+  box-shadow: 0 1px 8px rgb(0 0 0 / 10%);
+  border-radius: 8px;
+`
+
 const Post = props => {
   const parsedPost = unified()
     .use(parse)
-    .use(remark2react)
+    .use(remark2react, {
+      remarkReactComponents: {
+        pre: CodeBlock,
+      },
+    })
     .processSync(props.post.body).result
 
   const wordCount = props.post.body.split(' ').length
@@ -46,7 +60,7 @@ const Post = props => {
         <Content>
           <Published>
             Written{' '}
-            <time datetime={props.post.published}>
+            <time dateTime={props.post.published}>
               {props.post.publishedFormatted}
             </time>{' '}
             in Berlin • {wordCount} words

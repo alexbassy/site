@@ -39,6 +39,7 @@ const List = styled.ul`
 const ListItem = styled.li`
   border-left: 3px solid rgb(255 255 255 / 0.5);
   padding-left: 1rem;
+  margin-bottom: 2rem;
 `
 
 const PostTitle = styled.p`
