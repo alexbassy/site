@@ -151,7 +151,7 @@ future you a break, or at least a hand to hold.
 ## Summary
 
 I could probably keep going on about how great granular committing is, but let’s
-keep it short and sweet. The tl;dr is:
+keep it short and _sweet_. The tl;dr is:
 
 - Makes debugging and bisecting much easier, which can be real pulling-out-hair
   experiences
