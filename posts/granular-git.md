@@ -28,7 +28,7 @@ surgery for your project.
 
 You can start a bisect with:
 
-```
+```shell
 git bisect start
 git bisect bad
 # find an old commit where everything is working
@@ -121,7 +121,48 @@ can keep fiddling around, and when things break, you know you can jump back to
 the latest working version with just a `git stash` or `git reset --hard` (or any
 other of the [hundred ways to undo things][git-undo] with Git).
 
-## Story time
+## Hold future you’s hand
+
+Your commit history serves as a timeline for your project. When you join a new
+team, or onboard another to yours, it’s worthwhile to give the commit or pull
+request history a glance.
+
+As you begin to get stuck into the code and modify existing components, using an
+extension such as GitLens, or just Git Blame if you’re old school, adds a whole
+layer of context to the code and can lead you on a journey of discovery,
+beginning with a luscious hash, a modern day legend’s tale detailing the
+victories and woes of the tree beneath you.
+
+Ok, perhaps it’s not quite so cinematic in reality but picture that all your
+team is on annual leave and you have a main course of refactor casserole with an
+entrée of tangy dependency update and an aromatic digestif of failing
+integration tests. Actually tastes a bit stodgy.
+
+It’s at these times that granular, detailed /commitstories/ will be the tonic
+that gives you strength and encourages your appetite for the meal. It’s a hell
+of a lot easier to solve a problem when you have context and a bit of background
+to why a change was made and the discussion around it (document your PR
+comments!)
+
+If that mental image isn’t working for you, imagine yourself in a year trying to
+decipher what was going through your brain when you merged that branch. Give
+future you a break, or at least a hand to hold.
+
+## Summary
+
+I could probably keep going on about how great granular committing is, but let’s
+keep it short and sweet. The tl;dr is:
+
+- Makes debugging and bisecting much easier, which can be real pulling-out-hair
+  experiences
+- Can make code updates quicker and more modular (what dev doesn’t like stuff to
+  be modular, right?)
+- Helps with tracking progress and following back your footsteps
+- Serves as documentation for the future on how and why a feature/bug came to be
+
+If you have any other thoughts or suggestions, please give me a mention or DM me
+on [Twitter][twitter]!
 
 [git-undo]:
   https://docs.gitlab.com/ee/topics/git/numerous_undo_possibilities_in_git/
+[twitter]: https://twitter.com/alexbassy
