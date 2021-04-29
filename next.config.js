@@ -7,5 +7,5 @@ module.exports = {
   assetPrefix,
   publicRuntimeConfig: {
     assetPrefix,
-  },
+  }
 }
