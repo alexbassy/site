@@ -24,7 +24,7 @@ const Container = styled.div`
 const Title = styled.h1`
   font-size: 3.2rem;
   margin: 0 0 25px;
-  font-weight: 100;
+  font-weight: 700;
 
   @media screen and (min-width: 640px) {
     font-size: 4.5rem;

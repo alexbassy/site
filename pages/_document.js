@@ -22,7 +22,7 @@ const globalCSS = css`
     margin: 0;
     padding: 0;
     height: 100%;
-    font-family: 'Roboto Mono', monospace;
+    font-family: 'Fira Code', monospace;
   }
   #__next {
     height: 100%;
@@ -48,7 +48,7 @@ export default class Page extends Document {
             href={`${publicRuntimeConfig.assetPrefix}/assets/favicon.png`}
           />
           <link
-            href='https://fonts.googleapis.com/css?family=Roboto+Mono:400,700&display=swap'
+            href='https://fonts.googleapis.com/css?family=Fira+Code:400,800&display=swap'
             rel='stylesheet'
           />
         </Head>

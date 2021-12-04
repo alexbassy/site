@@ -38,6 +38,7 @@ const LinkButton = styled.a`
   color: #fff;
   background: #000;
   border: 2px solid #ffffff40;
+  border-radius: 3px;
   padding: 6px;
   transition: border-color 0.2s ease, color 0.15s ease;
 
@@ -55,7 +56,7 @@ const LinkButton = styled.a`
   }
 
   @media screen and (min-width: 640px) {
-    padding: 4px 8px;
+    padding: 8px 12px;
   }
 `
 
