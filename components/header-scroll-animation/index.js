@@ -71,7 +71,7 @@ class HeaderScrollAnimationExample extends React.PureComponent {
         <Slide in={this.isAtEndOfPage()}>
           <CodeLink>
             Get the code{' '}
-            <a href={codeLink} target='_blank'>
+            <a href={codeLink} target='_blank' rel='noreferrer'>
               here
             </a>
           </CodeLink>
