@@ -17,6 +17,11 @@ const globalCSS = css`
     height: 100%;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+
+    @media screen and (max-width: 640px) {
+      min-height: 100%;
+      height: auto;
+    }
   }
   body {
     margin: 0;

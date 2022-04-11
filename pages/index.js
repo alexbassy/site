@@ -3,11 +3,12 @@ import Head from 'next/head'
 import { css, Global } from '@emotion/core'
 import Hello from '../components/hello'
 import Links from '../components/links'
+import Sites from '../components/sites'
 import styled from '@emotion/styled'
 import CanvasLib from '../lib/canvas'
 
 const Container = styled.div`
-  height: 100%;
+  min-height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -19,7 +20,7 @@ const Container = styled.div`
 const Canvas = styled.canvas`
   width: 100%;
   height: 100%;
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   pointer-events: none;
@@ -27,7 +28,7 @@ const Canvas = styled.canvas`
 
 const Content = styled.main`
   position: relative;
-  margin-top: calc(var(--margin) * -1);
+  margin-top: var(--margin);
 `
 
 const Index = () => {
@@ -35,19 +36,16 @@ const Index = () => {
 
   useEffect(() => {
     const canvas = new CanvasLib(canvasRef.current)
-
-    return () => {
-      canvas.destroy()
-    }
+    return () => canvas.destroy()
   }, [])
 
   return (
     <Container>
       <Head>
-        <title>Alex Bass / Front-end Developer</title>
+        <title>Alex Bass / Senior Software Engineer</title>
         <meta
           name='description'
-          content='Front-end developer from Devon, UK, based in Berlin'
+          content='Senior Software Engineer from Devon, UK, based in Berlin'
         />
       </Head>
       <Global
@@ -61,6 +59,7 @@ const Index = () => {
       <Content>
         <Hello />
         <Links />
+        <Sites />
       </Content>
     </Container>
   )

@@ -41,7 +41,7 @@ const Line = styled.p`
 const Hello = () => (
   <Container>
     <Title>Alex Bass</Title>
-    <Line>Senior front-end developer, based in Berlin</Line>
+    <Line>Senior Software Engineer, based in Berlin</Line>
   </Container>
 )
 
