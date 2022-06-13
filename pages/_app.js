@@ -1,5 +1,4 @@
 import React from 'react'
-import App from 'next/app'
 import Head from 'next/head'
 
 function CustomApp({ Component, pageProps }) {
@@ -7,7 +6,7 @@ function CustomApp({ Component, pageProps }) {
     <>
       <Head>
         <meta name='viewport' content='width=device-width, initial-scale=1' />
-        <script async data-api='/_hive' src='/bee.js' />
+        <script async src='https://hive.bass.dev/sb.js' />
       </Head>
       <Component {...pageProps} />
     </>
