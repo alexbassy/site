@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "description": "Personal website",
   "main": "index.js",
+  "test": "yarn test",
   "repository": "https://github.com/alexbassy/site",
-  "author": "Alex Bass <alexpjbass@gmail.com>",
+  "author": "Alex Bass <alex@bass.dev>",
   "license": "UNLICENSED",
   "private": false,
   "dependencies": {
@@ -27,13 +28,8 @@
     "react-spring": "^8.0.27",
     "react-use-gesture": "^5.2.4"
   },
-  "scripts": {
-    "dev": "next",
-    "build": "next build",
-    "export": "next export",
-    "start": "next start"
-  },
   "devDependencies": {
+    "jest": "^24.9.0",
     "@fec/remark-a11y-emoji": "^1.0.0",
     "@next/eslint-plugin-next": "^12.0.6",
     "babel-eslint": "^10.0.3",
@@ -41,5 +37,12 @@
     "eslint-config-prettier": "^6.12.0",
     "eslint-plugin-react": "^7.21.4",
     "eslint-plugin-react-hooks": "^4.1.2"
+  },
+  "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "export": "next export",
+    "start": "next start",
+    "test": "jest"
   }
 }
