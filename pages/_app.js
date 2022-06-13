@@ -7,6 +7,7 @@ function CustomApp({ Component, pageProps }) {
     <>
       <Head>
         <meta name='viewport' content='width=device-width, initial-scale=1' />
+        <script async data-api='/_hive' src='/bee.js' />
       </Head>
       <Component {...pageProps} />
     </>
