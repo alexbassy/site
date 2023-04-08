@@ -17,7 +17,7 @@
 - Keep loading speed really high
   - Lighthouse score:
     
-    <img src="https://kapture-nztdgnf1o.vercel.app/Kapture%202020-10-28%20at%2009.08.53.gif" width="350"/>
+    <img src="https://user-images.githubusercontent.com/1243909/230747096-973aab69-3e70-4978-9beb-67a5c2982798.gif" width="350"/>
 
 - Experiment with new tools
 - Create "portfolio" of code experiments
