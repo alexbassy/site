@@ -73,10 +73,10 @@ const links = [
     label: 'Twitter',
     url: 'https://twitter.com/alexbassy',
   },
-  {
-    label: 'Playground',
-    path: 'playground',
-  },
+  // {
+  //   label: 'Playground',
+  //   path: 'playground',
+  // },
 ]
 
 const Links = () => (
