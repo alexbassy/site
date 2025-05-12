@@ -1,0 +1,227 @@
+---
+import "../styles/reset.scss";
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.png" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="theme-color" content="#000" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap"
+      rel="stylesheet"
+    />
+    <title>Alex Bass ∙ Senior Software Engineer ∙ Berlin 🌈</title>
+  </head>
+  <body>
+    <style lang="scss">
+      $mono: "Share Tech Mono", monospace;
+
+      html,
+      body {
+        background: #000;
+      }
+
+      .background-canvas {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        animation: fade-in 1s ease-in-out;
+      }
+
+      @keyframes fade-in {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+      main {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        color: #fff;
+        font-family: $mono;
+        text-rendering: optimizeLegibility;
+        font-feature-settings: "liga" on;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        text-shadow:
+          0 2px 1px rgba(0, 0, 0, 0.3),
+          0 3px 30px rgba(0, 0, 0, 0.4);
+      }
+
+      .title {
+        font-size: 5.6rem;
+        font-weight: 800;
+        font-style: normal;
+        letter-spacing: -0.08em;
+
+        @media (max-width: 420px) {
+          font-size: 5rem;
+        }
+      }
+
+      .subtitle {
+        font-size: 1.15rem;
+        font-weight: 500;
+        font-style: normal;
+        letter-spacing: -0.05em;
+        text-align: center;
+      }
+
+      .social-buttons {
+        display: flex;
+        gap: 1rem;
+        margin: 2.2rem 0 1.5rem 0;
+
+        @media (max-width: 420px) {
+          flex-direction: column;
+        }
+      }
+
+      .pill-button {
+        background: rgba(255, 255, 255, 0.15);
+        color: #fff;
+        border: none;
+        border-radius: 999px;
+        padding: 0.4em 1.5em;
+        font-size: 1rem;
+        font-family: inherit;
+        font-weight: 600;
+        text-decoration: none;
+        box-shadow:
+          0 2px 16px 0 rgba(0, 0, 0, 0.1),
+          0 1.5px 4px 0 rgba(0, 0, 0, 0.08);
+        transition:
+          background 0.18s,
+          color 0.18s,
+          box-shadow 0.18s;
+        text-shadow: none;
+        outline: none;
+        font-family:
+          SF Pro Text,
+          sans-serif;
+
+        @media (max-width: 420px) {
+          font-size: 1.2rem;
+        }
+
+        &:hover,
+        &:focus {
+          background: #fff;
+          color: #0077ff;
+          box-shadow:
+            0 4px 24px 0 rgba(0, 0, 0, 0.13),
+            0 2px 8px 0 rgba(0, 0, 0, 0.1);
+        }
+      }
+
+      .side-projects {
+        margin-top: 2.5rem;
+        text-align: center;
+
+        h2 {
+          font-size: 1.3rem;
+          font-weight: 700;
+          margin-bottom: 0.7rem;
+          letter-spacing: -0.03em;
+        }
+
+        ul {
+          list-style: none;
+          padding: 0;
+          margin: 0;
+          display: flex;
+          gap: 1rem;
+          justify-content: center;
+        }
+
+        a {
+          color: #fff;
+          text-decoration: none;
+          font-size: 1.08rem;
+          transition: color 0.18s;
+          border: 2px dotted rgba(255, 255, 255, 0.5);
+          padding: 0.25rem 0.75rem;
+          border-radius: 2em;
+
+          &:hover,
+          &:focus {
+            color: #00e0ff;
+          }
+        }
+      }
+
+      .mobile-only {
+        display: none;
+
+        @media (max-width: 420px) {
+          display: block;
+        }
+      }
+    </style>
+
+    <canvas id="background-canvas" class="background-canvas"></canvas>
+
+    <main>
+      <h1 class="title">Alex Bass</h1>
+      <p class="subtitle">
+        Senior Software Engineer. <br class="mobile-only" /> Based in Berlin.
+      </p>
+
+      <div class="social-buttons">
+        <a
+          href="https://www.linkedin.com/in/alexpjbass/"
+          class="pill-button"
+          rel="noopener">LinkedIn</a
+        >
+        <a
+          href="https://github.com/alexbassy"
+          class="pill-button"
+          rel="noopener">GitHub</a
+        >
+        <a href="https://x.com/alexbassy" class="pill-button" rel="noopener"
+          >Twitter/X</a
+        >
+      </div>
+
+      <section class="side-projects">
+        <h2>Side Projects</h2>
+        <ul>
+          <li>
+            <a href="https://korb.bass.dev" target="_blank" rel="noopener"
+              >Korb</a
+            >
+          </li>
+          <li>
+            <a
+              href="https://stopthebus.vercel.app/"
+              target="_blank"
+              rel="noopener">Stop the bus</a
+            >
+          </li>
+        </ul>
+      </section>
+    </main>
+
+    <script>
+      import setup from "../scripts/background";
+      setup();
+    </script>
+  </body>
+</html>

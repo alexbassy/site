@@ -1,43 +1,17 @@
 {
-  "name": "bass.dev",
-  "version": "1.0.0",
-  "description": "Personal website",
-  "main": "index.js",
-  "repository": "https://github.com/alexbassy/site",
-  "author": "Alex Bass <alexpjbass@gmail.com>",
-  "license": "UNLICENSED",
-  "private": false,
-  "dependencies": {
-    "@emotion/core": "^10.0.35",
-    "@emotion/is-prop-valid": "^0.8.8",
-    "@emotion/styled": "^10.0.27",
-    "babel-plugin-emotion": "^10.0.33",
-    "date-fns": "^2.16.1",
-    "framer-motion": "^2.9.4",
-    "gray-matter": "^4.0.2",
-    "next": "^12.0.6",
-    "next-isomorphic-link": "^0.2.1",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "react-pose": "^4.0.8",
-    "react-transition-group": "^4.4.1",
-    "remark-parse": "^8.0.2",
-    "remark-react": "^7.0.1",
-    "unified": "^9.0.0"
-  },
+  "name": "site",
+  "type": "module",
+  "version": "0.0.1",
   "scripts": {
-    "dev": "next",
-    "build": "next build",
-    "export": "next export",
-    "start": "next start"
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "astro": "^5.7.12"
   },
   "devDependencies": {
-    "@fec/remark-a11y-emoji": "^1.0.0",
-    "@next/eslint-plugin-next": "^12.0.6",
-    "babel-eslint": "^10.0.3",
-    "eslint": "^7.11.0",
-    "eslint-config-prettier": "^6.12.0",
-    "eslint-plugin-react": "^7.21.4",
-    "eslint-plugin-react-hooks": "^4.1.2"
+    "sass-embedded": "^1.88.0"
   }
 }
