@@ -589,7 +589,7 @@ function renderLoop(timestamp: number) {
   // --- Render Pass 4: Blur (Ping-Pong A <-> B) ---
   // Applies multiple passes of Gaussian blur for a smooth effect.
   const blurAmount = 40;
-  const blurIterations = 2;
+  const blurIterations = 4;
   let currentInputFBO = fbos.A;
   let currentOutputFBO = fbos.B;
   gl.useProgram(programs.blur); // Set program once before loop
