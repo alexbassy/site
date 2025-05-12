@@ -21,6 +21,11 @@ let initialCircleCenter1 = { x: 0.3324, y: 1.0 - 0.7567 }; // Default positions
 let initialCircleCenter2 = { x: 0.6652, y: 1.0 - 0.3113 };
 let enableGrain = false; // Set to false to disable the grain/noise effect for better performance
 
+const isReducedMotion = window.matchMedia(
+  "(prefers-reduced-motion: reduce)"
+).matches;
+const timeMultiplier = isReducedMotion ? 0 : 1;
+
 // --- Shader Sources (Unchanged GLSL code from high-quality version) ---
 
 // Layer 1: Gradient VS/FS
@@ -520,7 +525,10 @@ function renderLoop(timestamp: number) {
   gl.bindFramebuffer(gl.FRAMEBUFFER, fbos.A.fbo);
   gl.viewport(0, 0, gl.drawingBufferWidth, gl.drawingBufferHeight);
   gl.useProgram(programs.gradient);
-  gl.uniform1f(gl.getUniformLocation(programs.gradient, "uTime"), time * 0.1);
+  gl.uniform1f(
+    gl.getUniformLocation(programs.gradient, "uTime"),
+    time * 0.1 * timeMultiplier
+  );
   gl.uniform2f(
     gl.getUniformLocation(programs.gradient, "uMousePos"),
     mousePos.x,
@@ -630,7 +638,7 @@ function renderLoop(timestamp: number) {
   gl.useProgram(programs.flowField);
   gl.uniform1f(
     gl.getUniformLocation(programs.flowField, "uTime"),
-    time * 0.025
+    time * 0.025 * timeMultiplier
   );
   gl.uniform2f(
     gl.getUniformLocation(programs.flowField, "uMousePos"),
@@ -652,7 +660,10 @@ function renderLoop(timestamp: number) {
   gl.viewport(0, 0, gl.drawingBufferWidth, gl.drawingBufferHeight);
 
   gl.useProgram(programs.grain);
-  gl.uniform1f(gl.getUniformLocation(programs.grain, "uTime"), time * 0.15);
+  gl.uniform1f(
+    gl.getUniformLocation(programs.grain, "uTime"),
+    time * 0.15 * timeMultiplier
+  );
   gl.uniform2f(
     gl.getUniformLocation(programs.grain, "uResolution"),
     gl.drawingBufferWidth,
