@@ -19,6 +19,7 @@ let resolution = { x: window.innerWidth, y: window.innerHeight };
 let hasFloatLinear = false; // To check float texture filtering support
 let initialCircleCenter1 = { x: 0.3324, y: 1.0 - 0.7567 }; // Default positions
 let initialCircleCenter2 = { x: 0.6652, y: 1.0 - 0.3113 };
+let enableGrain = false; // Set to false to disable the grain/noise effect for better performance
 
 // --- Shader Sources (Unchanged GLSL code from high-quality version) ---
 
@@ -649,6 +650,7 @@ function renderLoop(timestamp: number) {
   // Adds final grain effect to the result before displaying.
   gl.bindFramebuffer(gl.FRAMEBUFFER, null);
   gl.viewport(0, 0, gl.drawingBufferWidth, gl.drawingBufferHeight);
+
   gl.useProgram(programs.grain);
   gl.uniform1f(gl.getUniformLocation(programs.grain, "uTime"), time * 0.15);
   gl.uniform2f(
@@ -656,7 +658,10 @@ function renderLoop(timestamp: number) {
     gl.drawingBufferWidth,
     gl.drawingBufferHeight
   );
-  gl.uniform1f(gl.getUniformLocation(programs.grain, "uGrainAmount"), 0.04);
+  gl.uniform1f(
+    gl.getUniformLocation(programs.grain, "uGrainAmount"),
+    enableGrain ? 0.04 : 0.0
+  );
   drawQuad(programs.grain, currentInputFBO.texture);
 
   requestAnimationFrame(renderLoop);

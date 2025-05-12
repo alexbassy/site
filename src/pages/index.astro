@@ -56,13 +56,17 @@ import "../styles/reset.scss";
         align-items: center;
         color: #fff;
         font-family: $mono;
-        text-rendering: optimizeLegibility;
-        font-feature-settings: "liga" on;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
         text-shadow:
           0 2px 1px rgba(0, 0, 0, 0.3),
           0 3px 30px rgba(0, 0, 0, 0.4);
+
+        .safari & {
+          text-shadow:
+            0 2px 1px rgba(0, 0, 0, 0.1),
+            0 3px 30px rgba(0, 0, 0, 0.15);
+        }
       }
 
       .title {
@@ -222,6 +226,14 @@ import "../styles/reset.scss";
     <script>
       import setup from "../scripts/background";
       setup();
+
+      (function () {
+        var ua = window.navigator.userAgent;
+        var isSafari = /^((?!chrome|android).)*safari/i.test(ua);
+        if (isSafari) {
+          document.body.classList.add("safari");
+        }
+      })();
     </script>
   </body>
 </html>
