@@ -9,7 +9,8 @@
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^5.7.12"
+    "astro": "^5.7.12",
+    "color-convert": "^3.0.1"
   },
   "devDependencies": {
     "sass-embedded": "^1.88.0"

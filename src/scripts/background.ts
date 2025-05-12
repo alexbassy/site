@@ -1,3 +1,5 @@
+import colorConvert from "color-convert";
+
 type Programs = {
   gradient?: WebGLProgram | null;
   circle?: WebGLProgram | null;
@@ -26,6 +28,25 @@ const isReducedMotion = window.matchMedia(
 ).matches;
 const timeMultiplier = isReducedMotion ? 0 : 1;
 
+// --- Color Variables (Edit these to tinker with colors) ---
+const GRADIENT_COLOR_HEXES = [
+  "#07325a", // dark blue
+  "#8a04db", // purple
+  "#de37cc", // pink
+  "#e7eeda", // yellow
+];
+const CIRCLE1_COLOR_HEX = "#e6c100"; // yellow
+const CIRCLE2_COLOR_HEX = "#6ad2ff"; // blue
+
+function hexToGLColor(hex: string): [number, number, number] {
+  const [r, g, b] = colorConvert.hex.rgb(hex.replace("#", ""));
+  return [r / 255, g / 255, b / 255];
+}
+
+const GRADIENT_COLORS = GRADIENT_COLOR_HEXES.map(hexToGLColor);
+const CIRCLE1_COLOR = hexToGLColor(CIRCLE1_COLOR_HEX);
+const CIRCLE2_COLOR = hexToGLColor(CIRCLE2_COLOR_HEX);
+
 // --- Shader Sources (Unchanged GLSL code from high-quality version) ---
 
 // Layer 1: Gradient VS/FS
@@ -45,7 +66,7 @@ const gradientFS = `#version 300 es
     uniform float uTime; // Time uniform received from JS (already scaled)
     uniform vec2 uMousePos;
     uniform vec2 uResolution;
-    vec3 colors[4];
+    uniform vec3 uGradientColors[4];
     float rand(vec2 co) { return fract(sin(dot(co.xy, vec2(12.9898, 78.233))) * 43758.5453); }
     vec3 linear_from_srgb(vec3 rgb) { return pow(rgb, vec3(2.2)); }
     vec3 srgb_from_linear(vec3 lin) { return pow(lin, vec3(1.0/2.2)); }
@@ -62,15 +83,13 @@ const gradientFS = `#version 300 es
             float colorPosition = float(i) / 3.0; float nextColorPosition = float(i + 1) / 3.0;
             if (position <= nextColorPosition) {
                 float mixFactor = (position - colorPosition) / (nextColorPosition - colorPosition);
-                vec3 linStart = linear_from_srgb(colors[i]); vec3 linEnd = linear_from_srgb(colors[i + 1]);
+                vec3 linStart = linear_from_srgb(uGradientColors[i]); vec3 linEnd = linear_from_srgb(uGradientColors[i + 1]);
                 vec3 mixedLin = oklab_mix(linStart, linEnd, mixFactor); return srgb_from_linear(mixedLin);
             }
-        } return colors[3];
+        } return uGradientColors[3];
     }
     out vec4 fragColor;
     void main() {
-        colors[0] = vec3(0.0078, 0.2039, 0.0745); colors[1] = vec3(0.5411, 0.0196, 0.8588);
-        colors[2] = vec3(0.8705, 0.2156, 0.8000); colors[3] = vec3(0.9058, 0.9333, 0.6156);
         vec2 uv = vTextureCoord;
         float position = uv.x;
         // Apply animation speed based on received uTime (which is already scaled in JS)
@@ -533,12 +552,20 @@ function renderLoop(timestamp: number) {
     gl.getUniformLocation(programs.gradient, "uMousePos"),
     mousePos.x,
     mousePos.y
-  ); // Gradient doesn't use mouse here
+  );
   gl.uniform2f(
     gl.getUniformLocation(programs.gradient, "uResolution"),
     gl.drawingBufferWidth,
     gl.drawingBufferHeight
   );
+  // Set gradient colors
+  const gradColorLoc = gl.getUniformLocation(
+    programs.gradient,
+    "uGradientColors"
+  );
+  if (gradColorLoc) {
+    gl.uniform3fv(gradColorLoc, GRADIENT_COLORS.flat());
+  }
   // @ts-ignore
   drawQuad(programs.gradient, null);
 
@@ -551,7 +578,7 @@ function renderLoop(timestamp: number) {
     gl.getUniformLocation(programs.circle, "uMousePos"),
     animatedMousePos.x,
     animatedMousePos.y
-  ); // Use animated pos
+  );
   gl.uniform2f(
     gl.getUniformLocation(programs.circle, "uResolution"),
     gl.drawingBufferWidth,
@@ -559,9 +586,9 @@ function renderLoop(timestamp: number) {
   );
   gl.uniform3f(
     gl.getUniformLocation(programs.circle, "uFillColor"),
-    0.9019,
-    0.7568,
-    0.0
+    CIRCLE1_COLOR[0],
+    CIRCLE1_COLOR[1],
+    CIRCLE1_COLOR[2]
   );
   gl.uniform1f(gl.getUniformLocation(programs.circle, "uTrackMouse"), -0.15);
   gl.uniform1f(gl.getUniformLocation(programs.circle, "uCircleRadius"), 0.25);
@@ -569,7 +596,7 @@ function renderLoop(timestamp: number) {
     gl.getUniformLocation(programs.circle, "uCircleCenter"),
     initialCircleCenter1.x,
     initialCircleCenter1.y
-  ); // Use randomized start
+  );
   drawQuad(programs.circle, fbos.A.texture);
 
   // --- Render Pass 3: Circle 2 (Input B -> Output A) ---
@@ -577,9 +604,9 @@ function renderLoop(timestamp: number) {
   gl.bindFramebuffer(gl.FRAMEBUFFER, fbos.A.fbo);
   gl.uniform3f(
     gl.getUniformLocation(programs.circle, "uFillColor"),
-    0.4196,
-    0.8235,
-    1.0
+    CIRCLE2_COLOR[0],
+    CIRCLE2_COLOR[1],
+    CIRCLE2_COLOR[2]
   );
   gl.uniform1f(gl.getUniformLocation(programs.circle, "uTrackMouse"), 0.22);
   gl.uniform1f(gl.getUniformLocation(programs.circle, "uCircleRadius"), 0.3);
@@ -587,12 +614,12 @@ function renderLoop(timestamp: number) {
     gl.getUniformLocation(programs.circle, "uCircleCenter"),
     initialCircleCenter2.x,
     initialCircleCenter2.y
-  ); // Use randomized start
+  );
   gl.uniform2f(
     gl.getUniformLocation(programs.circle, "uMousePos"),
     animatedMousePos.x,
     animatedMousePos.y
-  ); // Use animated pos again
+  );
   drawQuad(programs.circle, fbos.B.texture);
 
   // --- Render Pass 4: Blur (Ping-Pong A <-> B) ---
@@ -644,7 +671,7 @@ function renderLoop(timestamp: number) {
     gl.getUniformLocation(programs.flowField, "uMousePos"),
     mousePos.x,
     mousePos.y
-  ); // Flow field doesn't use mouse here
+  );
   gl.uniform2f(
     gl.getUniformLocation(programs.flowField, "uResolution"),
     gl.drawingBufferWidth,
